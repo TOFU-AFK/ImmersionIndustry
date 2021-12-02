@@ -38,6 +38,7 @@ import immersionIndustry.contents.drawer.*;
 import immersionIndustry.types.blocks.production.*;
 import immersionIndustry.types.blocks.distribution.*;
 import immersionIndustry.types.innerenergy.blocks.*;
+import immersionIndustry.types.innerenergy.blocks.distribution.*;
 
 //实现ContentList
 public class IMBlocks implements ContentList {
@@ -55,7 +56,7 @@ public class IMBlocks implements ContentList {
       consumes.power(1);
     }};
     
-    innerEnergyPipe = new InnerenergyBlock("inner-energy-pipe"){{
+    innerEnergyPipe = new InnerPipeline("inner-energy-pipe"){{
       health = 200*size*size;
       size = 1;
       requirements(Category.power, ItemStack.with(Items.copper, 6,Items.lead,6));
