@@ -42,6 +42,9 @@ public class InnerenergyBlock extends Block {
   public float loss = 0.01f;
   public float lossInterval = 180f;
   public float updateEffectChance = 0.04f;
+  public TextureRegion heat;
+  public Color heatColor = Color.orange;
+  public Color loseColor = Color.white;
   
   public InnerenergyBlock(String name) {
     super(name);
@@ -49,6 +52,11 @@ public class InnerenergyBlock extends Block {
     solid = true;
     sync = true;
     configurable = true;
+  }
+  
+  @Override
+  public void init() {
+    heat = Core.atlas.find(name+"-heat");
   }
   
   @Override
@@ -121,7 +129,9 @@ public class InnerenergyBlock extends Block {
         Building build = nearby(i);
         if(build != null && build.isValid()) {
           float in = efficiency(build);
-          absorbEffect(in > 0);
+          if(Mathf.chanceDelta(updateEffectChance)) {
+            absorbEffect(in > 0);
+          }
           inner += in;
           addOtherInnerenergy(build,-in);
         }
@@ -129,11 +139,33 @@ public class InnerenergyBlock extends Block {
     }
     
     public void absorbEffect(boolean bool) {
-      if(Mathf.chanceDelta(updateEffectChance)){
+      /*if(Mathf.chanceDelta(updateEffectChance)){
         if(bool) {
           IMFx.absorptionHeat.at(this);
         }else {
           IMFx.lossHeat.at(this);
+        }
+      }*/
+    }
+    
+    @Override
+    public void draw() {
+      for(int i = 0;i<4;i++) {
+        Building build = nearby(i);
+        if(build != null && build.isValid()) {
+          if(getBuildingInnerenergy(build) > inner) {
+            Draw.color(heatColor, inner);
+            Draw.blend(Blending.additive);
+            Draw.rect(heat, x, y, i * 90);
+            Draw.blend();
+            Draw.color();
+          }else {
+            Draw.color(loseColor, inner);
+            Draw.blend(Blending.additive);
+            Draw.rect(heat, x, y, i * 90);
+            Draw.blend();
+            Draw.color();
+          }
         }
       }
     }
