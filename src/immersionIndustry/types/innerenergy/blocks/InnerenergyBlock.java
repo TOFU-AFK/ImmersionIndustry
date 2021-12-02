@@ -104,7 +104,7 @@ public class InnerenergyBlock extends Block {
   
   public class InnerenergyBuilding extends Building {
     
-    float inner = 0;
+    public float inner = 0;
     
     @Override
     public void updateTile() {
