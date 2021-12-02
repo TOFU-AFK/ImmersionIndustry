@@ -35,6 +35,8 @@ import static arc.math.Angles.*;
 
 import immersionIndustry.IMColors;
 import immersionIndustry.contents.IMFx;
+import immersionIndustry.types.innerenergy.blocks.*;
+import immersionIndustry.types.innerenergy.blocks.InnerenergyBlock.*;
 
 public class InnerPipeline extends InnerenergyBlock {
   
