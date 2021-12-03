@@ -56,6 +56,7 @@ public class InnerenergyBlock extends Block {
   
   @Override
   public void init() {
+    super.init();
     heat = Core.atlas.find(name+"-heat");
   }
   
