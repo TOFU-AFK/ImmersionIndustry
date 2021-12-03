@@ -151,6 +151,7 @@ public class InnerenergyBlock extends Block {
     
     @Override
     public void draw() {
+      super.draw();
       for(int i = 0;i<4;i++) {
         Building build = nearby(i);
         if(build != null && build.isValid()) {
