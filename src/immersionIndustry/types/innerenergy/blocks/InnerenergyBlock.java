@@ -43,8 +43,8 @@ public class InnerenergyBlock extends Block {
   public float lossInterval = 180f;
   public float updateEffectChance = 0.04f;
   public TextureRegion heat;
-  public Color heatColor = Color.orange;
-  public Color loseColor = Color.white;
+  public Color heatColor = IMColors.colorYellow;
+  public Color loseColor = IMColors.colorPrimary;
   
   public InnerenergyBlock(String name) {
     super(name);
@@ -182,6 +182,18 @@ public class InnerenergyBlock extends Block {
           }else {
             Drawf.select(build.x, build.y,build.block.size * tilesize,Pal.breakInvalid);
           }
+        }
+      }
+    }
+    
+    @Override
+    public void drawLight() {
+      if(inner > 0.001f) {
+        Color color = Color.orange;
+        float fract = 1f;
+        float opacity = color.a * fract;
+        if(opacity > 0.001f){
+          Drawf.light(team, x, y, block.size * 30f * fract, color, opacity);
         }
       }
     }
