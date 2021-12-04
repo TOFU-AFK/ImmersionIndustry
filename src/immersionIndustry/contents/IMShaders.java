@@ -23,7 +23,7 @@ public class IMShaders {
   
   public static FuseShader fuse;
   
-  public static init() {
+  public static void init() {
     fuse = new FuseShader();
   }
   
