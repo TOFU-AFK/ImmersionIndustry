@@ -17,20 +17,18 @@ public class MakeDialog extends BaseDialog {
     super("");
     titleTable.clear();
     getStyle().stageBackground = Styles.none;
-    setup();
     shown(this::setup);
+    addCloseListener();
   }
   
   private void setup() {
     cont.clear();
     cont.pane(table -> {
-      table.add(new SmelterView());
+      table.add(new SmelterView()).width(210).height(210);
     });
     cont.row();
     cont.defaults().size(210f, 64f);
-    buttons.button("@back", Icon.left, this::hide).size(210f, 64f);
-
-    addCloseListener();
+    cont.button("@back", Icon.left, this::hide).size(210f, 64f);
   }
   
 }
