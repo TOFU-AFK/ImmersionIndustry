@@ -44,7 +44,7 @@ public class InnerPipeline extends InnerenergyBlock {
     super(name);
   }
   
-  public class PipelineBuild extends InnerenergyBuilding {
+  public class PipelineBuild extends InnerenergyBuild {
     
   }
   

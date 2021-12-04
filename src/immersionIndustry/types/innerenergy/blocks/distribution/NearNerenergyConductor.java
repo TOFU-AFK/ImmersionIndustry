@@ -108,7 +108,7 @@ public class NearNerenergyConductor extends InnerenergyBlock {
     Draw.reset();
   }
   
-  public class ConductorBuilding extends InnerenergyBuilding {
+  public class ConductorBuilding extends InnerenergyBuild {
     
     @Override
     public void absorb() {
