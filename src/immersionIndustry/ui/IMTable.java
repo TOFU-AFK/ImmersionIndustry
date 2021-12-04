@@ -6,6 +6,7 @@ import mindustry.gen.*;
 import mindustry.net.Administration.*;
 import mindustry.ui.dialogs.*;
 import mindustry.ui.*;
+import mindustry.graphics.*;
 
 import static mindustry.Vars.*;
 import static arc.graphics.g2d.Draw.rect;
