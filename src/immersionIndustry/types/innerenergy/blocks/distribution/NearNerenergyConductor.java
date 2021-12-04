@@ -76,7 +76,7 @@ public class NearNerenergyConductor extends InnerenergyBlock {
       if(build instanceof GenericCrafterBuild entity) {
         return entity.progress;
       }
-      if(build instanceof productionEfficiency entity) {
+      if(build instanceof GeneratorBuild entity) {
         return entity.productionEfficiency;
       }
     }
@@ -94,7 +94,7 @@ public class NearNerenergyConductor extends InnerenergyBlock {
       if(build instanceof GenericCrafterBuild entity) {
         entity.progress += add;
       }
-      if(build instanceof productionEfficiency entity) {
+      if(build instanceof GeneratorBuild entity) {
         entity.productionEfficiency += add;
       }
     }
