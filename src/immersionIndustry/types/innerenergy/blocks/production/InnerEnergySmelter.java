@@ -31,8 +31,8 @@ import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 
-import immersionIndustry.IMShaders;
 import immersionIndustry.IMColors;
+import immersionIndustry.contents.IMShaders;
 import immersionIndustry.contents.IMFx;
 import immersionIndustry.types.innerenergy.blocks.*;
 import immersionIndustry.types.innerenergy.blocks.InnerenergyBlock.*;
@@ -52,7 +52,7 @@ public class InnerEnergySmelter extends InnerenergyBlock {
   @Override
   public void init() {
     IMShaders.fuse.setUniformf("u_texture",id);
-    region.bind(id);
+    region.texture.bind(id);
   }
   
   public class SmelterBuild extends InnerenergyBuilding {
