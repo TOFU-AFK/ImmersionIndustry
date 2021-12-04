@@ -51,8 +51,7 @@ public class InnerEnergySmelter extends InnerenergyBlock {
   
   @Override
   public void init() {
-    IMShaders.fuse.setUniformf("u_texture",0);
-    region.texture.bind(0);
+    super.init();
   }
   
   public class SmelterBuild extends InnerenergyBuilding {
@@ -60,11 +59,13 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     @Override
     public void draw() {
       super.draw();
+      region.texture.bind(0);
+      IMShaders.fuse.setUniformf("u_texture",0);
       Draw.shader(IMShaders.fuse);
       Draw.color(Pal.accent);
       Fill.square(x, y, block.size * tilesize / 2f + 1f);
-      Draw.reset();
       Draw.shader();
+      Draw.reset();
     }
     
   }
