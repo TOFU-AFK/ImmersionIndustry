@@ -26,7 +26,7 @@ import immersionIndustry.contents.IMBullets;
 //继承Mod类
 public class ImmersionIndustry extends Mod{
     
-    public final String NAME = "immersionindustry";
+    public static final String NAME = "immersionindustry";
     
     //当加载模组内容时被调用
     @Override
