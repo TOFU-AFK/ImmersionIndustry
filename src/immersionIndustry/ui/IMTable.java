@@ -1,4 +1,5 @@
 package immersionIndustry.ui;
+import arc.graphics.*;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import mindustry.gen.*;

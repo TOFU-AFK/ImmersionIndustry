@@ -14,14 +14,13 @@ import arc.scene.ui.Slider.*;
 import arc.scene.ui.TextButton.*;
 import arc.scene.ui.TextField.*;
 import arc.scene.ui.TreeElement.*;
-import mindustry.annotations.Annotations.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.ui.dialogs.*;
 import mindustry.ui.*;
 
 import static mindustry.gen.Tex.*;
-import static immersionIndustry.ImmersionIndustry;
+import static immersionindustry.ImmersionIndustry;
 
 public class IMStyles {
   public static Drawable gray;
