@@ -60,7 +60,6 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     public void draw() {
       super.draw();
       Draw.drawRange(Layer.blockBuilding, () -> {
-        IMShaders.fuse.region = region;
         Draw.shader(IMShaders.fuse);
         Draw.color(Pal.accent);
         Fill.square(x, y, block.size * tilesize / 2f + 1f);
