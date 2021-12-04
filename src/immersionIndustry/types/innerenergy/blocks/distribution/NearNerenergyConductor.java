@@ -119,6 +119,18 @@ public class NearNerenergyConductor extends InnerenergyBlock {
     }
     
     @Override
+    public void drawAbsorb() {
+      InnerenergyBuilding front = front();
+      if(front!=null&&front.isValid() && inner > 0.01f) {
+        Draw.color(heatColor, inner);
+        Draw.blend(Blending.additive);
+        Draw.rect(heat, x, y, i * 90);
+        Draw.blend();
+        Draw.color();
+      }
+    }
+    
+    @Override
     public void drawConfigure() {
       InnerenergyBuilding front = front();
       if(front!=null&&front.isValid()) {
