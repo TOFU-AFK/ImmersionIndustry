@@ -124,7 +124,7 @@ public class NearNerenergyConductor extends InnerenergyBlock {
       if(front!=null&&front.isValid() && inner > 0.01f) {
         Draw.color(heatColor, inner);
         Draw.blend(Blending.additive);
-        Draw.rect(heat, x, y, i * 90);
+        Draw.rect(heat, x, y);
         Draw.blend();
         Draw.color();
       }
