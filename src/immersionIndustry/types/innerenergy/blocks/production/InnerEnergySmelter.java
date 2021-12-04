@@ -32,7 +32,6 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 
 import immersionIndustry.IMColors;
-import immersionIndustry.contents.IMShaders;
 import immersionIndustry.contents.IMFx;
 import immersionIndustry.types.innerenergy.blocks.*;
 import immersionIndustry.types.innerenergy.blocks.InnerenergyBlock.*;
