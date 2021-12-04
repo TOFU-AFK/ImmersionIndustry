@@ -153,10 +153,18 @@ public class IntelligentMiningMachine extends Block {
         mineRange = (int)e;
       });
       table.row();
+      table.table(cont -> {
+        setup(cont);
+      });
+    }
+    
+    private void setup(Table table) {
+      table.clear();
       for(int i = 0;i<resources.size;i++) {
         final int a = i;
         table.button("撤销第"+(a+1)+"个",() -> {
           resources.remove(a);
+          setup(table);
         });
         table.row();
       }
