@@ -25,7 +25,7 @@ public class MakeDialog extends BaseDialog {
     cont.add(new ViewPager());
   }
   
-  private class Adapter implements BaseAdapter {
+  private class Adapter implements ViewPager.BaseAdapter {
     
     Item item;
     Seq<Liquid> liquids;

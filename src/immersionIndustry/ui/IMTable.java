@@ -36,14 +36,14 @@ public class IMTable extends Table {
     line(x-2,y,x-2,height+1);
     Fill.square(x,height,1);
     
-    draw.color(borderColor.cpy().mul(0.8f, 0.8f, 0.8f, 1f));
+    Draw.color(borderColor.cpy().mul(0.8f, 0.8f, 0.8f, 1f));
     line(x,y-1,x+width+1,y-1);
     line(x,y-2,x+width+1,y-2);
     line(x+width+1,y-2,x+width+1,y+height);
     line(x+width+2,y-1,x+width+2,y+height);
     Fill.square(x+width,y,1);
     
-    draw.color(Color.black);
+    Draw.color(Color.black);
     line(x-3,y,x-3,y+height+1);
     line(x-1,y+height+2,x+width,y+height+2);
     line(x+width+3,y-1,x+width+3,y+height);
