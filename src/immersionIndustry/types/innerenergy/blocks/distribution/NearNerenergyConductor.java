@@ -27,6 +27,7 @@ import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
 import mindustry.world.blocks.power.NuclearReactor.*;
 import mindustry.world.blocks.production.GenericCrafter.*;
+import mindustry.world.blocks.power.PowerGenerator.*;
 
 import static mindustry.Vars.*;
 import static arc.graphics.g2d.Draw.rect;
@@ -75,6 +76,9 @@ public class NearNerenergyConductor extends InnerenergyBlock {
       if(build instanceof GenericCrafterBuild entity) {
         return entity.progress;
       }
+      if(build instanceof productionEfficiency entity) {
+        return entity.productionEfficiency;
+      }
     }
     return 0;
   }
@@ -89,6 +93,9 @@ public class NearNerenergyConductor extends InnerenergyBlock {
       }
       if(build instanceof GenericCrafterBuild entity) {
         entity.progress += add;
+      }
+      if(build instanceof productionEfficiency entity) {
+        entity.productionEfficiency += add;
       }
     }
   }
