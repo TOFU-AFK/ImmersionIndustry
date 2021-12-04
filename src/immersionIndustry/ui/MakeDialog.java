@@ -24,7 +24,8 @@ public class MakeDialog extends BaseDialog {
   private void setup() {
     cont.clear();
     cont.pane(table -> {
-      table.add(new SmelterView()).width(210).height(210);
+      table.setFillParent(true);
+      table.add(new SmelterView());
     });
     cont.row();
     cont.defaults().size(210f, 64f);
