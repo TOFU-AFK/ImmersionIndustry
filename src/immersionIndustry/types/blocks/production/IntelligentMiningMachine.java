@@ -152,6 +152,13 @@ public class IntelligentMiningMachine extends Block {
       table.slider(0,4,1,mineRange,e -> {
         mineRange = (int)e;
       });
+      table.row();
+      for(int i = 0;i<resources.size;i++) {
+        table.button("撤销第"+(i+1)+"个",() -> {
+          resources.remove(i);
+        });
+        table.row();
+      }
     }
     
     @Override
