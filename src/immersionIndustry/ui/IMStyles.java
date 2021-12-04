@@ -20,7 +20,7 @@ import mindustry.ui.dialogs.*;
 import mindustry.ui.*;
 
 import static mindustry.gen.Tex.*;
-import static immersionindustry.ImmersionIndustry;
+import static immersionIndustry.ImmersionIndustry;
 
 public class IMStyles {
   public static Drawable gray;

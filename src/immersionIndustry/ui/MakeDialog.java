@@ -8,7 +8,7 @@ import mindustry.ui.dialogs.*;
 public class MakeDialog extends BaseDialog {
   
   public MakeDialog() {
-    super();
+    super("");
     addCloseButton();
     setup();
     shown(this::setup);
