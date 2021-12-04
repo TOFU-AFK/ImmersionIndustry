@@ -17,7 +17,7 @@ import immersionIndustry.IMColors;
 
 public class IMTable extends Table {
   
-  public float thickness = 4f, pad = 0f;
+  public float thickness = 1f;
   public Color borderColor = IMColors.colorPrimary;
   
   public IMTable() {
@@ -29,8 +29,32 @@ public class IMTable extends Table {
     super.draw();
     Draw.color(borderColor);
     Draw.alpha(parentAlpha);
-    Lines.stroke(Scl.scl(thickness));
-    Lines.rect(x - pad, y - pad, width + pad*2, height + pad*2);
+    stroke(Scl.scl(thickness));
+    line(x-2,y+height+1,x+width+1,y+height+1);
+    line(x-1,y+height+2,x+width,y+height+2);
+    line(x-1,y-1,x-1,y+height+1);
+    line(x-2,y,x-2,height+1);
+    Fill.square(x,height,1);
+    
+    draw.color(borderColor.cpy().mul(0.8f, 0.8f, 0.8f, 1f));
+    line(x,y-1,x+width+1,y-1);
+    line(x,y-2,x+width+1,y-2)
+    line(x+width+1,y-2,x+width+1,y+height);
+    line(x+width+2,y-1,x+width+2,y+height);
+    Fill.square(x+width,y,1);
+    
+    draw.color(Color.black);
+    line(x-3,y,x-3,y+height+1);
+    line(x-1,y+height+2,x+width,y+height+2);
+    line(x+width+3,y-1,x+width+3,y+height);
+    line(x,y-3,x+width+1,y-3);
+    Fill.square(x-2,y+height+2,1);
+    Fill.square(x+width+1,y+height+1,1);
+    Fill.square(x+width+2,y+height+1,1);
+    Fill.square(x+width+2,y-2,1);
+    Fill.square(x-2,y-1,1);
+    Fill.square(x-1,y-2,1);
+    
     Draw.reset();
   }
   
