@@ -16,7 +16,7 @@ import mindustry.ui.Styles;
 import mindustry.ui.dialogs.*;
 
 //导入模组类
-import immersionindustry.ui;
+import immersionIndustry.ui;
 import immersionIndustry.contents.blocks.IMBlocks;
 import immersionIndustry.contents.IMTechTree;
 import immersionIndustry.contents.IMItems;
