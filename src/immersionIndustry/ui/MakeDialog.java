@@ -4,6 +4,7 @@ import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import mindustry.gen.*;
 import mindustry.net.Administration.*;
+import mindustry.ui.*;
 import mindustry.ui.dialogs.*;
 import mindustry.content.*;
 import mindustry.type.*;
@@ -14,7 +15,7 @@ public class MakeDialog extends BaseDialog {
   
   public MakeDialog() {
     super("");
-    setFillParent(false);
+    getStyle().stageBackground = Styles.none;
     addCloseButton();
     setup();
     shown(this::setup);
@@ -22,28 +23,9 @@ public class MakeDialog extends BaseDialog {
   
   private void setup() {
     cont.clear();
-    cont.add(new ViewPager());
-  }
-  
-  private class Adapter implements ViewPager.BaseAdapter {
-    
-    Item item;
-    Seq<Liquid> liquids;
-    
-    public Adapter(Item item,Seq<Liquid> liquids) {
-      this.item = item;
-      this.liquids = liquids;
-    }
-    
-    public int getCount() {
-      return 1;
-    }
-    
-    public Table instantiateItem(int index) {
-      Table table = new Table();
-      table.add("索引"+index);
-      return table;
-    }
+    cont.table(table -> {
+      
+    }).width(400);
   }
   
 }
