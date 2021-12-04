@@ -103,7 +103,7 @@ public class InnerenergyBlock extends Block {
     Drawf.select(build.x, build.y,build.block.size * tilesize / 2f + 2f + Mathf.absin(Time.time, 4f, 1f),Pal.place);
   }
   
-  public class InnerenergyBuilding extends Building {
+  public class InnerenergyBuild extends Building {
     
     public float inner = 0;
     
@@ -184,7 +184,7 @@ public class InnerenergyBlock extends Block {
           if(getBuildingInnerenergy(build) < inner) {
             drawOtherConfigure(build);
           }else {
-            Drawf.select(build.x, build.y,build.block.size * tilesize,Pal.breakInvalid);
+            Drawf.select(build.x, build.y,build.block.size * tilesize/ 2f + 1f,Pal.breakInvalid);
           }
         }
       }
