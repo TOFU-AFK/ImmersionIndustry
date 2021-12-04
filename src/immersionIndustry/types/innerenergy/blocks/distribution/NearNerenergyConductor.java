@@ -67,7 +67,7 @@ public class NearNerenergyConductor extends InnerenergyBlock {
   @Override
   public float getBuildingInnerenergy(Building build) {
     if(build != null && build.isValid()) {
-      if(build instanceof InnerenergyBuilding entity) {
+      if(build instanceof InnerenergyBuild entity) {
         return entity.inner;
       }
       if(build instanceof NuclearReactorBuild entity) {
