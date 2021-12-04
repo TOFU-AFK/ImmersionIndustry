@@ -17,6 +17,7 @@ import mindustry.ui.dialogs.*;
 
 //导入模组类
 import immersionIndustry.contents.blocks.IMBlocks;
+import immersionIndustry.contents.IMShaders;
 import immersionIndustry.contents.IMTechTree;
 import immersionIndustry.contents.IMItems;
 import immersionIndustry.contents.IMFx;
