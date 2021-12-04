@@ -35,7 +35,7 @@ public class SmelterView extends IMTable {
   @Override
   public void draw(){
     super.draw();
-    float b =  height / capacity;
+    final float b =  height / capacity;
     Draw.color(Pal.place);
     for(int i=100;i <= capacity;i+=space) {
       if(i % (space*2) == 0) {
@@ -45,7 +45,7 @@ public class SmelterView extends IMTable {
       }
     }
     
-    float last = 0;
+    final float last = 0;
     items.each(item -> {
       Draw.color(item.liquid.color);
       Fill.rect(x,y+last,width,item.ml * b);
@@ -55,7 +55,7 @@ public class SmelterView extends IMTable {
   }
   
   public float getTotal() {
-    float amount = 0;
+    final float amount = 0;
     items.each(item -> {
       amount += item.ml;
     });
