@@ -85,7 +85,7 @@ public class NearNerenergyConductor extends InnerenergyBlock {
   @Override
   public void addOtherInnerenergy(Building build,float add) {
     if(build != null && build.isValid()) {
-      if(build instanceof InnerenergyBuilding entity) {
+      if(build instanceof InnerenergyBuild entity) {
         if(entity.acceptInner(build,add)) entity.handleInner(build,add);
       }
       if(build instanceof NuclearReactorBuild entity) {
@@ -127,7 +127,7 @@ public class NearNerenergyConductor extends InnerenergyBlock {
     
     @Override
     public void drawAbsorb() {
-      InnerenergyBuilding front = front();
+      InnerenergyBuild front = front();
       if(front!=null&&front.isValid() && inner > 0.01f) {
         Draw.color(heatColor, inner);
         Draw.blend(Blending.additive);
@@ -139,7 +139,7 @@ public class NearNerenergyConductor extends InnerenergyBlock {
     
     @Override
     public void drawConfigure() {
-      InnerenergyBuilding front = front();
+      InnerenergyBuild front = front();
       if(front!=null&&front.isValid()) {
         Drawf.select(front.x, front.y,front.block.size * tilesize / 2f + 2f + Mathf.absin(Time.time, 4f, 1f),Pal.place);
       }
@@ -172,10 +172,10 @@ public class NearNerenergyConductor extends InnerenergyBlock {
       return gap * multiple;
     }
     
-    public @Nullable InnerenergyBuilding front() {
+    public @Nullable InnerenergyBuild front() {
       int trns = block.size/2 + 1;
       Building build = nearby(Geometry.d4(rotation).x * trns, Geometry.d4(rotation).y * trns);
-      if(build instanceof InnerenergyBuilding entity) {
+      if(build instanceof InnerenergyBuild entity) {
         return entity;
       }
       return null;
