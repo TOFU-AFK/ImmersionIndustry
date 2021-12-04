@@ -69,8 +69,10 @@ public class LaserTransmitter extends Block {
     if(rotation == 0) {
       for(int i = 1;i<maxLength;i++) {
         Tile tile = world.tile(x+i, y);
-        if(tile.block() != null && tile.block().hasItems) {
-          Drawf.select(tile.drawx(), tile.drawy(),tile.block().size * tilesize / 2f + 1f,Pal.accent);
+        if(tile.block() != null && tile.block().hasItems && tile.build != null && tile.build.isValid()) {
+          //这里需要获取building才能绘制出正确的图形
+          Building build = tile.build;
+          Drawf.select(build.x, build.y,build.block.size * tilesize / 2f + 1f,Pal.accent);
           Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,tile.drawx(),y* tilesize + offset);
           return;
         }
@@ -79,8 +81,10 @@ public class LaserTransmitter extends Block {
     if(rotation == 1) {
       for(int i = 1;i<maxLength;i++) {
         Tile tile = world.tile(x, y+i);
-        if(tile.block() != null && tile.block().hasItems) {
-          Drawf.select(tile.drawx(), tile.drawy(),tile.block().size * tilesize / 2f + 1f,Pal.accent);
+        if(tile.block() != null && tile.block().hasItems && tile.build != null && tile.build.isValid()) {
+          //这里需要获取building才能绘制出正确的图形
+          Building build = tile.build;
+          Drawf.select(build.x, build.y,build.block.size * tilesize / 2f + 1f,Pal.accent);
           Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,x * tilesize + offset,tile.drawy());
           return;
         }
@@ -89,8 +93,10 @@ public class LaserTransmitter extends Block {
     if(rotation == 2) {
       for(int i = 1;i<maxLength;i++) {
         Tile tile = world.tile(x-i, y);
-        if(tile.block() != null && tile.block().hasItems) {
-          Drawf.select(tile.drawx(), tile.drawy(),tile.block().size * tilesize / 2f + 1f,Pal.accent);
+        if(tile.block() != null && tile.block().hasItems && tile.build != null && tile.build.isValid()) {
+          //这里需要获取building才能绘制出正确的图形
+          Building build = tile.build;
+          Drawf.select(build.x, build.y,build.block.size * tilesize / 2f + 1f,Pal.accent);
           Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,tile.drawx(),y * tilesize + offset);
           return;
         }
@@ -99,8 +105,10 @@ public class LaserTransmitter extends Block {
     if(rotation == 3) {
       for(int i = 1;i<maxLength;i++) {
         Tile tile = world.tile(x, y-i);
-        if(tile.block() != null && tile.block().hasItems) {
-          Drawf.select(tile.drawx(), tile.drawy(),tile.block().size * tilesize / 2f + 1f,Pal.accent);
+        if(tile.block() != null && tile.block().hasItems && tile.build != null && tile.build.isValid()) {
+          //这里需要获取building才能绘制出正确的图形
+          Building build = tile.build;
+          Drawf.select(build.x, build.y,build.block.size * tilesize / 2f + 1f,Pal.accent);
           Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,x * tilesize + offset,tile.drawy());
           return;
         }
