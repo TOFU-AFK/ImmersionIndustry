@@ -28,6 +28,7 @@ public class ImmersionIndustry extends Mod{
     //当加载模组内容时被调用
     @Override
     public void loadContent() {
+      IMShaders.init();
       new IMFx().load();
       new IMBullets().load();
       new IMItems().load();
