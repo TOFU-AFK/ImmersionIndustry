@@ -29,7 +29,6 @@ public class IMShaders {
   
   public static class FuseShader extends ModShader {
     
-    public TextureRegion region;
     Texture noiseTex;
     
     public FuseShader() {
@@ -50,8 +49,6 @@ public class IMShaders {
 		
 		@Override
 		public void apply() {
-		  region.texture.bind(0);
-      setUniformf("u_texture",0);
 		  setUniformf("u_campos", Core.camera.position.x - Core.camera.width / 2, Core.camera.position.y - Core.camera.height / 2);
       setUniformf("u_resolution", Core.camera.width, Core.camera.height);
       setUniformf("u_time", Time.time);
