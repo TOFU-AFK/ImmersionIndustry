@@ -14,6 +14,7 @@ public class MakeDialog extends BaseDialog {
   
   public MakeDialog() {
     super("");
+    setFillParent(false);
     addCloseButton();
     setup();
     shown(this::setup);
@@ -24,7 +25,7 @@ public class MakeDialog extends BaseDialog {
     cont.add(new ViewPager());
   }
   
-  private Adapter implements BaseAdapter {
+  private class Adapter implements BaseAdapter {
     
     Item item;
     Seq<Liquid> liquids;

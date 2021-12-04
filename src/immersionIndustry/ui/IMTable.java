@@ -38,7 +38,7 @@ public class IMTable extends Table {
     
     draw.color(borderColor.cpy().mul(0.8f, 0.8f, 0.8f, 1f));
     line(x,y-1,x+width+1,y-1);
-    line(x,y-2,x+width+1,y-2)
+    line(x,y-2,x+width+1,y-2);
     line(x+width+1,y-2,x+width+1,y+height);
     line(x+width+2,y-1,x+width+2,y+height);
     Fill.square(x+width,y,1);

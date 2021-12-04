@@ -43,7 +43,7 @@ public class ViewPager extends IMTable {
     add(cont);
   }
   
-  private initPage() {
+  private void initPage() {
     cont.clear();
     if(adapter != null) {
       cont.add(adapter.instantiateItem(index)).width(400f);
