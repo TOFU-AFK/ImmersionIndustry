@@ -70,7 +70,7 @@ public class LaserTransmitter extends Block {
       for(int i = 1;i<maxLength;i++) {
         Tile tile = world.tile(x+i, y);
         if(tile.block() != null && tile.block().hasItems) {
-          tile.build.drawConfigure();
+          Drawf.select(tile.drawx(), tile.drawy(),tile.block().size * tilesize / 2f + 1f,Pal.accent);
           Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,tile.drawx(),y* tilesize + offset);
           return;
         }
@@ -80,7 +80,7 @@ public class LaserTransmitter extends Block {
       for(int i = 1;i<maxLength;i++) {
         Tile tile = world.tile(x, y+i);
         if(tile.block() != null && tile.block().hasItems) {
-          tile.build.drawConfigure();
+          Drawf.select(tile.drawx(), tile.drawy(),tile.block().size * tilesize / 2f + 1f,Pal.accent);
           Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,x * tilesize + offset,tile.drawy());
           return;
         }
@@ -90,8 +90,8 @@ public class LaserTransmitter extends Block {
       for(int i = 1;i<maxLength;i++) {
         Tile tile = world.tile(x-i, y);
         if(tile.block() != null && tile.block().hasItems) {
-          tile.build.drawConfigure();
-          Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,x * tilesize + offset,tile.drawy());
+          Drawf.select(tile.drawx(), tile.drawy(),tile.block().size * tilesize / 2f + 1f,Pal.accent);
+          Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,tile.drawx(),y * tilesize + offset);
           return;
         }
       }
@@ -100,8 +100,8 @@ public class LaserTransmitter extends Block {
       for(int i = 1;i<maxLength;i++) {
         Tile tile = world.tile(x, y-i);
         if(tile.block() != null && tile.block().hasItems) {
-          tile.build.drawConfigure();
-          Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,tile.drawx(),y * tilesize + offset);
+          Drawf.select(tile.drawx(), tile.drawy(),tile.block().size * tilesize / 2f + 1f,Pal.accent);
+          Drawf.dashLine(IMColors.colorYellow,x * tilesize + offset,y * tilesize + offset,x * tilesize + offset,tile.drawy());
           return;
         }
       }
@@ -117,16 +117,20 @@ public class LaserTransmitter extends Block {
       if(target == null || target.build == null || !target.build.isValid()) {
         target = itemTo();
       }
-      if(target != null && efficiency() > 0 && timer(timerDump,interval)) {
+      //传输时间
+      float time = Mathf.dstm(x,y,target.worldx(),target.worldy()) / tilesize * speed / efficiency();
+      if(target != null && efficiency() > 0 && timer(timerDump,interval + time)) {
         Item item = items.first();
         if(item != null) {
+          //判断是否能存储物品，因为传输之间有延迟，所以要判断两次，都返回true才可存入
           if(target.build.acceptItem(this,item)) {
-            float time = Mathf.dstm(x,y,target.drawx(),target.drawy()) / tilesize * speed / efficiency();
-            IMFx.takeItemEffect(x,y,target.drawx(),target.drawy(),item.color,time);
-            target.build.handleItem(this,item);
-            items.remove(item,1);
+            IMFx.takeItemEffect(x,y,target.worldx(),target.worldy(),item.color,time);
             Time.run(time,() -> {
-              craftEffect.at(this);
+              if(target.build.acceptItem(this,item)) {
+                target.build.handleItem(this,item);
+                items.remove(item,1);
+                craftEffect.at(this);
+              }
             });
           }
         }
@@ -138,9 +142,9 @@ public class LaserTransmitter extends Block {
       super.draw();
       if(target != null) {
         if(rotation == 1 || rotation == 3) {
-          Drawf.laser(team,Core.atlas.find("minelaser"),Core.atlas.find("minelaser-end"),x,y,x,target.drawy(),0.4f);
+          Drawf.laser(team,Core.atlas.find("minelaser"),Core.atlas.find("minelaser-end"),x,y,x,target.worldy(),0.4f);
         }else {
-          Drawf.laser(team,Core.atlas.find("minelaser"),Core.atlas.find("minelaser-end"),x,y,target.drawx(),y,0.4f);
+          Drawf.laser(team,Core.atlas.find("minelaser"),Core.atlas.find("minelaser-end"),x,y,target.worldx(),y,0.4f);
         }
       }
     }
