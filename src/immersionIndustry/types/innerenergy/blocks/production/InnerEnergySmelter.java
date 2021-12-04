@@ -35,6 +35,7 @@ import immersionIndustry.IMColors;
 import immersionIndustry.contents.IMFx;
 import immersionIndustry.types.innerenergy.blocks.*;
 import immersionIndustry.types.innerenergy.blocks.InnerenergyBlock.*;
+import immersionIndustry.ui.MakeDialog;
 
 public class InnerEnergySmelter extends InnerenergyBlock {
   
@@ -53,11 +54,16 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     super.init();
   }
   
-  public class SmelterBuild extends InnerenergyBuilding {
+  public class SmelterBuild extends InnerenergyBuild {
     
     @Override
     public void draw() {
       super.draw();
+    }
+    
+    @Override
+    public void buildConfiguration(Table table) {
+      new MakeDialog().show();
     }
     
   }
