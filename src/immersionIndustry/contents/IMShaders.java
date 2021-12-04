@@ -71,12 +71,12 @@ public class IMShaders {
   }
   
   public static Fi getShaderFi(String file){
-    LoadedMod mod = Mods.getMod(ImmersionIndustry.class);
+    LoadedMod mod = mods.getMod(ImmersionIndustry.class);
     if(mod.root.child("shader").exists()){
 			Fi shaders = mod.root.child("shader");
 			if(shaders.child(file).exists())return shaders.child(file);
 		}
-    return Shades.getShaderFi(file);
+    return Shaders.getShaderFi(file);
   }
   
 }
