@@ -35,7 +35,7 @@ public class LaserTransmitter extends Block {
   
   int maxLength = 30;
   float speed = 2;//倍数
-  float interval = 10;
+  float interval = 2;
   public Effect craftEffect = new Effect(38f,e -> {
     color(IMColors.colorYellow,IMColors.colorWhite,e.fin());
     randLenVectors(e.id, 2, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
@@ -59,7 +59,6 @@ public class LaserTransmitter extends Block {
     hasPower = true;
     rotate = true;
     sync = true;
-    drawDisabled = false;
   }
   
   @Override
@@ -126,7 +125,7 @@ public class LaserTransmitter extends Block {
         target = itemTo();
       }
       //传输时间
-      float time = Mathf.dstm(x,y,target.worldx(),target.worldy()) / tilesize * speed / efficiency();
+      float time = Mathf.dstm(x,y,target.worldx(),target.worldy()) / tilesize * speed / efficiency() * 0.1f;
       if(target != null && efficiency() > 0 && timer(timerDump,interval + time)) {
         Item item = items.first();
         if(item != null) {
@@ -148,6 +147,7 @@ public class LaserTransmitter extends Block {
     @Override
     public void draw() {
       super.draw();
+      Draw.z(Layer.power);
       if(target != null) {
         if(rotation == 1 || rotation == 3) {
           Drawf.laser(team,Core.atlas.find("minelaser"),Core.atlas.find("minelaser-end"),x,y,x,target.worldy(),0.4f);
@@ -155,6 +155,7 @@ public class LaserTransmitter extends Block {
           Drawf.laser(team,Core.atlas.find("minelaser"),Core.atlas.find("minelaser-end"),x,y,target.worldx(),y,0.4f);
         }
       }
+      Draw.reset();
     }
     
     @Override
