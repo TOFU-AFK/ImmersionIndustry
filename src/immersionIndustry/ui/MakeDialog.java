@@ -24,9 +24,8 @@ public class MakeDialog extends BaseDialog {
   private void setup() {
     cont.clear();
     cont.pane(table -> {
-      table.setFillParent(true);
       table.add(new SmelterView());
-    });
+    }).fill();
     cont.row();
     cont.defaults().size(210f, 64f);
     cont.button("@back", Icon.left, this::hide).size(210f, 64f);
