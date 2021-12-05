@@ -59,7 +59,7 @@ public class LaserTransmitter extends Block {
     hasPower = true;
     rotate = true;
     sync = true;
-    envEnabled |= Env.space;
+    drawDisabled = false;
   }
   
   @Override
