@@ -42,8 +42,9 @@ public class SmelterView extends IMTable {
     Draw.draw(Layer.overlayUI, () -> {
       items.each(item -> {
         Draw.color(item.liquid.color);
-        //Draw.shader(Shaders.slag);
+        Draw.shader(Shaders.slag);
         Fill.rect(x+(width/2),y+last,width,item.ml * b);
+        Draw.shader();
         last += item.ml * b;
         Draw.reset();
       });
