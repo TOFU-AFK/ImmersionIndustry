@@ -62,6 +62,7 @@ public class InnerenergyBlock extends Block {
   
   @Override
   public void setBars() {
+    super.setBars();
     bars.add(Core.bundle.get("stat.innerenergy"),(InnerenergyBuild entity) -> new Bar(
 				() -> Core.bundle.get("stat.innerenergy"),
 				() -> Color.orange,
