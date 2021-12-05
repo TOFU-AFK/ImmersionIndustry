@@ -70,6 +70,7 @@ public class IntelligentMiningMachine extends Block {
     ambientSound = Sounds.drill;
     ambientSoundVolume = 0.018f;
     configurable = true;
+    drawDisabled = false;
   }
   
   @Override
