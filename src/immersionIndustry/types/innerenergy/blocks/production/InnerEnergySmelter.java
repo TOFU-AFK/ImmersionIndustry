@@ -64,7 +64,7 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     
     @Override
     public void buildConfiguration(Table table) {
-      table.add(new SmelterView()).size(block.size * tilesize);
+      table.add(new SmelterView()).size(block.size * block.size * tilesize);
     }
     
   }
