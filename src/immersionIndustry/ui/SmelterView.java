@@ -39,7 +39,7 @@ public class SmelterView extends IMTable {
     items.add(new SmelterItem(Liquids.slag,200));
     items.add(new SmelterItem(Liquids.water,200));
     update(() -> {
-      warmup = Mathf.lerpDelta(warmup, 1f, warmupSpeed * timeScale);
+      warmup = Mathf.lerpDelta(warmup, 1f, warmupSpeed);
       if(Mathf.equal(warmup, 1f, 0.001f)){
         warmup = 1f;
       }
