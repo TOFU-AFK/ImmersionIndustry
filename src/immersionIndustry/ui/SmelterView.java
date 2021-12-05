@@ -53,8 +53,7 @@ public class SmelterView extends IMTable {
     final float b =  height / capacity;
     Draw.blend(Blending.additive);
     items.each(item -> {
-      Draw.color(item.liquid.color);
-      Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.3f)) * warmup);
+      Draw.color(item.liquid.color,item.liquid.lightColor,warmup);
       Fill.rect(x+(width/2),y+last,width,item.ml * b);
       last += item.ml * b;
       Draw.reset();
