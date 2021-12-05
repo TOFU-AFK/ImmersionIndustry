@@ -39,15 +39,15 @@ public class SmelterView extends IMTable {
     last = 0;
     final float b =  height / capacity;
     Draw.color(Pal.place);
-    Draw.drawRange(Layer.overlayUI, () -> {
-      Draw.shader(Shaders.slag, true);
+    Draw.draw(Layer.overlayUI, () -> {
       items.each(item -> {
         Draw.color(item.liquid.color);
+        Draw.shader(Shaders.slag, true);
         Fill.rect(x+(width/2),y+last,width,item.ml * b);
         last += item.ml * b;
+        Draw.reset();
       });
-    }, Draw::shader);
-    Draw.reset();
+    });
   }
   
   public class SmelterItem {
