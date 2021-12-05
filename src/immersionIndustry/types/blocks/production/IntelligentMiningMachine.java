@@ -40,7 +40,7 @@ public class IntelligentMiningMachine extends Block {
   public int tier;
   //挖掘矿物的基本时间，单位帧
   public float drillTime = 10;
-  public float range = 320;
+  public float range = 300;
   public float baseMineRange = 64;
   public int maxMine = 3;
   public float warmupSpeed = 0.015f;
@@ -70,7 +70,6 @@ public class IntelligentMiningMachine extends Block {
     ambientSound = Sounds.drill;
     ambientSoundVolume = 0.018f;
     configurable = true;
-    drawDisabled = false;
   }
   
   @Override
