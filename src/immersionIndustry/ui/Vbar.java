@@ -100,7 +100,7 @@ public class Vbar {
     
     Color color;
     String name;
-    float amount
+    float amount;
     
     public VbarData(Color color,String name,float amount) {
       this.color = color;
