@@ -1,5 +1,8 @@
 package immersionIndustry.ui;
 import arc.func.*;
+import arc.struct.*;
+import arc.util.*;
+import arc.util.pooling.*;
 import arc.graphics.*;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
