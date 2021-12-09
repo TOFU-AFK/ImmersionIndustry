@@ -60,14 +60,14 @@ public class Vbar {
     Fill.crect(x,y,width,height);
     if(datas.size < 1) return;
     Draw.color(color);
-    float b = getTotal() / height;
+    float b = height / getTotal();
     for(int i=0;i<datas.size;i++) {
       float ih = datas.get(i).amount * b + drawh;
       drawh += ih;
       Fill.crect(x,y,width,ih);
       stroke(2);
       line(x,y,x+width,y);
-      float ty = i * scale;
+      float ty = i * tilesize;
       line(x+width,y,x+width*20,y+ty);
       drawText(x+width*20,y+ty,datas.get(i).name + " " + ih*100 + "%");
     }
