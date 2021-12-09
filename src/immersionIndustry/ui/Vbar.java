@@ -26,7 +26,7 @@ public class Vbar {
   
   public float width;
   public float height;
-  public Color background = Color.lightGray,color = Color.white;
+  public Color background = Color.lightGray;
   Seq<VbarData> datas = new Seq<>();
   float drawh = 0;
   float scale = 0.25f / Scl.scl(1f);
@@ -59,17 +59,16 @@ public class Vbar {
     Draw.color(background);
     Fill.crect(x,y,width,height);
     if(datas.size < 1) return;
-    Draw.color(color);
     float b = height / getTotal();
     for(int i=0;i<datas.size;i++) {
       float ih = datas.get(i).amount * b + drawh;
       drawh += ih;
+      Draw.color(datas.get(i).color);
       Fill.crect(x,y,width,ih);
-      stroke(2);
       line(x,y,x+width,y);
       float ty = i * tilesize;
       line(x+width,y,x+width*20,y+ty);
-      drawText(x+width*20,y+ty,datas.get(i).name + " " + ih*100 + "%");
+      drawText(x+width*20,y+ty,datas.get(i).name + datas.get(i).amount + "ml");
     }
     Draw.reset();
   }
