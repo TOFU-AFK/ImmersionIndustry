@@ -54,6 +54,7 @@ public class Vbar {
   }
   
   public void draw(float x,float y) {
+    drawh = 0;
     Draw.z(Layer.playerName);
     Draw.color(background);
     Fill.crect(x,y,width,height);
@@ -67,8 +68,8 @@ public class Vbar {
       stroke(2);
       line(x,y,x+width,y);
       float ty = i * scale;
-      line(x+width,y,x+width*2,y+ty);
-      drawText(x+width*2,y+ty,datas.get(i).name + " " + ih*100 + "%");
+      line(x+width,y,x+width*20,y+ty);
+      drawText(x+width*20,y+ty,datas.get(i).name + " " + ih*100 + "%");
     }
     Draw.reset();
   }
