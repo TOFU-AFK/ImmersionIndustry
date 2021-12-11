@@ -46,9 +46,9 @@ public class IMFx implements ContentList {
       Vec2 vec = new Vec2(e.x,e.y);
       vec.lerp(x2, y2, Interp.sineIn.apply(e.fin()));
       Draw.color(color);
-      Fill.circle(vec.x, vec.y, 2 * e.fslope());
+      Fill.circle(vec.x + e.fslope() * 3, vec.y, 2 * e.fin());
       Draw.color();
-      Fill.circle(vec.x, vec.y, 1 * e.fslope());
+      Fill.circle(vec.x + e.fslope() * 3, vec.y, 1 * e.fin());
     }).at(x,y);
   }
   
