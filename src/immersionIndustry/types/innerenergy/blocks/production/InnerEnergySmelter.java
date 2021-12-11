@@ -66,7 +66,7 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     
     @Override
     public void drawConfigure() {
-      vbar.draw(x + block.size * tilesize,y);
+      vbar.draw(x + block.size * tilesize / 2 + 4,y);
     }
     
     @Override
