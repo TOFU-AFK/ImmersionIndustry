@@ -74,7 +74,7 @@ public class InnerEnergySmelter extends InnerenergyBlock {
       vbar = new Vbar(block.size * tilesize);
       table.button("添加",() -> {
         vbar.add(IMColors.colorPrimary,"熔融坍缩量",100);
-        vbar.add(IMColors.colorPrimary,"熔融铜",200);
+        vbar.add(Items.copper.color,"熔融铜",200);
       });
       //table.add(new SmelterView()).size(block.size * block.size * tilesize);
     }
