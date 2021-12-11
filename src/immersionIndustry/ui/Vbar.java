@@ -34,7 +34,7 @@ public class Vbar {
   float prop;
   
   public Vbar() {
-    width = tilesize/2;
+    width = tilesize/4;
     height = tilesize*2;
     prop = height / capacity;
   }
@@ -69,19 +69,21 @@ public class Vbar {
     Fill.crect(x,y,width,height);
     if(datas.size < 1) return;
     for(int i=0;i<datas.size;i++) {
-      float ih = datas.get(i).amount * prop + drawh;
+      float a = datas.get(i).amount * prop;
+      float ih = a + drawh;
+      float d = width * 2;
       drawh += ih;
       Draw.color(datas.get(i).color);
-      Fill.crect(x,y,width,ih);
+      Fill.crect(x,y + ih,width,a);
       Draw.color();
       if(i % 2 == 0) {
-        line(x,y,x-width*4,y);
-        line(x-width,y,x+width,ih);
-        drawText(x-width*10,ih,datas.get(i).name + datas.get(i).amount + "ml");
+        line(x,y,x-d,y);
+        line(x-d,y,x+d,y + ih);
+        drawText(x-d,y + ih,datas.get(i).name + datas.get(i).amount + "ml");
       }else {
-        line(x,y,x+width*4,y);
-        line(x+width,y,x+width,ih);
-        drawText(x+width*10,ih,datas.get(i).name + datas.get(i).amount + "ml");
+        line(x,y,x+d,y);
+        line(x+d,y,x+d,y + ih);
+        drawText(x+d,y + ih,datas.get(i).name + datas.get(i).amount + "ml");
       }
     }
     Draw.reset();
