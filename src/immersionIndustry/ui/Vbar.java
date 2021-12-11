@@ -26,19 +26,28 @@ public class Vbar {
   
   public float width;
   public float height;
+  private float capacity = 600;
   public Color background = Color.lightGray;
   Seq<VbarData> datas = new Seq<>();
   float drawh = 0;
   float scale = 0.25f / Scl.scl(1f);
+  float prop;
   
   public Vbar() {
     width = tilesize/2;
     height = tilesize*2;
+    prop = height / capacity;
   }
   
   public Vbar(float height) {
     width = tilesize/2;
     this.height = height;
+    prop = height / capacity;
+  }
+  
+  public void setProp(float prop) {
+    this.prop = prop;
+    prop = height / capacity;
   }
   
   public void add(Color color,String name,float amount) {
@@ -59,16 +68,21 @@ public class Vbar {
     Draw.color(background);
     Fill.crect(x,y,width,height);
     if(datas.size < 1) return;
-    float b = height / getTotal();
     for(int i=0;i<datas.size;i++) {
-      float ih = datas.get(i).amount * b + drawh;
+      float ih = datas.get(i).amount * prop + drawh;
       drawh += ih;
       Draw.color(datas.get(i).color);
       Fill.crect(x,y,width,ih);
-      line(x,y,x+width,y);
-      float ty = i * tilesize;
-      line(x+width,y,x+width*20,y+ty);
-      drawText(x+width*20,y+ty,datas.get(i).name + datas.get(i).amount + "ml");
+      Draw.color();
+      if(i % 2 == 0) {
+        line(x,y,x-width*4,y);
+        line(x-width,y,x+width,ih);
+        drawText(x-width*10,ih,datas.get(i).name + datas.get(i).amount + "ml");
+      }else {
+        line(x,y,x+width*4,y);
+        line(x+width,y,x+width,ih);
+        drawText(x+width*10,ih,datas.get(i).name + datas.get(i).amount + "ml");
+      }
     }
     Draw.reset();
   }
