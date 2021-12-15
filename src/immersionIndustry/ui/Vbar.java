@@ -27,10 +27,9 @@ public class Vbar {
   public float width;
   public float height;
   private float capacity = 600;
-  public Color background = Color.lightGray;
+  public Color background = new Color(0,0,0,0.2f);
   Seq<VbarData> datas = new Seq<>();
   float drawh = 0;
-  float scale = 0.25f / Scl.scl(1f);
   float prop;
   
   public Vbar() {
@@ -51,6 +50,12 @@ public class Vbar {
   }
   
   public void add(Color color,String name,float amount) {
+    datas.each(data -> {
+      if(data.name.equlas(name)) {
+        data.amount += amount;
+        return;
+      }
+    });
     datas.add(new VbarData(color,name,amount));
   }
   
@@ -81,9 +86,9 @@ public class Vbar {
   
   public class VbarData {
     
-    Color color;
-    String name;
-    float amount;
+    public Color color;
+    public String name;
+    public float amount;
     
     public VbarData(Color color,String name,float amount) {
       this.color = color;
