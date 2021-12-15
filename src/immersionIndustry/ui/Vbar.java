@@ -51,7 +51,7 @@ public class Vbar {
   
   public void add(Color color,String name,float amount) {
     datas.each(data -> {
-      if(data.name.equlas(name)) {
+      if(data.name.equals(name)) {
         data.amount += amount;
         return;
       }
