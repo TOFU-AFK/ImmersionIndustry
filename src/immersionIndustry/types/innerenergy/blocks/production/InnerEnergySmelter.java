@@ -36,7 +36,6 @@ import immersionIndustry.IMColors;
 import immersionIndustry.contents.IMFx;
 import immersionIndustry.types.innerenergy.blocks.*;
 import immersionIndustry.types.innerenergy.blocks.InnerenergyBlock.*;
-import immersionIndustry.ui.MakeDialog;
 
 public class InnerEnergySmelter extends InnerenergyBlock {
   
