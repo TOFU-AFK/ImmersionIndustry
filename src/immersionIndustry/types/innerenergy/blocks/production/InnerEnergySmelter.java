@@ -58,19 +58,18 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     
     Vbar vbar;
     
-    @Override
-    public void draw() {
-      super.draw();
+    public SmelterBuild() {
+      vbar = new Vbar(block.size * tilesize);
     }
     
     @Override
-    public void drawConfigure() {
-      vbar.draw(x + block.size * tilesize / 2 + 4,y);
+    public void draw() {
+      super.draw();
+      vbar.draw(x,y - block.size * tilesize / 2);
     }
     
     @Override
     public void buildConfiguration(Table table) {
-      vbar = new Vbar(block.size * tilesize);
       table.button("添加",() -> {
         vbar.add(IMColors.colorPrimary,"熔融坍缩量",100);
         vbar.add(Items.copper.color,"熔融铜",200);
