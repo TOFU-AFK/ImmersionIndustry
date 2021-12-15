@@ -70,10 +70,10 @@ public class Vbar {
     if(datas.size < 1) return;
     for(int i=0;i<datas.size;i++) {
       float a = datas.get(i).amount * prop;
-      drawh += a;
       Draw.color(datas.get(i).color);
       Fill.crect(x,y + drawh,width,a);
       Draw.color();
+      drawh += a;
     }
     Draw.reset();
     
