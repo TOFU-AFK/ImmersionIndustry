@@ -58,8 +58,11 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     
     Vbar vbar;
     
-    public SmelterBuild() {
+    @Override
+    public Building create(Block block, Team team) {
+      super.create(block,team);
       vbar = new Vbar(block.size * tilesize);
+      return self();
     }
     
     @Override
