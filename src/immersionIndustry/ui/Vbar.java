@@ -70,50 +70,13 @@ public class Vbar {
     if(datas.size < 1) return;
     for(int i=0;i<datas.size;i++) {
       float a = datas.get(i).amount * prop;
-      float ih = a + drawh;
-      float d = width * 2;
-      drawh += ih;
+      drawh += a;
       Draw.color(datas.get(i).color);
-      Fill.crect(x,y + ih,width,a);
+      Fill.crect(x,y + drawh,width,a);
       Draw.color();
-      if(i % 2 == 0) {
-        line(x,y,x-d,y);
-        line(x-d,y,x+d,y + ih);
-        drawText(x-d,y + ih,datas.get(i).name + datas.get(i).amount + "ml");
-      }else {
-        line(x,y,x+d,y);
-        line(x+d,y,x+d,y + ih);
-        drawText(x+d,y + ih,datas.get(i).name + datas.get(i).amount + "ml");
-      }
     }
     Draw.reset();
-  }
-  
-  public void drawText(float x,float y,String message) {
-    drawText(x,y,new StringBuilder(message));
-  }
-  
-  public void drawText(float x,float y,StringBuilder message) {
-    if(renderer.pixelator.enabled()) return;
-      Font font = Fonts.outline;
-      GlyphLayout l = Pools.obtain(GlyphLayout.class, GlyphLayout::new);
-      boolean ints = font.usesIntegerPositions();
-      font.getData().setScale(scale);
-      font.setUseIntegerPositions(false);
-
-      CharSequence text = message == null || message.length() == 0 ? "[lightgray]" + Core.bundle.get("empty") : message;
-
-      l.setText(font, text, Color.white, 90f, Align.left, true);
-      float offset = 1f;
-
-      Draw.color(0f, 0f, 0f, 0.2f);
-      Fill.rect(x, y - tilesize/2f - l.height/2f - offset, l.width + offset*2f, l.height + offset*2f);
-      Draw.color();
-      font.setColor(Color.white);
-      font.draw(text, x - l.width/2f, y - tilesize/2f - offset, 90f, Align.left, true);
-      font.setUseIntegerPositions(ints);
-      font.getData().setScale(1f);
-      Pools.free(l);
+    
   }
   
   public class VbarData {
