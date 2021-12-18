@@ -39,6 +39,12 @@ import immersionIndustry.types.innerenergy.blocks.InnerenergyBlock.*;
 
 public class InnerEnergySmelter extends InnerenergyBlock {
   
+  //液体条的宽高
+  public float barWidth = 3;
+  public float barHeight;
+  //上下偏移，方块底部开始
+  public float ex;
+  
   public InnerEnergySmelter(String name) {
     super(name);
     solid = true;
@@ -47,6 +53,9 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     sync = true;
     ambientSoundVolume = 0.03f;
     flags = EnumSet.of(BlockFlag.factory);
+    liquidCapacity = 100;
+    barHeight = size * tilesize / 2 + 4;
+    ex = (size * tilesize - barHeight) / 2;
   }
   
   @Override
@@ -61,14 +70,14 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     @Override
     public Building create(Block block, Team team) {
       super.create(block,team);
-      vbar = new Vbar(block.size * tilesize);
+      vbar = new Vbar(barWidth);
       return self();
     }
     
     @Override
     public void draw() {
       super.draw();
-      vbar.draw(x,y - block.size * tilesize / 2);
+      vbar.draw(x,y - ex);
     }
     
     @Override
