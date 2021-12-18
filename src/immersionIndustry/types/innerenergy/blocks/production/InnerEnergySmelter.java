@@ -55,7 +55,7 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     flags = EnumSet.of(BlockFlag.factory);
     liquidCapacity = 100;
     barHeight = size * tilesize / 2 + 4;
-    ex = (size * tilesize - barHeight) / 2;
+    ex = (size * tilesize - 2 * barHeight) / 2;
   }
   
   @Override
