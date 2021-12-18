@@ -50,12 +50,13 @@ public class Vbar {
   }
   
   public void add(Color color,String name,float amount) {
-    datas.each(data -> {
+    for(int i = 0;i<datas.size;i++) {
+      VbarData data = datas.get(i);
       if(data.name.equals(name)) {
         data.amount += amount;
         return;
       }
-    });
+    }
     datas.add(new VbarData(color,name,amount));
   }
   
