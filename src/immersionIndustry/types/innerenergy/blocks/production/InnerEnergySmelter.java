@@ -44,7 +44,7 @@ public class InnerEnergySmelter extends InnerenergyBlock {
   public float barHeight;
   //偏移，方块底部开始
   public float ey;
-  public float ex
+  public float ex;
   
   public InnerEnergySmelter(String name) {
     super(name);
