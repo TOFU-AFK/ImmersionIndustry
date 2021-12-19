@@ -54,13 +54,13 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     ambientSoundVolume = 0.03f;
     flags = EnumSet.of(BlockFlag.factory);
     liquidCapacity = 100;
-    barHeight = size * size * tilesize / 2 + 4;
-    ex = (size * size * tilesize - barHeight) / 2;
   }
   
   @Override
   public void init() {
     super.init();
+    barHeight = size * tilesize / 2 + 4;
+    ex = size * tilesize - barHeight;
   }
   
   public class SmelterBuild extends InnerenergyBuild {
