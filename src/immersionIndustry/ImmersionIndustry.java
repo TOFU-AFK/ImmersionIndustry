@@ -16,7 +16,6 @@ import mindustry.ui.Styles;
 import mindustry.ui.dialogs.*;
 
 //导入模组类
-import immersionIndustry.ui.*;
 import immersionIndustry.contents.blocks.IMBlocks;
 import immersionIndustry.contents.IMTechTree;
 import immersionIndustry.contents.IMItems;
@@ -31,7 +30,6 @@ public class ImmersionIndustry extends Mod{
     //当加载模组内容时被调用
     @Override
     public void loadContent() {
-      IMStyles.load();
       new IMFx().load();
       new IMBullets().load();
       new IMItems().load();
