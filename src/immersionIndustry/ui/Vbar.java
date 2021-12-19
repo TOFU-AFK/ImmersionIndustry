@@ -15,6 +15,8 @@ import mindustry.ui.*;
 import mindustry.graphics.*;
 import mindustry.graphics.Shaders;
 
+import mindustry.content.*;
+
 import static mindustry.Vars.*;
 import static arc.graphics.g2d.Draw.rect;
 import static arc.graphics.g2d.Draw.*;
@@ -83,13 +85,14 @@ public class Vbar {
     if(datas.size < 1) return;
     Draw.draw(Layer.effect, () -> {
       Draw.shader(Shaders.slag);
-      for(int i=0;i<datas.size;i++) {
-        float a = datas.get(i).amount * prop;
+      //for(int i=0;i<datas.size;i++) {
+        Draw.rect(Items.copper.fullIcon);
+        /*float a = datas.get(i).amount * prop;
         Draw.color(datas.get(i).color);
         Fill.crect(x,y + drawh,width,a);
         Draw.color();
         drawh += a;
-      }
+      }*/
       Draw.shader();
     });
     Draw.reset();
