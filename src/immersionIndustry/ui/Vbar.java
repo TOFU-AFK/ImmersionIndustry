@@ -44,6 +44,12 @@ public class Vbar {
     prop = height / capacity;
   }
   
+  public Vbar(float width,float height) {
+    this.width = width;
+    this.height = height;
+    prop = height / capacity;
+  }
+  
   public void setProp(float prop) {
     this.prop = prop;
     prop = height / capacity;
