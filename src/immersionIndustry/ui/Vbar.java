@@ -82,14 +82,14 @@ public class Vbar {
     Fill.crect(x,y,width,height);
     if(datas.size < 1) return;
     Draw.draw(Layer.blockOver, () -> {
-      Draw.shader(Shaders.cryofluid);
-        for(int i=0;i<datas.size;i++) {
-          float a = datas.get(i).amount * prop;
-          Draw.color(datas.get(i).color);
-          Fill.crect(x,y + drawh,width,a);
-          Draw.color();
-          drawh += a;
-        }
+      Draw.shader(Shaders.space);
+      for(int i=0;i<datas.size;i++) {
+        float a = datas.get(i).amount * prop;
+        Draw.color(datas.get(i).color);
+        Fill.crect(x,y + drawh,width,a);
+        Draw.color();
+        drawh += a;
+      }
       Draw.shader();
     });
     Draw.reset();
