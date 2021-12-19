@@ -60,24 +60,26 @@ public class InnerEnergySmelter extends InnerenergyBlock {
   public void init() {
     super.init();
     barHeight = size * tilesize / 2 + 4;
-    ex = size * tilesize - barHeight*2;
+    ex = size * tilesize - barHeight*1.5f;
   }
   
   public class SmelterBuild extends InnerenergyBuild {
     
     Vbar vbar;
+    private float vbw;
     
     @Override
     public Building create(Block block, Team team) {
       super.create(block,team);
       vbar = new Vbar(barWidth);
+      vbw = vbar.width/2;
       return self();
     }
     
     @Override
     public void draw() {
       super.draw();
-      vbar.draw(x,y - ex);
+      vbar.draw(x - vbw,y - ex);
     }
     
     @Override
