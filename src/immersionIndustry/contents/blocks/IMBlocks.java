@@ -39,7 +39,6 @@ import immersionIndustry.types.blocks.production.*;
 import immersionIndustry.types.blocks.distribution.*;
 import immersionIndustry.types.innerenergy.blocks.*;
 import immersionIndustry.types.innerenergy.blocks.distribution.*;
-import immersionIndustry.types.innerenergy.blocks.production.*;
 
 //实现ContentList
 public class IMBlocks implements ContentList {
