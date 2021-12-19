@@ -76,6 +76,8 @@ public class InnerEnergySmelter extends InnerenergyBlock {
       super.create(block,team);
       vbar = new Vbar(barWidth,barHeight);
       grid = new ItemGrid();
+      vbar.add(Color.orange,"熔融铅",400);
+      vbar.add(Color.orange,"熔融铜",400);
       return self();
     }
     
