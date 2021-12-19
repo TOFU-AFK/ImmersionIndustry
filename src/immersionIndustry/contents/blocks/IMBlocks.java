@@ -37,30 +37,15 @@ import immersionIndustry.contents.IMFx;
 import immersionIndustry.contents.drawer.*;
 import immersionIndustry.types.blocks.production.*;
 import immersionIndustry.types.blocks.distribution.*;
-import immersionIndustry.types.innerenergy.blocks.*;
-import immersionIndustry.types.innerenergy.blocks.distribution.*;
 
 //实现ContentList
 public class IMBlocks implements ContentList {
   
-  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide,innerEnergyPipe,nearNerenergyConductor;
+  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide;
   
   //在这里创建变量
   @Override
   public void load() {
-    
-    nearNerenergyConductor = new NearNerenergyConductor("near-nerenergy-nonductor") {{
-      health = 200*size*size;
-      size = 1;
-      requirements(Category.power, ItemStack.with(Items.silicon, 15,IMItems.t1BasicChip, 5,Items.lead,60));
-      consumes.power(1);
-    }};
-    
-    innerEnergyPipe = new InnerPipeline("inner-energy-pipe"){{
-      health = 200*size*size;
-      size = 1;
-      requirements(Category.power, ItemStack.with(Items.copper, 6,Items.lead,6));
-    }};
     
     auroraGuide = new LaserTransmitter("aurora-guide"){{
       health = 200*size*size;
