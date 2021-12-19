@@ -92,7 +92,6 @@ public class Vbar {
       Draw.shader();
     });
     Draw.reset();
-    
   }
   
   public class VbarData {
