@@ -108,9 +108,10 @@ public class InnerEnergySmelter extends InnerenergyBlock {
       int i = 0;
       
       public void add(Item item,int amount) {
-        if(c+1>4) {
+        i++;
+        if(i>4) {
           row();
-          c = 0;
+          i = 0;
         }
         add(new ItemDisplay(item,amount));
       }
