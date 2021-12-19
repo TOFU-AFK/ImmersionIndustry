@@ -86,7 +86,7 @@ public class Vbar {
     Draw.draw(Layer.effect, () -> {
       Draw.shader(Shaders.slag);
       //for(int i=0;i<datas.size;i++) {
-        Draw.rect(Items.copper.fullIcon);
+        Draw.rect(Items.copper.fullIcon,x,y);
         /*float a = datas.get(i).amount * prop;
         Draw.color(datas.get(i).color);
         Fill.crect(x,y + drawh,width,a);
