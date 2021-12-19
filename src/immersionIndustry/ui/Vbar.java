@@ -77,12 +77,12 @@ public class Vbar {
   
   public void draw(float x,float y) {
     drawh = 0;
-    Draw.z(Layer.blockOver);
+    Draw.z(Layer.effect);
     Draw.color(background);
     Fill.crect(x,y,width,height);
     if(datas.size < 1) return;
-    Draw.draw(Layer.blockOver, () -> {
-      Draw.shader(Shaders.space);
+    Draw.draw(Layer.effect, () -> {
+      Draw.shader(Shaders.slag);
       for(int i=0;i<datas.size;i++) {
         float a = datas.get(i).amount * prop;
         Draw.color(datas.get(i).color);
