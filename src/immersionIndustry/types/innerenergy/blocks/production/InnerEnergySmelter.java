@@ -50,6 +50,7 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     super(name);
     solid = true;
     hasItems = true;
+    itemCapacity = 100;
     ambientSound = Sounds.machine;
     sync = true;
     ambientSoundVolume = 0.03f;
@@ -68,11 +69,13 @@ public class InnerEnergySmelter extends InnerenergyBlock {
   public class SmelterBuild extends InnerenergyBuild {
     
     Vbar vbar;
+    ItemGrid grid;
     
     @Override
     public Building create(Block block, Team team) {
       super.create(block,team);
       vbar = new Vbar(barWidth,barHeight);
+      grid = new ItemGrid();
       return self();
     }
     
@@ -84,11 +87,33 @@ public class InnerEnergySmelter extends InnerenergyBlock {
     
     @Override
     public void buildConfiguration(Table table) {
-      table.button("添加",() -> {
-        vbar.add(IMColors.colorPrimary,"熔融坍缩量",100);
-        vbar.add(Items.copper.color,"熔融铜",200);
+      if(!items.any()) return;
+      grid.clear();
+      items.each((Item item, int amount) -> {
+          grid.add(item,amount);
       });
-      //table.add(new SmelterView()).size(block.size * block.size * tilesize);
+      table.add(grid);
+    }
+    
+    public class ItemGrid extends Table {
+      
+      public int c = 4;
+      int i = 0;
+      
+      public void add(Item item,int amount) {
+        if(c+1>4) {
+          row();
+          c = 0;
+        }
+        add(new ItemDisplay(item,amount));
+      }
+      
+      @Override
+      public void clear(){
+        super.clear();
+        i = 0;
+      }
+      
     }
     
   }
