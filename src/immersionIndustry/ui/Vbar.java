@@ -83,18 +83,13 @@ public class Vbar {
     Draw.color(background);
     Fill.crect(x,y,width,height);
     if(datas.size < 1) return;
-    Draw.draw(Layer.effect, () -> {
-      Draw.shader(Shaders.slag);
-      //for(int i=0;i<datas.size;i++) {
-        Draw.rect(Items.copper.fullIcon,x,y);
-        /*float a = datas.get(i).amount * prop;
-        Draw.color(datas.get(i).color);
-        Fill.crect(x,y + drawh,width,a);
-        Draw.color();
-        drawh += a;
-      }*/
-      Draw.shader();
-    });
+    for(int i=0;i<datas.size;i++) {
+      float a = datas.get(i).amount * prop;
+      Draw.color(datas.get(i).color);
+      Fill.crect(x,y + drawh,width,a);
+      Draw.color();
+      drawh += a;
+    }
     Draw.reset();
   }
   
