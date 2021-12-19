@@ -42,7 +42,6 @@ public class IMTechTree implements ContentList {
     //方块
     node(Blocks.coreShard,t1ChipFactory);
     node(t1ChipFactory,auroraGuide);
-    node(t1ChipFactory,nearNerenergyConductor);
     node(t1ChipFactory,collapseQuantumCultivation);
     node(t1ChipFactory,collapseExtractor);
     
