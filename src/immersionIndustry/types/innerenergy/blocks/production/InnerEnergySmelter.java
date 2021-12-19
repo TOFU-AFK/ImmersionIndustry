@@ -60,7 +60,7 @@ public class InnerEnergySmelter extends InnerenergyBlock {
   public void init() {
     super.init();
     barHeight = size * tilesize / 2 + 4;
-    ex = size * tilesize - barHeight/2;
+    ex = size * tilesize - barHeight*2;
   }
   
   public class SmelterBuild extends InnerenergyBuild {
