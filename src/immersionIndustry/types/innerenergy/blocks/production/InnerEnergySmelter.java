@@ -97,6 +97,11 @@ public class InnerEnergySmelter extends InnerenergyBlock {
       table.add(grid);
     }
     
+    @Override
+    public boolean acceptItem(Building source, Item item){
+      return items.get(item) < getMaximumAccepted(item);
+    }
+    
     public class ItemGrid extends Table {
       
       public int c = 4;
