@@ -39,7 +39,7 @@ import static mindustry.Vars.*;
 import immersionIndustry.IMColors;
 
 public class IMFx implements ContentList {
-  public static Effect dispersion,shockWave,absorbedEnergy,crystallizationEnergy,absorptionHeat,lossHeat;
+  public static Effect dispersion,shockWave,absorbedEnergy,crystallizationEnergy,absorptionHeat,lossHeat,spread;
   
   public static void takeItemEffect(float x,float y,float x2,float y2,Color color,float lifeTime) {
     new Effect(lifeTime, e -> {
@@ -54,6 +54,19 @@ public class IMFx implements ContentList {
   
   @Override
   public void load() {
+    
+    spread = new Effect(45,e -> {
+      float r = 60;
+      if(e.data instanceof Float f) r = f;
+      Lines.circle();
+      Draw.color(IMColors.colorWhite);
+      Lines.stroke(3f);
+      Lines.circle(x, y, r*e.fin());
+      Draw.color(IMColors.colorYelow);
+      Lines.stroke(1f);
+      Lines.circle(x, y, r*e.fin());
+      Draw.color();
+    });
     
     absorptionHeat = new Effect(30f,e -> {
       color(Color.orange,Color.white,e.fin());
