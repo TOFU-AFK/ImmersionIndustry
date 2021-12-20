@@ -45,7 +45,7 @@ public class Diffuser extends Block {
     group = BlockGroup.projectors;
     hasPower = true;
     hasLiquids = true;
-    hasItems = true
+    hasItems = true;
     ambientSoundVolume = 0.08f;
     consumes.add(new ConsumeCoolant(0.1f)).boost().update(false);
   }
