@@ -22,6 +22,7 @@ import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
 import mindustry.world.consumers.*;
+import mindustry.world.blocks.power.*;
 
 import static mindustry.Vars.*;
 import static arc.graphics.g2d.Draw.rect;
@@ -58,6 +59,8 @@ public class Diffuser extends Block {
   
   public class DiffuserBuild extends Building {
     
+    public float charge,heat;
+    
     @Override
     public void updateTile() {
       heat = Mathf.lerpDelta(heat, consValid() || cheating() ? 1f : 0f, 0.08f);
@@ -68,8 +71,8 @@ public class Diffuser extends Block {
         /*遍历附近方块，并将电力传输到方块*/
         indexer.eachBlock(this, radius,other -> other.block.hasPower && other.team == team, other -> {
             PowerGraph ograph = other.power.graph;
-            float stored = graph.getBatteryStored() / backGraph.getTotalBatteryCapacity();
-            float ostored = ograph.getBatteryStored() / frontGraph.getTotalBatteryCapacity();
+            float stored = graph.getBatteryStored() / graph.getTotalBatteryCapacity();
+            float ostored = ograph.getBatteryStored() / ograph.getTotalBatteryCapacity();
             
             if(stored > ostored) {
               float amount = graph.getBatteryStored() * (stored - ostored) / 2;
