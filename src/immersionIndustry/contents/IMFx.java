@@ -58,13 +58,12 @@ public class IMFx implements ContentList {
     spread = new Effect(45,e -> {
       float r = 60;
       if(e.data instanceof Float f) r = f;
-      Lines.circle();
       Draw.color(IMColors.colorWhite);
       Lines.stroke(3f);
-      Lines.circle(x, y, r*e.fin());
-      Draw.color(IMColors.colorYelow);
+      Lines.circle(e.x, e.y, r*e.fin());
+      Draw.color(IMColors.colorYellow);
       Lines.stroke(1f);
-      Lines.circle(x, y, r*e.fin());
+      Lines.circle(e.x, e.y, r*e.fin());
       Draw.color();
     });
     
