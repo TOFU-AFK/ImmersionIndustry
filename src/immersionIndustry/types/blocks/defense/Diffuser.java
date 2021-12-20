@@ -36,7 +36,7 @@ import immersionIndustry.contents.IMFx;
 public class Diffuser extends Block {
   
   public float radius = 100f;
-  public float reload = 250f;
+  public float reload = 120f;
   public Effect spreadEffect = IMFx.spread;
   
   public Diffuser(String name) {
@@ -68,6 +68,22 @@ public class Diffuser extends Block {
       if(charge >= reload) {
         charge = 0f;
         spreadEffect.at(x,y,0,Color.white,radius);
+        Groups.bullet.intersect(x - radius, y - radius, radius * 2f, radius * 2f,bullet -> {
+          if(bullet.team != team && !bullet.type.pierce) {
+            bullet.trns(-bullet.vel.x, -bullet.vel.y);
+            float penX = Math.abs(x - bullet.x), penY = Math.abs(y - bullet.y);
+
+            if(penX > penY){
+              bullet.vel.x *= -1;
+            }else{
+              bullet.vel.y *= -1;
+            }
+
+            bullet.owner = this;
+            bullet.team = team;
+            bullet.time += bullet.lifetime / 2;
+          }
+        });
         /*遍历附近方块，并将电力传输到方块*/
         indexer.eachBlock(this, radius,other -> other.block.hasPower && other.team == team, other -> {
             PowerGraph ograph = other.power.graph;
@@ -85,5 +101,6 @@ public class Diffuser extends Block {
     }
     
   }
+  
   
 }
