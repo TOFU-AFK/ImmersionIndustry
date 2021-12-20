@@ -71,13 +71,13 @@ public class Diffuser extends Block {
         /*遍历附近方块，并将电力传输到方块*/
         indexer.eachBlock(this, radius,other -> other.block.hasPower && other.team == team, other -> {
             PowerGraph ograph = other.power.graph;
-            float stored = graph.getBatteryStored() / graph.getTotalBatteryCapacity();
+            float stored = power.graph.getBatteryStored() / power.graph.getTotalBatteryCapacity();
             float ostored = ograph.getBatteryStored() / ograph.getTotalBatteryCapacity();
             
             if(stored > ostored) {
-              float amount = graph.getBatteryStored() * (stored - ostored) / 2;
+              float amount = power.graph.getBatteryStored() * (stored - ostored) / 2;
               amount = Mathf.clamp(amount, 0, ograph.getTotalBatteryCapacity() * (1 - ostored));
-              graph.transferPower(-amount);
+              power.graph.transferPower(-amount);
               ograph.transferPower(amount);
             }
         });
