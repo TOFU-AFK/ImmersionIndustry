@@ -78,7 +78,7 @@ public class Diffuser extends ReloadTurret {
       Draw.z(Layer.turret);
 
       Drawf.shadow(region, x - elevation, y - elevation, rotation - 90);
-      Draw.rect(region, tile.x, tile.y, tile.rotation - 90);
+      Draw.rect(region, x, y, rotation - 90);
       
     }
     
