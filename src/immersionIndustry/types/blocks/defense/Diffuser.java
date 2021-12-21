@@ -45,7 +45,6 @@ public class Diffuser extends ReloadTurret {
   public boolean targetAir = true;
   //对陆
   public boolean targetGround = true;
-  public Cons<DiffuserBuild> drawer = tile -> Draw.rect(region, tile.x, tile.y, tile.rotation - 90);
   
   public Diffuser(String name) {
     super(name);
@@ -65,6 +64,7 @@ public class Diffuser extends ReloadTurret {
     
     @Override
     public void updateTile() {
+      findTarget();
       if(target != null && target.within(this, range)) {
         turnToTarget(angleTo(target));
       }
@@ -78,7 +78,7 @@ public class Diffuser extends ReloadTurret {
       Draw.z(Layer.turret);
 
       Drawf.shadow(region, x - elevation, y - elevation, rotation - 90);
-      drawer.get(this);
+      Draw.rect(region, tile.x, tile.y, tile.rotation - 90);
       
     }
     
