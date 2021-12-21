@@ -92,7 +92,7 @@ public class Diffuser extends ReloadTurret {
       if(targetAir && !targetGround){
         target = Units.closestEnemy(team, x, y, range, e -> !e.dead() && !e.isGrounded());
       }else{
-        target = Units.closestEnemy(team, x, y, range, e -> !e.dead() && (e.isGrounded() || targetAir) && (!e.isGrounded() || targetGround), b -> targetGround);
+        target = Units.closestEnemy(team, x, y, range, e -> !e.dead() && (e.isGrounded() || targetAir) && (!e.isGrounded() || targetGround));
       }
     }
     
