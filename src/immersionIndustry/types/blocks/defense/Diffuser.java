@@ -45,7 +45,6 @@ public class Diffuser extends ReloadTurret {
   public boolean targetAir = true;
   //对陆
   public boolean targetGround = true;
-  public Sortf unitSort = UnitSorts.closest;
   public Cons<DiffuserBuild> drawer = tile -> Draw.rect(region, tile.x, tile.y, tile.rotation - 90);
   
   public Diffuser(String name) {
@@ -91,9 +90,9 @@ public class Diffuser extends ReloadTurret {
       
       //其次寻找单位
       if(targetAir && !targetGround){
-        target = Units.bestEnemy(team, x, y, range, e -> !e.dead() && !e.isGrounded(), unitSort);
+        target = Units.closestEnemy(team, x, y, range, e -> !e.dead() && !e.isGrounded());
       }else{
-        target = Units.bestTarget(team, x, y, range, e -> !e.dead() && (e.isGrounded() || targetAir) && (!e.isGrounded() || targetGround), b -> targetGround, unitSort);
+        target = Units.closestEnemy(team, x, y, range, e -> !e.dead() && (e.isGrounded() || targetAir) && (!e.isGrounded() || targetGround), b -> targetGround);
       }
     }
     
