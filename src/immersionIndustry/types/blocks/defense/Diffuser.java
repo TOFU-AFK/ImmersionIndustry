@@ -23,6 +23,8 @@ import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
 import mindustry.world.consumers.*;
 import mindustry.world.blocks.power.*;
+import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.blocks.defense.turrets.ReloadTurret*;
 
 import static mindustry.Vars.*;
 import static arc.graphics.g2d.Draw.rect;
@@ -33,11 +35,16 @@ import static arc.math.Angles.*;
 import immersionIndustry.IMColors;
 import immersionIndustry.contents.IMFx;
 
-public class Diffuser extends Block {
+public class Diffuser extends ReloadTurret {
   
-  public float radius = 100f;
-  public float reload = 120f;
-  public Effect spreadEffect = IMFx.spread;
+  public TextureRegion baseRegion;
+  public float elevation = -1f;
+  //对空，包括子弹
+  public boolean targetAir = true;
+  //对陆
+  public boolean targetGround = true;
+  public Sortf unitSort = UnitSorts.closest;
+  public Cons<DiffuserBuild> drawer = tile -> Draw.rect(region, tile.x, tile.y, tile.rotation - 90);
   
   public Diffuser(String name) {
     super(name);
@@ -48,56 +55,48 @@ public class Diffuser extends Block {
     hasLiquids = true;
     hasItems = true;
     ambientSoundVolume = 0.08f;
-    consumes.add(new ConsumeCoolant(0.1f)).boost().update(false);
+    baseRegion = Core.atlas.find("block-" + size);
   }
   
-  @Override
-  public void drawPlace(int x, int y, int rotation, boolean valid) {
-    super.drawPlace(x, y, rotation, valid);
-    Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, radius, player.team().color);
-  }
-  
-  public class DiffuserBuild extends Building {
+  public class DiffuserBuild extends ReloadTurretBuild {
     
-    public float charge,heat;
+    public @Nullable Posc target;
     
     @Override
     public void updateTile() {
-      heat = Mathf.lerpDelta(heat, consValid() || cheating() ? 1f : 0f, 0.08f);
-      charge += heat * edelta();
-      if(charge >= reload) {
-        charge = 0f;
-        spreadEffect.at(x,y,0,Color.white,radius);
-        Groups.bullet.intersect(x - radius, y - radius, radius * 2f, radius * 2f,bullet -> {
-          if(bullet.team != team && !bullet.type.pierce) {
-            bullet.trns(-bullet.vel.x, -bullet.vel.y);
-            float penX = Math.abs(x - bullet.x), penY = Math.abs(y - bullet.y);
-
-            if(penX > penY){
-              bullet.vel.x *= -1;
-            }else{
-              bullet.vel.y *= -1;
-            }
-
-            bullet.owner = this;
-            bullet.team = team;
-            bullet.time += bullet.lifetime / 2;
-          }
-        });
-        /*遍历附近方块，并将电力传输到方块*/
-        indexer.eachBlock(this, radius,other -> other.block.hasPower && other.team == team, other -> {
-            PowerGraph ograph = other.power.graph;
-            float stored = power.graph.getBatteryStored() / power.graph.getTotalBatteryCapacity();
-            float ostored = ograph.getBatteryStored() / ograph.getTotalBatteryCapacity();
-            
-            if(stored > ostored) {
-              float amount = power.graph.getBatteryStored() * (stored - ostored) / 2;
-              amount = Mathf.clamp(amount, 0, ograph.getTotalBatteryCapacity() * (1 - ostored));
-              power.graph.transferPower(-amount);
-              ograph.transferPower(amount);
-            }
-        });
+      if(target != null && target.within(this, range)) {
+        turnToTarget(angleTo(target));
       }
+    }
+    
+    @Override
+    public void draw(){
+      Draw.rect(baseRegion, x, y);
+      Draw.color();
+
+      Draw.z(Layer.turret);
+
+      Drawf.shadow(region, x - elevation, y - elevation, rotation - 90);
+      drawer.get(this);
+      
+    }
+    
+    protected void findTarget(){
+      //首先寻找子弹
+      target = Groups.bullet.intersect(x - range, y - range, range*2, range*2).min(b -> b.team != team && b.type().hittable, b -> b.dst2(this));
+      
+      if(target != null) return;
+      
+      //其次寻找单位
+      if(targetAir && !targetGround){
+        target = Units.bestEnemy(team, x, y, range, e -> !e.dead() && !e.isGrounded(), unitSort);
+      }else{
+        target = Units.bestTarget(team, x, y, range, e -> !e.dead() && (e.isGrounded() || targetAir) && (!e.isGrounded() || targetGround), b -> targetGround, unitSort);
+      }
+    }
+    
+    protected void turnToTarget(float targetRot){
+      rotation = Angles.moveToward(rotation, targetRot, rotateSpeed * delta() * baseReloadSpeed());
     }
     
   }
