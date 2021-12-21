@@ -24,7 +24,7 @@ import mindustry.world.meta.*;
 import mindustry.world.consumers.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.defense.turrets.*;
-import mindustry.world.blocks.defense.turrets.ReloadTurret*;
+import mindustry.world.blocks.defense.turrets.ReloadTurret.*;
 
 import static mindustry.Vars.*;
 import static arc.graphics.g2d.Draw.rect;
