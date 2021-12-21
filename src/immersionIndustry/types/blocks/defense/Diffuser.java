@@ -1,6 +1,7 @@
 package immersionIndustry.types.blocks.defense;
 
 import arc.*;
+import arc.func.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
@@ -12,6 +13,7 @@ import arc.scene.ui.layout.Table;
 import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.entities.units.*;
+import mindustry.entities.Units.*;
 import mindustry.game.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
