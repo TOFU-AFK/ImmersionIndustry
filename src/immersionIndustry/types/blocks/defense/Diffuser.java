@@ -111,7 +111,7 @@ public class Diffuser extends ReloadTurret {
     }
     
     protected boolean isInRange(Posc p) {
-      
+      return false;
     }
     
   }
