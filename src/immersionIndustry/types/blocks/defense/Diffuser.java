@@ -14,6 +14,7 @@ import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.entities.units.*;
 import mindustry.entities.Units.*;
+import mindustry.entities.bullet.*;
 import mindustry.game.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -45,6 +46,7 @@ public class Diffuser extends ReloadTurret {
   public boolean targetAir = true;
   //对陆
   public boolean targetGround = true;
+  public Color diffusionColor = IMColors.colorYellow,darkColor = IMColors.colorWhite;
   
   public Diffuser(String name) {
     super(name);
@@ -80,6 +82,8 @@ public class Diffuser extends ReloadTurret {
       Drawf.shadow(region, x - elevation, y - elevation, rotation - 90);
       Draw.rect(region, x, y, rotation - 90);
       
+      color(diffusionColor,darkColor,efficiency());
+      swirl(x, y, range, 0.14f, rotation);
     }
     
     protected void findTarget(){
