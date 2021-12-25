@@ -82,8 +82,10 @@ public class Diffuser extends ReloadTurret {
       Drawf.shadow(region, x - elevation, y - elevation, rotation - 90);
       Draw.rect(region, x, y, rotation - 90);
       
-      color(diffusionColor,darkColor,efficiency());
+      Draw.z(Layer.effect);
+      stroke((0.7f + Mathf.absin(20, 0.7f)), diffusionColor);
       swirl(x, y, range, 0.14f, rotation);
+      Drawf.light(x, y, range, diffusionColor, 1);
     }
     
     protected void findTarget(){
