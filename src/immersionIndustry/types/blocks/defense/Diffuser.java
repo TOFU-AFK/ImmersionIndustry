@@ -86,8 +86,8 @@ public class Diffuser extends ReloadTurret {
       
       Draw.z(Layer.effect);
       stroke((0.7f + Mathf.absin(20, 0.7f)), diffusionColor);
-      Tmp.v1.trns(rotation,range/2);
-      lineAngleCenter(x, y + Tmp.v1.y, rotation,range/2);
+      lineAngleCenter(x, y + Tmp.v1.y, rotation-90,range/2);
+      Tmp.v1.trns(rotation-90,range/2);
       line(x,y,x,y + Tmp.v1.y);
       Drawf.light(x, y, range, diffusionColor, 1);
     }
