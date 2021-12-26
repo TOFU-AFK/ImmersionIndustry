@@ -46,7 +46,7 @@ public class Diffuser extends ReloadTurret {
   public boolean targetAir = true;
   //对陆
   public boolean targetGround = true;
-  public Color diffusionColor = IMColors.colorYellow,darkColor = IMColors.colorWhite;
+  public Color diffusionColor = IMColors.colorPrimary;
   //反弹速度
   public float knockback;
   //反弹敌人后给的状态
@@ -70,22 +70,28 @@ public class Diffuser extends ReloadTurret {
   
   public class DiffuserBuild extends ReloadTurretBuild {
     
+    //锁定的目标
     public @Nullable Posc target;
     
     @Override
     public void updateTile() {
-      findTarget();
       if(!cons.valid()) return;
+      
+      Groups.bullet.intersect(x, y, range, range, bullet -> {
+        if(isInRange(bullet)) {
+          shieldConsumer(bullet);
+        }
+      });
+      
+      Groups.unit.intersect(x, y, range, range, unit -> {
+        if(isInRange(unit)) {
+          shieldConsumer(unit);
+        }
+      });
+      
+      findTarget();
       if(target != null && target.within(this, range)) {
         turnToTarget(angleTo(target));
-        if(target instanceof Bullet bullet) {
-          bullet.absorb();
-        }else if(target instanceof Unit unit) {
-            Tmp.v3.set(unit).nor().scl(knockback * 80f);
-            if(impact) Tmp.v3.setAngle(rotation + (knockback < 0 ? 180f : 0f));
-            unit.impulse(Tmp.v3);
-            unit.apply(status, statusDuration);
-        }
       }
     }
     
@@ -100,12 +106,14 @@ public class Diffuser extends ReloadTurret {
       Draw.rect(region, x, y, rotation - 90);
       
       Draw.z(Layer.effect);
-      stroke((0.7f + Mathf.absin(20, 0.7f)), diffusionColor);
+      color(diffusionColor,new Color(baseReloadSpeed(),edelta(),0.5f),baseReloadSpeed());
+      stroke((0.7f + Mathf.absin(20, 0.7f)));
       swirl(x,y,range,0.5f,rotation-90);
       Drawf.light(x, y, range, diffusionColor, 1);
     }
     
     protected void findTarget(){
+      
       //首先寻找子弹
       target = Groups.bullet.intersect(x - range, y - range, range*2, range*2).min(b -> b.team != team && b.type().hittable, b -> b.dst2(this));
       
@@ -123,16 +131,28 @@ public class Diffuser extends ReloadTurret {
       rotation = Angles.moveToward(rotation, targetRot, rotateSpeed * delta() * baseReloadSpeed());
     }
     
+    protected void shieldConsumer(Posc p) {
+      if(target instanceof Bullet bullet) {
+        bullet.absorb();
+      }
+      else if(target instanceof Unit unit) {
+        Tmp.v3.set(unit).nor().scl(knockback * 80f);
+        if(impact) Tmp.v3.setAngle(rotation-90 + (knockback < 0 ? 180f : 0f));
+          unit.impulse(Tmp.v3);
+          unit.apply(status, statusDuration);
+       }
+    }
+    
     protected boolean isInRange() {
       return isInRange(target);
     }
     
     protected boolean isInRange(Posc p) {
       if(p==null) return false;
-      /*if(p.within(this, range)) {
-        Tmp.v1.trns(rotation,x,y);
-        if(p.x > )
-      }*/
+      float rot Angles.moveToward(rotation, angleTo(p),1);
+      if(p.within(this, range) && rot <= 90 && rot >= -90) {
+        return true;
+      }
       return false;
     }
     
