@@ -69,9 +69,10 @@ public class Diffuser extends ReloadTurret {
       findTarget();
       if(target != null && target.within(this, range)) {
         turnToTarget(angleTo(target));
+        if(target instanceof Bullet bullet) {
+          bullet.absorb();
+        }
       }
-      
-      
     }
     
     @Override
@@ -86,7 +87,7 @@ public class Diffuser extends ReloadTurret {
       
       Draw.z(Layer.effect);
       stroke((0.7f + Mathf.absin(20, 0.7f)), diffusionColor);
-      swirl(x,y,range,0.5f,rotation+45);
+      swirl(x,y,range,0.5f,rotation-45);
       Drawf.light(x, y, range, diffusionColor, 1);
     }
     
@@ -108,7 +109,16 @@ public class Diffuser extends ReloadTurret {
       rotation = Angles.moveToward(rotation, targetRot, rotateSpeed * delta() * baseReloadSpeed());
     }
     
+    protected boolean isInRange() {
+      return isInRange(target);
+    }
+    
     protected boolean isInRange(Posc p) {
+      if(p==null) return false;
+      /*if(p.within(this, range)) {
+        Tmp.v1.trns(rotation,x,y);
+        if(p.x > )
+      }*/
       return false;
     }
     
