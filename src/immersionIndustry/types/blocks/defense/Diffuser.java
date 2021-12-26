@@ -47,6 +47,12 @@ public class Diffuser extends ReloadTurret {
   //对陆
   public boolean targetGround = true;
   public Color diffusionColor = IMColors.colorYellow,darkColor = IMColors.colorWhite;
+  //反弹速度
+  public float knockback;
+  //反弹敌人后给的状态
+  public StatusEffect status = StatusEffects.none;
+  //状态持续时间
+  public float statusDuration = 60 * 8f;
   
   public Diffuser(String name) {
     super(name);
@@ -58,6 +64,7 @@ public class Diffuser extends ReloadTurret {
     hasItems = true;
     ambientSoundVolume = 0.08f;
     baseRegion = Core.atlas.find("block-" + size);
+    knockback = 0.5f;
   }
   
   public class DiffuserBuild extends ReloadTurretBuild {
@@ -67,10 +74,16 @@ public class Diffuser extends ReloadTurret {
     @Override
     public void updateTile() {
       findTarget();
+      if(!cons.valid()) return;
       if(target != null && target.within(this, range)) {
         turnToTarget(angleTo(target));
         if(target instanceof Bullet bullet) {
           bullet.absorb();
+        }else if(target instanceof Unit unit) {
+            Tmp.v3.set(unit).nor().scl(knockback * 80f);
+            if(impact) Tmp.v3.setAngle(rotation + (knockback < 0 ? 180f : 0f));
+            unit.impulse(Tmp.v3);
+            unit.apply(status, statusDuration);
         }
       }
     }
@@ -87,7 +100,7 @@ public class Diffuser extends ReloadTurret {
       
       Draw.z(Layer.effect);
       stroke((0.7f + Mathf.absin(20, 0.7f)), diffusionColor);
-      swirl(x,y,range,0.5f,rotation-45);
+      swirl(x,y,range,0.5f,rotation-90);
       Drawf.light(x, y, range, diffusionColor, 1);
     }
     
