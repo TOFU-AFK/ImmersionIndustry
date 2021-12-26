@@ -149,7 +149,8 @@ public class Diffuser extends ReloadTurret {
     
     protected boolean isInRange(Posc p) {
       if(p==null) return false;
-      if(p.within(this, range) && angleTo(p) - 90 < 180) {
+      Log.info("[IM] angle: @",angleTo(p));
+      if(p.within(this, range) {
         return true;
       }
       return false;
