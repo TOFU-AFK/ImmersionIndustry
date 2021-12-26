@@ -150,8 +150,7 @@ public class Diffuser extends ReloadTurret {
     protected boolean isInRange(Posc p) {
       if(p==null) return false;
       float rot = Angles.moveToward(rotation, angleTo(p),1);
-      Log.info("[IM] rot: @",rot);
-      if(p.within(this, range) && rot <= 90 && rot >= -90) {
+      if(p.within(this, range) && rot <= 180 && rot >= -180) {
         return true;
       }
       return false;
