@@ -65,7 +65,7 @@ public class Diffuser extends ReloadTurret {
     hasItems = true;
     ambientSoundVolume = 0.08f;
     baseRegion = Core.atlas.find("block-" + size);
-    knockback = 3f;
+    knockback = 12f;
   }
   
   public class DiffuserBuild extends ReloadTurretBuild {
@@ -80,9 +80,7 @@ public class Diffuser extends ReloadTurret {
         turnToTarget(angleTo(target));
         if(target instanceof Bullet bullet) {
           bullet.absorb();
-        }
-        if(target instanceof Unit unit) {
-            Log.info("[IM] target: @","x: " + unit.x + " y: " + unit.y);
+        }else if(target instanceof Unit unit) {
             Tmp.v3.set(unit).nor().scl(knockback * 80f);
             if(impact) Tmp.v3.setAngle(rotation + (knockback < 0 ? 180f : 0f));
             unit.impulse(Tmp.v3);
