@@ -53,6 +53,7 @@ public class Diffuser extends ReloadTurret {
   public StatusEffect status = StatusEffects.none;
   //状态持续时间
   public float statusDuration = 60 * 8f;
+  public boolean impact;
   
   public Diffuser(String name) {
     super(name);
