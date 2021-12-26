@@ -145,10 +145,16 @@ public class Diffuser extends ReloadTurret {
     
     protected boolean isInRange(Posc p) {
       if(p==null) return false;
-      if(within(p, range)) {
+      if(pointInsideCircle(p)) {
         return true;
       }
       return false;
+    }
+    
+    public boolean pointInsideCircle(Posc p) {
+      float dx = x - p.getX();
+      float dy = y - p.getY();
+      return dx * dx + dy * dy <= range * range;
     }
     
   }
