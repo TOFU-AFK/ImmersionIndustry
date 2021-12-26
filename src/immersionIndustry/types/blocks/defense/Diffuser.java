@@ -82,7 +82,7 @@ public class Diffuser extends ReloadTurret {
           bullet.absorb();
         }
         if(target instanceof Unit unit) {
-            Log.info("[IM] target: @","x: " + target.x + " y: " + target.y);
+            Log.info("[IM] target: @","x: " + unit.x + " y: " + unit.y);
             Tmp.v3.set(unit).nor().scl(knockback * 80f);
             if(impact) Tmp.v3.setAngle(rotation + (knockback < 0 ? 180f : 0f));
             unit.impulse(Tmp.v3);
