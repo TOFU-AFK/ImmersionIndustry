@@ -86,7 +86,7 @@ public class Diffuser extends ReloadTurret {
       
       Draw.z(Layer.effect);
       stroke((0.7f + Mathf.absin(20, 0.7f)), diffusionColor);
-      swirl(x,y,range,0.14f,rotation+45);
+      swirl(x,y,range,0.5f,rotation+45);
       Drawf.light(x, y, range, diffusionColor, 1);
     }
     
