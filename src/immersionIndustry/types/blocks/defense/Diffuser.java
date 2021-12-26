@@ -106,7 +106,7 @@ public class Diffuser extends ReloadTurret {
       Draw.rect(region, x, y, rotation - 90);
       
       Draw.z(Layer.effect);
-      color(diffusionColor,new Color(baseReloadSpeed(),edelta(),0.5f),baseReloadSpeed());
+      color(diffusionColor,baseReloadSpeed());
       stroke((0.7f + Mathf.absin(20, 0.7f)));
       swirl(x,y,range,0.5f,rotation-90);
       Drawf.light(x, y, range, diffusionColor, 1);
@@ -150,6 +150,7 @@ public class Diffuser extends ReloadTurret {
     protected boolean isInRange(Posc p) {
       if(p==null) return false;
       float rot = Angles.moveToward(rotation, angleTo(p),1);
+      Log.info("[IM] rot: @",rot);
       if(p.within(this, range) && rot <= 90 && rot >= -90) {
         return true;
       }
