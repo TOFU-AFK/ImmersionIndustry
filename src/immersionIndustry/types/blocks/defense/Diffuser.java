@@ -78,13 +78,13 @@ public class Diffuser extends ReloadTurret {
       if(!cons.valid()) return;
       
       Groups.bullet.intersect(x, y, range, range, bullet -> {
-        if(bullet.within(this,range)) {
+        if(isInRange(bullet)) {
           shieldConsumer(bullet);
         }
       });
       
       Groups.unit.intersect(x, y, range, range, unit -> {
-        if(unit.within(this,range)) {
+        if(isInRange(unit)) {
           shieldConsumer(unit);
         }
       });
@@ -143,9 +143,9 @@ public class Diffuser extends ReloadTurret {
        }
     }
     
-    protected boolean isInRange(Posc p) {
-      if(p==null) return false;
-      if(p.within(this,range)) {
+    protected boolean isInRange(Teamc t) {
+      if(t==null) return false;
+      if(t.team != team && t.within(this,range)) {
         return true;
       }
       return false;
