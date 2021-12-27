@@ -77,13 +77,13 @@ public class Diffuser extends ReloadTurret {
     public void updateTile() {
       if(!cons.valid()) return;
       
-      Groups.bullet.intersect(x, y, range, range, bullet -> {
+      Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, bullet -> {
         if(bullet.team != team && bullet.within(this,range)) {
           shieldConsumer(bullet);
         }
       });
       
-      Groups.unit.intersect(x, y, range, range, unit -> {
+      Groups.unit.intersect(x - range, y - range, range * 2, range * 2, unit -> {
         if(unit.team != team && unit.within(this,range)) {
           shieldConsumer(unit);
         }
