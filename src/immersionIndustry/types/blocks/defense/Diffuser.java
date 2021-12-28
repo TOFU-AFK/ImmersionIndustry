@@ -79,13 +79,15 @@ public class Diffuser extends ReloadTurret {
       
       Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, bullet -> {
         float rot = Mathf.mod(angleTo(bullet), 360f);
-        if(bullet.team != team && bullet.within(this,range) && rot < 180 && rot > 0) {
+        Log.info("[测试] 子弹角度: @",rot);
+        if(bullet.team != team && bullet.within(this,range) &&  rot < 180 && rot > 0) {
           shieldConsumer(bullet);
         }
       });
       
       Groups.unit.intersect(x - range, y - range, range * 2, range * 2, unit -> {
         float rot = Mathf.mod(angleTo(unit), 360f);
+        Log.info("[测试] 玩家角度: @",rot);
         if(unit.team != team && unit.within(this,range) && rot < 180 && rot > 0) {
           shieldConsumer(unit);
         }
