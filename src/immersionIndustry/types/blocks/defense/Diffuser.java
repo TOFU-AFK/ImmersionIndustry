@@ -79,7 +79,7 @@ public class Diffuser extends ReloadTurret {
       
       Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, bullet -> {
         float rot = Mathf.mod(angleTo(bullet), 360f);
-        if(bullet.team != team && bullet.within(this,range) && isInRange(angleTo(unit))) {
+        if(bullet.team != team && bullet.within(this,range) && isInRange(angleTo(bullet))) {
           shieldConsumer(bullet);
         }
       });
@@ -99,7 +99,6 @@ public class Diffuser extends ReloadTurret {
     //是否在防御的范围
     protected boolean isInRange(float to) {
       float angle = rotation;
-      if(Math.abs(Angles.angleDist(angle, to)) < speed) return to;
       angle = Mathf.mod(angle, 360f);
       to = Mathf.mod(to, 360f);
       
