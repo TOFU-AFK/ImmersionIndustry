@@ -107,6 +107,7 @@ public class Diffuser extends ReloadTurret {
       }else{
         if(to - angle <= 90) return true;
       }
+      return false;
     }
     
     @Override
