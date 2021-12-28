@@ -79,15 +79,13 @@ public class Diffuser extends ReloadTurret {
       
       Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, bullet -> {
         float rot = Mathf.mod(angleTo(bullet), 360f);
-        if(bullet.team != team && bullet.within(this,range) && rotation - 90 <= 180 ? (rot <= 180 && rot > 0) : rot >= 180) {
+        if(bullet.team != team && bullet.within(this,range) && isInRange(angleTo(unit))) {
           shieldConsumer(bullet);
         }
       });
       
       Groups.unit.intersect(x - range, y - range, range * 2, range * 2, unit -> {
-        float rot = Mathf.mod(angleTo(unit), 360f);
-        Log.info("[测试] 玩家角度: @",rot);
-        if(unit.team != team && unit.within(this,range) && rot < 180 && rotation - 90 <= 180 ? (rot <= 180 && rot > 0) : rot >= 180) {
+        if(unit.team != team && unit.within(this,range) && isInRange(angleTo(unit))) {
           shieldConsumer(unit);
         }
       });
@@ -95,6 +93,20 @@ public class Diffuser extends ReloadTurret {
       findTarget();
       if(target != null && target.within(this, range)) {
         turnToTarget(angleTo(target));
+      }
+    }
+    
+    //是否在防御的范围
+    protected boolean isInRange(float to) {
+      float angle = rotation;
+      if(Math.abs(Angles.angleDist(angle, to)) < speed) return to;
+      angle = Mathf.mod(angle, 360f);
+      to = Mathf.mod(to, 360f);
+      
+      if(angle > to == Angles.backwardDistance(angle, to) > Angles.forwardDistance(angle, to)){
+        if(angle - to <= 90) return true;
+      }else{
+        if(to - angle <= 90) return true;
       }
     }
     
