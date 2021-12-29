@@ -63,7 +63,7 @@ public class IMFx implements ContentList {
       Draw.z(Layer.effect);
       if(e.data instanceof Vec2 vec) {
         randLenVectors(e.id, 5, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
-          lineAngle(vec.x - x, vec.y - y,Angles.angle(e.x,e.y,vec.x,vec.y) + Mathf.range(12), e.fslope() * 2f + 1f);
+          lineAngle(vec.x + x, vec.y + y,Mathf.angle(x, y), e.fslope() * 2f + 1f);
         });
       }
     });
