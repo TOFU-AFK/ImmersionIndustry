@@ -61,13 +61,10 @@ public class IMFx implements ContentList {
     absorb = new Effect(45,e -> {
       color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fout());
       Draw.z(Layer.effect);
-      if(e.data instanceof Bullet bullet) {
-        randLenVectors(e.id, 2, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
-          lineAngle(bullet.x - x, bullet.y - y, Mathf.angle(x, y), e.fslope() * 2f + 1f);
+      if(e.data instanceof Vec2 vec) {
+        randLenVectors(e.id, 5, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
+          lineAngle(vec.x - x, vec.y - y,Angles.angle(e.x,e.y,vec.x,vec.y) + Mathf.range(12), e.fslope() * 2f + 1f);
         });
-      }else if(e.data instanceof Unit unit){
-        stroke((0.7f + Mathf.absin(20, 0.7f)));
-        swirl(e.x,e.y,Mathf.dst(e.x,e.y,unit.x,unit.y),0.1f,e.rotation);
       }
     });
     
