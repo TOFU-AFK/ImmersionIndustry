@@ -54,6 +54,7 @@ public class Diffuser extends ReloadTurret {
   //状态持续时间
   public float statusDuration = 60 * 8f;
   public boolean impact;
+  public Effect absorbEffect = IMFx.absorb;
   
   public Diffuser(String name) {
     super(name);
@@ -148,6 +149,7 @@ public class Diffuser extends ReloadTurret {
     
     protected void shieldConsumer(Posc p) {
       if(target instanceof Bullet bullet) {
+        bullet.hit = true;
         bullet.absorb();
       }
       else if(target instanceof Unit unit) {
