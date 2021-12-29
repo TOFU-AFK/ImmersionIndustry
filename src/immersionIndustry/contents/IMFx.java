@@ -1,5 +1,6 @@
 package immersionIndustry.contents;
 import arc.*;
+import arc.util.*;
 import arc.math.*;
 import arc.math.geom.*;
 import arc.graphics.*;
@@ -62,7 +63,7 @@ public class IMFx implements ContentList {
       Draw.z(Layer.effect);
       if(e.data instanceof Diffuser block) {
         stroke((0.7f + Mathf.absin(20, 0.7f)));
-        swirl(e.x,e.y,block.range + Mathf.range(4),0.2 * e.fslope(),e.rotation-90);
+        swirl(e.x,e.y,block.range + Mathf.range(4),0.2f * e.fslope(),e.rotation-90);
       }
       randLenVectors(e.id, 2, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
       Drawf.tri(e.x - x, e.y - y,Mathf.range(10) * e.fslope(),Mathf.range(10) * e.fslope(),e.rotation + Time.time);
