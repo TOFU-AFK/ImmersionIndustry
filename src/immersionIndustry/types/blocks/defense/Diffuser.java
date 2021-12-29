@@ -103,9 +103,9 @@ public class Diffuser extends ReloadTurret {
       to = Mathf.mod(to, 360f);
       
       if(angle > to == Angles.backwardDistance(angle, to) > Angles.forwardDistance(angle, to)){
-        if(angle - to <= 90 && > 0) return true;
+        if(angle - to <= 90  > 0) return true;
       }else{
-        if(to - angle <= 90 && > 0) return true;
+        if(to - angle <= 90  > 0) return true;
       }
       return false;
     }
