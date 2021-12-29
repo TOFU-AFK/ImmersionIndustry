@@ -99,14 +99,13 @@ public class Diffuser extends ReloadTurret {
     
     //是否在防御的范围
     protected boolean isInRange(float to) {
-      float angle = rotation;
-      angle = Mathf.mod(angle, 360f);
+      float angle = Mathf.mod(rotation, 360f);
       to = Mathf.mod(to, 360f);
       
       if(angle > to == Angles.backwardDistance(angle, to) > Angles.forwardDistance(angle, to)){
-        if(angle - to <= 90) return true;
+        if(angle - to <= 90 && > 0) return true;
       }else{
-        if(to - angle <= 90) return true;
+        if(to - angle <= 90 && > 0) return true;
       }
       return false;
     }
