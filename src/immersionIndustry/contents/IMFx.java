@@ -38,8 +38,10 @@ import static arc.math.Angles.*;
 import static mindustry.Vars.*;
 import immersionIndustry.IMColors;
 
+import immersionIndustry.types.blocks.defense.Diffuser;
+
 public class IMFx implements ContentList {
-  public static Effect dispersion,shockWave,absorbedEnergy,crystallizationEnergy,absorptionHeat,lossHeat,spread;
+  public static Effect dispersion,shockWave,absorbedEnergy,crystallizationEnergy,absorptionHeat,lossHeat,spread,absorb;
   
   public static void takeItemEffect(float x,float y,float x2,float y2,Color color,float lifeTime) {
     new Effect(lifeTime, e -> {
@@ -55,14 +57,24 @@ public class IMFx implements ContentList {
   @Override
   public void load() {
     
+    absorb = new Effect(45,e ->) {
+      color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fout());
+      Draw.z(Layer.effect);
+      if(e.data instanceof Diffuser block) {
+        stroke((0.7f + Mathf.absin(20, 0.7f)));
+        swirl(e.x,e.y,block.range + Mathf.range(4),0.2 * e.fslope(),e.rotation-90);
+      }
+      randLenVectors(e.id, 2, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
+      Drawf.tri(e.x - x, e.y - y,Mathf.range(10) * e.fslope(),Mathf.range(10) * e.fslope(),e.rotation + Time.time);
+      Fill.rect(e.x - x, e.y + y,Mathf.range(10) * e.fslope(),Mathf.range(10) * e.fslope(),e.rotation + Time.time);
+      });
+    }
+    
     spread = new Effect(45,e -> {
       float r = 60;
       if(e.data instanceof Float f) r = f;
-      Draw.color(IMColors.colorWhite);
-      Lines.stroke(3f);
-      Lines.circle(e.x, e.y, r*e.fin());
-      Draw.color(IMColors.colorYellow);
-      Lines.stroke(1f);
+      Draw.color(IMColors.colorYellow,IMColors.colorWhite,e.fin());
+      Lines.stroke(3f * e.fin());
       Lines.circle(e.x, e.y, r*e.fin());
       Draw.color();
     });
