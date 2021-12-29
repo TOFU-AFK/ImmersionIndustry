@@ -61,14 +61,14 @@ public class IMFx implements ContentList {
     absorb = new Effect(45,e -> {
       color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fout());
       Draw.z(Layer.effect);
-      if(e.data instanceof Diffuser block) {
+      if(e.data instanceof Bullet bullet) {
+        randLenVectors(e.id, 2, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
+          lineAngle(bullet.x - x, bullet.y - y, Mathf.angle(x, y), e.fslope() * 2f + 1f);
+        });
+      }else if(e.data instanceof Unit unit){
         stroke((0.7f + Mathf.absin(20, 0.7f)));
-        swirl(e.x,e.y,block.range + Mathf.range(4),0.2f * e.fslope(),e.rotation-90);
+        swirl(e.x,e.y,Mathf.dst(e.x,e.y,unit.x,unit.y),0.1f,e.rotation);
       }
-      randLenVectors(e.id, 2, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
-      Drawf.tri(e.x - x, e.y - y,Mathf.range(10) * e.fslope(),Mathf.range(10) * e.fslope(),e.rotation + Time.time);
-      Fill.rect(e.x - x, e.y + y,Mathf.range(10) * e.fslope(),Mathf.range(10) * e.fslope(),e.rotation + Time.time);
-      });
     });
     
     spread = new Effect(45,e -> {
