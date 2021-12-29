@@ -57,7 +57,7 @@ public class IMFx implements ContentList {
   @Override
   public void load() {
     
-    absorb = new Effect(45,e ->) {
+    absorb = new Effect(45,e -> {
       color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fout());
       Draw.z(Layer.effect);
       if(e.data instanceof Diffuser block) {
@@ -68,7 +68,7 @@ public class IMFx implements ContentList {
       Drawf.tri(e.x - x, e.y - y,Mathf.range(10) * e.fslope(),Mathf.range(10) * e.fslope(),e.rotation + Time.time);
       Fill.rect(e.x - x, e.y + y,Mathf.range(10) * e.fslope(),Mathf.range(10) * e.fslope(),e.rotation + Time.time);
       });
-    }
+    });
     
     spread = new Effect(45,e -> {
       float r = 60;
