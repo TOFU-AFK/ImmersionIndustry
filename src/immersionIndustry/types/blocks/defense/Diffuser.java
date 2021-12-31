@@ -86,7 +86,7 @@ public class Diffuser extends ReloadTurret {
       });
       
       Groups.unit.intersect(x - range, y - range, range * 2, range * 2, unit -> {
-        if(unit.team != team && unit.within(this,range) && isInRange(angleTo(unit),true)) {
+        if(unit.team != team && unit.within(this,range) && isInRange(angleTo(unit))) {
           shieldConsumer(unit);
         }
       });
