@@ -86,7 +86,7 @@ public class Diffuser extends ReloadTurret {
       });
       
       Groups.unit.intersect(x - range, y - range, range * 2, range * 2, unit -> {
-        if(unit.team != team && unit.within(this,range) && isInRange(angleTo(unit))) {
+        if(unit.team != team && unit.within(this,range) && isInRange(angleTo(unit),true)) {
           shieldConsumer(unit);
         }
       });
@@ -103,9 +103,23 @@ public class Diffuser extends ReloadTurret {
       to = Mathf.mod(to, 360f);
       
       if(angle > to == Angles.backwardDistance(angle, to) > Angles.forwardDistance(angle, to)){
-        if(angle - to <= 90 && angle - to > 0) return true;
+        if(angle - to <= 90) return true;
       }else{
-        if(to - angle <= 90 && to - angle > 0) return true;
+        if(to - angle <= 90) return true;
+      }
+      return false;
+    }
+    
+    protected boolean isInRange(float to,boolean v) {
+      float angle = Mathf.mod(rotation, 360f);
+      to = Mathf.mod(to, 360f);
+      
+      if(angle > to == Angles.backwardDistance(angle, to) > Angles.forwardDistance(angle, to)){
+        if(v) Log.info("[测试] 角度: @",angle - to);
+        if(angle - to <= 90) return true;
+      }else{
+        if(v) Log.info("[测试] 角度: @",to - angle);
+        if(to - angle <= 90) return true;
       }
       return false;
     }
