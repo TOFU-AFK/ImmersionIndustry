@@ -55,6 +55,7 @@ public class Diffuser extends ReloadTurret {
   public float statusDuration = 60 * 8f;
   public boolean impact;
   public Effect absorbEffect = IMFx.absorb;
+  public float powerUse = 1;
   
   public Diffuser(String name) {
     super(name);
@@ -68,6 +69,12 @@ public class Diffuser extends ReloadTurret {
     baseRegion = Core.atlas.find("block-" + size);
     knockback = 12f;
   }
+
+  @Override
+  public void init() {
+    consumes.powerCond(powerUse, DiffuserBuild::isActive);
+    super.init();
+  }
   
   public class DiffuserBuild extends ReloadTurretBuild {
     
@@ -79,8 +86,8 @@ public class Diffuser extends ReloadTurret {
       if(!cons.valid()) return;
       
       Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, bullet -> {
-        float rot = Mathf.mod(angleTo(bullet), 360f);
         if(bullet.team != team && bullet.within(this,range) && isInRange(angleTo(bullet))) {
+          Log.info("[测试] 角度: @",angleTo(bullet));
           shieldConsumer(bullet);
         }
       });
@@ -110,6 +117,10 @@ public class Diffuser extends ReloadTurret {
       return false;
     }
     
+    public boolean isActive(){
+      return target != null && enabled;
+    }
+    
     @Override
     public void draw(){
       Draw.rect(baseRegion, x, y);
@@ -120,6 +131,7 @@ public class Diffuser extends ReloadTurret {
       Drawf.shadow(region, x - elevation, y - elevation, rotation - 90);
       Draw.rect(region, x, y, rotation - 90);
       
+      if(!isActive()) return;
       Draw.z(Layer.effect);
       color(diffusionColor,baseReloadSpeed());
       stroke((0.7f + Mathf.absin(20, 0.7f)));
@@ -150,14 +162,14 @@ public class Diffuser extends ReloadTurret {
       if(target instanceof Bullet bullet) {
         bullet.hit = true;
         bullet.absorb();
-        absorbEffect.at(x,y,rotation,new Vec2(bullet.x,bullet.y));
+        absorbEffect.at(bullet.x,bullet.y);
       }
       else if(target instanceof Unit unit) {
         Tmp.v3.set(unit).nor().scl(knockback * 80f);
         if(impact) Tmp.v3.setAngle(rotation-90 + (knockback < 0 ? 180f : 0f));
           unit.impulse(Tmp.v3);
           unit.apply(status, statusDuration);
-          absorbEffect.at(x,y,rotation,new Vec2(unit.x,unit.y));
+          absorbEffect.at(unit.x,unit.y);
        }
     }
     
