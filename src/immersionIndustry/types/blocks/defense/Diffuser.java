@@ -106,6 +106,7 @@ public class Diffuser extends ReloadTurret {
     //是否在防御的范围
     protected boolean isInRange(float to) {
       to = to - rotation;
+      Log.info("to: @",to);
       if(to >= -90 && to <= 90) return true;
       return false;
     }
