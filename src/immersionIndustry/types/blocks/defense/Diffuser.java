@@ -93,27 +93,20 @@ public class Diffuser extends ReloadTurret {
       
       Groups.unit.intersect(x - range, y - range, range * 2, range * 2, unit -> {
         if(unit.team != team && unit.within(this,range) && isInRange(angleTo(unit))) {
-          Log.info("[测试] 角度: @",angleTo(unit) - rotation);
           shieldConsumer(unit);
         }
       });
       
-      findTarget();
+      /*findTarget();
       if(target != null && target.within(this, range)) {
         turnToTarget(angleTo(target));
-      }
+      }*/
     }
     
     //是否在防御的范围
     protected boolean isInRange(float to) {
-      float angle = Mathf.mod(rotation, 360f);
-      to = Mathf.mod(to, 360f);
-      
-      if(angle > to == Angles.backwardDistance(angle, to) > Angles.forwardDistance(angle, to)){
-        if(angle - to <= 90 && angle - to >=  -90) return true;
-      }else{
-        if(to - angle <= 90 && to - angle >=  -90) return true;
-      }
+      to = to - rotation;
+      if(to >= -90 && to <= 90) return true;
       return false;
     }
     
@@ -131,7 +124,7 @@ public class Diffuser extends ReloadTurret {
       Drawf.shadow(region, x - elevation, y - elevation, rotation - 90);
       Draw.rect(region, x, y, rotation - 90);
       
-      if(!isActive()) return;
+      //if(!isActive()) return;
       Draw.z(Layer.effect);
       color(diffusionColor,baseReloadSpeed());
       stroke((0.7f + Mathf.absin(20, 0.7f)));
