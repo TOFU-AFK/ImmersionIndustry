@@ -59,13 +59,12 @@ public class IMFx implements ContentList {
   public void load() {
     
     absorb = new Effect(45,e -> {
-      color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fout());
-      Draw.z(Layer.effect);
-      if(e.data instanceof Vec2 vec) {
-        randLenVectors(e.id, 5, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
-          lineAngle(vec.x + x, vec.y + y,Mathf.angle(x, y), e.fslope() * 2f + 1f);
-        });
-      }
+      randLenVectors(e.id, 5, 1f + 20f * e.fout(), e.rotation, 120f, (x, y) -> {
+        Seq<Vec2> lines = new Seq<>();
+        lines.add(new Vec(e.x,e.y));
+        lines.add(new Vec(e.x - x,e.y - y));
+        Fx.lightning.at(e.x + x, e.y + y, Mathf.angle(x, y),IMColors.colorPrimary , lines);
+      });
     });
     
     spread = new Effect(45,e -> {
