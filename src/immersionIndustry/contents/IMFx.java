@@ -62,11 +62,13 @@ public class IMFx implements ContentList {
     absorb = new Effect(45,e -> {
       if(e.data instanceof Building build) {
         Seq<Vec2> lines = new Seq<>();
-        lines.add(new Vec2(e.x - build.x / 2,e.y - build.y));
+        lines.add(new Vec2(build.x,build.y));
+        lines.add(new Vec2());
         lines.add(new Vec2(e.x,e.y));
-        Fx.lightning.at(build.x, build.y, Mathf.angle(e.x,e.y),IMColors.colorPrimary , lines);
-        lines.get(0).set(new Vec2(build.x - e.x / 2,build.y - e.y));
-        Fx.lightning.at(build.x, build.y, Mathf.angle(e.x,e.y),IMColors.colorPrimary , lines);
+        randLenVectors(e.id, 3, 40f * e.fout(), (x, y) -> {
+          lines.get(1).set(new Vec2(build.x + x,build.y +y));
+          Fx.lightning.at(build.x, build.y, Mathf.angle(e.x,e.y),IMColors.colorPrimary , lines);
+        });
       }
     });
     
