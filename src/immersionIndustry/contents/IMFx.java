@@ -65,9 +65,19 @@ public class IMFx implements ContentList {
         lines.add(new Vec2(build.x,build.y));
         lines.add(new Vec2());
         lines.add(new Vec2(e.x,e.y));
-        randLenVectors(e.id, 3, 40f * e.fout(), (x, y) -> {
-          lines.get(1).set(new Vec2(build.x + x,build.y +y));
-          Fx.lightning.at(build.x, build.y, Mathf.angle(e.x,e.y),IMColors.colorPrimary , lines);
+        randLenVectors(e.id, 3, build.block.range / 2, (x, y) -> {
+          lines.get(1).set(new Vec2(build.x + x,build.y + y));
+          color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fin());
+          for(int i = 0; i < lines.size - 1; i++){
+            Vec2 cur = lines.get(i);
+            Vec2 next = lines.get(i + 1);
+
+            Lines.line(cur.x, cur.y, next.x, next.y, false);
+          }
+
+          for(Vec2 p : lines){
+            Fill.circle(p.x, p.y, Lines.getStroke() / 2f);
+          }
         });
       }
     });
