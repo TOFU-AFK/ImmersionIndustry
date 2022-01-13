@@ -98,9 +98,9 @@ public class Diffuser extends ReloadTurret {
       });
       
       findTarget();
-      /*if(target != null && target.within(this, range)) {
+      if(target != null && target.within(this, range)) {
         turnToTarget(angleTo(target));
-      }*/
+      }
     }
     
     //是否在防御的范围
