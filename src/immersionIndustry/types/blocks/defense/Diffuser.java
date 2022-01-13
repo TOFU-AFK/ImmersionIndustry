@@ -155,14 +155,14 @@ public class Diffuser extends ReloadTurret {
       if(target instanceof Bullet bullet) {
         bullet.hit = true;
         bullet.absorb();
-        absorbEffect.at(bullet.x,bullet.y);
+        absorbEffect.at(bullet.x,bullet.y,rotation,this);
       }
       else if(target instanceof Unit unit) {
         Tmp.v3.set(unit).nor().scl(knockback * 80f);
         if(impact) Tmp.v3.setAngle(rotation-90 + (knockback < 0 ? 180f : 0f));
           unit.impulse(Tmp.v3);
           unit.apply(status, statusDuration);
-          absorbEffect.at(unit.x,unit.y);
+          absorbEffect.at(unit.x,unit.y,rotation,this);
        }
     }
     
