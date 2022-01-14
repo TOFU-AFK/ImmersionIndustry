@@ -59,27 +59,15 @@ public class IMFx implements ContentList {
   @Override
   public void load() {
     
-    absorb = new Effect(45,e -> {
-      if(e.data instanceof Building build) {
-        Seq<Vec2> lines = new Seq<>();
-        lines.add(new Vec2(build.x,build.y));
-        lines.add(new Vec2());
-        lines.add(new Vec2(e.x,e.y));
-        randLenVectors(e.id, 3,100 , (x, y) -> {
-          lines.get(1).set(new Vec2(build.x + x,build.y + y));
-          color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fin());
-          for(int i = 0; i < lines.size - 1; i++){
-            Vec2 cur = lines.get(i);
-            Vec2 next = lines.get(i + 1);
+    absorb = new Effect(30,e -> {
+      color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fin());
+      alpha(0.7f);
+      randLenVectors(e.id, e.fin(Interp.pow10Out), 12, 22, (x, y, in, out) -> {
+          float rad = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f) * 2f;
 
-            Lines.line(cur.x, cur.y, next.x, next.y, false);
-          }
-
-          for(Vec2 p : lines){
-            Fill.circle(p.x, p.y, Lines.getStroke() / 2f);
-          }
+          Fill.circle(e.x + x, e.y + y, rad);
+          Drawf.light(e.x + x, e.y + y, rad * 2.5f, IMColors.colorDarkPrimary, 0.5f);
         });
-      }
     });
     
     spread = new Effect(45,e -> {
