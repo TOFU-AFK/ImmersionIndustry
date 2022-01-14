@@ -80,25 +80,33 @@ public class Diffuser extends ReloadTurret {
     
     //锁定的目标
     public @Nullable Posc target;
+    //防御范围
+    public float defendRange = range;
     
     @Override
     public void updateTile() {
+      
+      defendRange = range * baseReloadSpeed();
+      
       if(!cons.valid()) return;
       
-      Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, bullet -> {
-        if(bullet.team != team && bullet.within(this,range) && isInRange(angleTo(bullet))) {
+      findTarget();
+      
+      if(target == null) return;
+      
+      Groups.bullet.intersect(x - defendRange, y - defendRange, defendRange * 2, defendRange * 2, bullet -> {
+        if(bullet.team != team && bullet.within(this,defendRange) && isInRange(angleTo(bullet))) {
           shieldConsumer(bullet);
         }
       });
       
-      Groups.unit.intersect(x - range, y - range, range * 2, range * 2, unit -> {
-        if(unit.team != team && unit.within(this,range) && isInRange(angleTo(unit))) {
+      Groups.unit.intersect(x - defendRange, y - defendRange, defendRange * 2, defendRange * 2, unit -> {
+        if(unit.team != team && unit.within(this,defendRange) && isInRange(angleTo(unit))) {
           shieldConsumer(unit);
         }
       });
       
-      findTarget();
-      if(target != null && target.within(this, range)) {
+      if(target != null && target.within(this, defendRange)) {
         turnToTarget(angleTo(target));
       }
     }
@@ -128,22 +136,22 @@ public class Diffuser extends ReloadTurret {
       Draw.z(Layer.effect);
       color(diffusionColor,baseReloadSpeed());
       stroke((0.7f + Mathf.absin(20, 0.7f)));
-      swirl(x,y,range,0.5f,rotation-90);
-      Drawf.light(x, y, range, diffusionColor, 1);
+      swirl(x,y,defendRange,0.5f,rotation-90);
+      Drawf.light(x, y, defendRange, diffusionColor, 1);
     }
     
     protected void findTarget(){
       
       //首先寻找子弹
-      target = Groups.bullet.intersect(x - range, y - range, range*2, range*2).min(b -> b.team != team && b.type().hittable, b -> b.dst2(this));
+      target = Groups.bullet.intersect(x - defendRange, y - defendRange, defendRange*2, defendRange*2).min(b -> b.team != team && b.type().hittable, b -> b.dst2(this));
       
       if(target != null) return;
       
       //其次寻找单位
       if(targetAir && !targetGround){
-        target = Units.closestEnemy(team, x, y, range, e -> !e.dead() && !e.isGrounded());
+        target = Units.closestEnemy(team, x, y, defendRange, e -> !e.dead() && !e.isGrounded());
       }else{
-        target = Units.closestEnemy(team, x, y, range, e -> !e.dead() && (e.isGrounded() || targetAir) && (!e.isGrounded() || targetGround));
+        target = Units.closestEnemy(team, x, y, defendRange, e -> !e.dead() && (e.isGrounded() || targetAir) && (!e.isGrounded() || targetGround));
       }
     }
     
@@ -155,14 +163,14 @@ public class Diffuser extends ReloadTurret {
       if(target instanceof Bullet bullet) {
         bullet.hit = true;
         bullet.absorb();
-        absorbEffect.at(bullet.x,bullet.y,rotation,this);
+        absorbEffect.at(bullet.x,bullet.y);
       }
       else if(target instanceof Unit unit) {
         Tmp.v3.set(unit).nor().scl(knockback * 80f);
         if(impact) Tmp.v3.setAngle(rotation-90 + (knockback < 0 ? 180f : 0f));
           unit.impulse(Tmp.v3);
           unit.apply(status, statusDuration);
-          absorbEffect.at(unit.x,unit.y,rotation,this);
+          absorbEffect.at(unit.x,unit.y);
        }
     }
     
