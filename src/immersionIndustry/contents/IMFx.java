@@ -65,7 +65,7 @@ public class IMFx implements ContentList {
         lines.add(new Vec2(build.x,build.y));
         lines.add(new Vec2());
         lines.add(new Vec2(e.x,e.y));
-        randLenVectors(e.id, 3, build.block.range / 2, (x, y) -> {
+        randLenVectors(e.id, 3,100 , (x, y) -> {
           lines.get(1).set(new Vec2(build.x + x,build.y + y));
           color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fin());
           for(int i = 0; i < lines.size - 1; i++){
