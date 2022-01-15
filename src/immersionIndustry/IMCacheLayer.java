@@ -6,6 +6,7 @@ import arc.graphics.gl.*;
 import arc.util.*;
 
 import mindustry.graphics.CacheLayer;
+import mindustry.graphics.CacheLayer.*;
 
 import static mindustry.Vars.*;
 

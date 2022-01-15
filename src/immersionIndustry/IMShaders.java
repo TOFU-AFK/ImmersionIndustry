@@ -3,11 +3,13 @@ package immersionIndustry;
 import arc.Core;
 import arc.files.Fi;
 import arc.graphics.Texture;
+import arc.graphics.Texture.*;
 import arc.graphics.gl.Shader;
 import arc.scene.ui.layout.Scl;
 import arc.util.Time;
 import mindustry.graphics.Shaders;
 import mindustry.mod.Mods;
+import mindustry.mod.Mods.*;
 
 import static mindustry.Vars.renderer;
 

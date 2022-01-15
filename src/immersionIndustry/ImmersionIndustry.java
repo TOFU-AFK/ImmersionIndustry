@@ -27,7 +27,7 @@ import immersionIndustry.contents.IMBullets;
 public class ImmersionIndustry extends Mod{
     
     public static final String NAME = "immersionindustry";
-    public static final LoadedMod MOD;
+    public static LoadedMod MOD;
     
     @Override
     public void init() {
