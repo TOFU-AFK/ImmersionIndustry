@@ -38,22 +38,35 @@ import immersionIndustry.contents.drawer.*;
 import immersionIndustry.types.blocks.production.*;
 import immersionIndustry.types.blocks.distribution.*;
 import immersionIndustry.types.blocks.defense.*;
+import immersionIndustry.types.blocks.power.*;
 
 //实现ContentList
 public class IMBlocks implements ContentList {
   
-  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide,powerDiffuser;
+  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide,powerDiffuser,glowReleaser;
   
   //在这里创建变量
   @Override
   public void load() {
     
+    glowReleaser = new GlowReleaser("glow-releaser"){{
+      requirements(Category.power, with(Items.lead, 500, Items.silicon, 300, Items.graphite, 400, Items.thorium, 100, Items.surgeAlloy, 250, Items.metaglass, 250));
+      size = 4;
+      health = 900;
+      powerProduction = 130f;
+      itemDuration = 140f;
+      ambientSound = Sounds.pulse;
+      ambientSoundVolume = 0.07f;
+      consumes.power(25f);
+      consumes.item(IMItems.collapseQuantum);
+      consumes.liquid(Liquids.cryofluid, 0.25f);
+    }}
+    
     powerDiffuser = new Diffuser("power-diffuser"){{
       health = 200*size*size;
       size = 1;
       requirements(Category.effect, ItemStack.with(Items.silicon, 35,Items.copper, 75,Items.lead,60,IMItems.t1BasicChip,6,IMItems.cuTiAlloy,6));
-      consumes.power(1);
-      consumes.powerBuffered(10000f);
+      powerUse = 6f;
       baseExplosiveness = 10f;
     }};
     
