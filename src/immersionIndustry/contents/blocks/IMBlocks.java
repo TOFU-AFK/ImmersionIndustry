@@ -60,7 +60,7 @@ public class IMBlocks implements ContentList {
       consumes.power(25f);
       consumes.item(IMItems.collapseQuantum);
       consumes.liquid(Liquids.cryofluid, 0.25f);
-    }}
+    }};
     
     powerDiffuser = new Diffuser("power-diffuser"){{
       health = 200*size*size;
