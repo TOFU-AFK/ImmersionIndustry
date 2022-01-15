@@ -50,7 +50,7 @@ public class IMBlocks implements ContentList {
   public void load() {
     
     glowReleaser = new GlowReleaser("glow-releaser"){{
-      requirements(Category.power, with(Items.lead, 500, Items.silicon, 300, Items.graphite, 400, Items.thorium, 100, Items.surgeAlloy, 250, Items.metaglass, 250));
+      requirements(Category.power, ItemStack.with(Items.lead, 500, Items.silicon, 300, Items.graphite, 400, Items.thorium, 100, Items.surgeAlloy, 250, Items.metaglass, 250));
       size = 4;
       health = 900;
       powerProduction = 130f;
