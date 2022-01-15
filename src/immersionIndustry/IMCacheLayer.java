@@ -13,7 +13,7 @@ public class IMCacheLayer {
   
   public static CacheLayer glow;
   
-  public static init() {
+  public static void init() {
     CacheLayer.add(
     glow = new ShaderLayer(IMShaders.glow)
     );
