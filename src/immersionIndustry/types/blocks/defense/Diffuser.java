@@ -132,21 +132,6 @@ public class Diffuser extends ReloadTurret {
       Drawf.light(x, y, defendRange, diffusionColor, 1);
     }
     
-    protected void findTarget(){
-      
-      //首先寻找子弹
-      target = Groups.bullet.intersect(x - defendRange, y - defendRange, defendRange*2, defendRange*2).min(b -> b.team != team && b.type().hittable, b -> b.dst2(this));
-      
-      if(target != null) return;
-      
-      //其次寻找单位
-      if(targetAir && !targetGround){
-        target = Units.closestEnemy(team, x, y, defendRange, e -> !e.dead() && !e.isGrounded());
-      }else{
-        target = Units.closestEnemy(team, x, y, defendRange, e -> !e.dead() && (e.isGrounded() || targetAir) && (!e.isGrounded() || targetGround));
-      }
-    }
-    
     protected void turnToTarget(float targetRot){
       rotation = Angles.moveToward(rotation, targetRot, rotateSpeed * delta() * baseReloadSpeed());
     }
@@ -156,7 +141,7 @@ public class Diffuser extends ReloadTurret {
         bullet.hit = true;
         bullet.absorb();
         absorbEffect.at(bullet.x,bullet.y);
-        power.useBatteries(bullet.damage);
+        power.graph.useBatteries(bullet.damage);
       }
       else if(target instanceof Unit unit) {
         Tmp.v3.set(unit).nor().scl(knockback * 80f);
@@ -164,7 +149,7 @@ public class Diffuser extends ReloadTurret {
           unit.impulse(Tmp.v3);
           unit.apply(status, statusDuration);
           absorbEffect.at(unit.x,unit.y);
-          power.useBatteries(unit.hitSize);
+          power.graph.useBatteries(unit.hitSize);
        }
        target = p;
     }
