@@ -64,8 +64,8 @@ public class GlowReleaser extends PowerGenerator {
   }
   
   @Override
-  public void init() {
-    super.init();
+  public void load() {
+    super.load();
     bottomRegion = Core.atlas.find(name + "-bottom");
     plasmaRegions = new TextureRegion[plasmas];
     for(int i = 0;i<plasmas;i++) {
