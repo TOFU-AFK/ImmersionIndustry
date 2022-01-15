@@ -20,7 +20,7 @@ import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.blocks.power.*;
-import y.world.blocks.power.PowerGenerator.GeneratorBuild.*;
+import mindustry.world.blocks.power.PowerGenerator.GeneratorBuild.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
 
@@ -66,10 +66,10 @@ public class GlowReleaser extends PowerGenerator {
   @Override
   public void init() {
     super.init();
-    bottomRegion = Core.atlas.find(block.name + "-bottom");
+    bottomRegion = Core.atlas.find(name + "-bottom");
     plasmaRegions = new TextureRegion[plasmas];
     for(int i = 0;i<plasmas;i++) {
-      plasmaRegions[i] = Core.atlas.find(block.name + "-plasma-" + i);
+      plasmaRegions[i] = Core.atlas.find(name + "-plasma-" + i);
     }
   }
   
@@ -108,10 +108,6 @@ public class GlowReleaser extends PowerGenerator {
         warmup = Mathf.lerpDelta(warmup, 1f, warmupSpeed * timeScale);
         if(Mathf.equal(warmup, 1f, 0.001f)){
           warmup = 1f;
-        }
-
-        if(!prevOut && (getPowerProduction() > consumes.getPower().requestedPower(this))){
-            Events.fire(Trigger.impactPower);
         }
 
         if(timer(timerUse, itemDuration / timeScale)){
