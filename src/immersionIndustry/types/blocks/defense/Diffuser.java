@@ -42,10 +42,6 @@ public class Diffuser extends ReloadTurret {
   
   public TextureRegion baseRegion;
   public float elevation = -1f;
-  //对空，包括子弹
-  public boolean targetAir = true;
-  //对陆
-  public boolean targetGround = true;
   public Color diffusionColor = IMColors.colorPrimary;
   //反弹速度
   public float knockback;
@@ -89,10 +85,6 @@ public class Diffuser extends ReloadTurret {
       defendRange = range * baseReloadSpeed();
       
       if(!cons.valid()) return;
-      
-      findTarget();
-      
-      if(target == null) return;
       
       Groups.bullet.intersect(x - defendRange, y - defendRange, defendRange * 2, defendRange * 2, bullet -> {
         if(bullet.team != team && bullet.within(this,defendRange) && isInRange(angleTo(bullet))) {
@@ -164,6 +156,7 @@ public class Diffuser extends ReloadTurret {
         bullet.hit = true;
         bullet.absorb();
         absorbEffect.at(bullet.x,bullet.y);
+        power.useBatteries(bullet.damage);
       }
       else if(target instanceof Unit unit) {
         Tmp.v3.set(unit).nor().scl(knockback * 80f);
@@ -171,7 +164,15 @@ public class Diffuser extends ReloadTurret {
           unit.impulse(Tmp.v3);
           unit.apply(status, statusDuration);
           absorbEffect.at(unit.x,unit.y);
+          power.useBatteries(unit.hitSize);
        }
+       target = p;
+    }
+    
+    @Override
+    public float efficiency() {
+      if(!enabled) return 0;
+      return power == null ? 1 : power.status;
     }
     
   }
