@@ -17,7 +17,7 @@ public class IMCacheLayer {
   
   public static void init() {
     CacheLayer.add(
-    glow = new ShaderLayer(Shaders.space)
+    glow = new ShaderLayer(Shaders.cryofluid)
     );
   }
   

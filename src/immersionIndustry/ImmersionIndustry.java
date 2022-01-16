@@ -29,16 +29,13 @@ public class ImmersionIndustry extends Mod{
     public static final String NAME = "immersionindustry";
     public static LoadedMod MOD;
     
-    @Override
-    public void init() {
-      IMCacheLayer.init();
-    }
-    
     //当加载模组内容时被调用
     @Override
     public void loadContent() {
       MOD = Vars.mods.getMod(getClass());
       IMSounds.load();
+      IMShaders.load();
+      IMCacheLayer.init();
       new IMFx().load();
       new IMBullets().load();
       new IMItems().load();
