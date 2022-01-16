@@ -5,6 +5,7 @@ import arc.graphics.*;
 import arc.graphics.gl.*;
 import arc.util.*;
 
+import mindustry.graphics.*;
 import mindustry.graphics.CacheLayer;
 import mindustry.graphics.CacheLayer.*;
 
@@ -16,7 +17,7 @@ public class IMCacheLayer {
   
   public static void init() {
     CacheLayer.add(
-    glow = new ShaderLayer(IMShaders.glow)
+    glow = new ShaderLayer(Shaders.space)
     );
   }
   
