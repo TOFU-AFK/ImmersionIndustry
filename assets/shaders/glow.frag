@@ -1,9 +1,8 @@
 #define HIGHP
 
-#define S1 vec3(138.0, 163.0, 244.0) / 100.0
-#define S2 vec3(105.0, 116.0, 196.0) / 100.0
+#define S1 vec3(46.0, 49.0, 83.0) / 100.0
+#define S2 vec3(54.0, 63.0, 95.0) / 100.0
 #define NSCALE 100.0 / 2.0
-#define PI 3.141592653589793
 
 uniform sampler2D u_texture;
 uniform sampler2D u_noise;
@@ -14,11 +13,15 @@ uniform float u_time;
 
 varying vec2 v_texCoords;
 
+const float mscl = 40.0;
+const float mth = 7.0;
+
 void main(){
     vec2 c = v_texCoords.xy;
-    vec2 coords = vec2(c.x * u_resolution.x + u_campos.x, c.y * u_resolution.y + u_campos.y);
+    vec2 v = vec2(1.0/u_resolution.x, 1.0/u_resolution.y);
+	  vec2 coords = vec2(c.x / v.x + u_campos.x, c.y / v.y + u_campos.y);
 
-    float btime = u_time / 6000.0;
+    float btime = u_time / 5000.0;
     float wave = abs(sin(coords.x * 1.1 + coords.y) + 0.1 * sin(2.5 * coords.x) + 0.15 * sin(3.0 * coords.y)) / 30.0;
     float noise = wave + (texture2D(u_noise, (coords) / NSCALE + vec2(btime) * vec2(-0.2, 0.8)).r + texture2D(u_noise, (coords) / NSCALE + vec2(btime * 1.1) * vec2(0.8, -1.0)).r) / 2.0;
     vec4 color = texture2D(u_texture, c);
@@ -29,12 +32,16 @@ void main(){
         color.rgb = S1;
     }
     
-    vec2 uv = v_texCoords.xy/u_campos.xy;
-    uv = uv * 2.0 - 1.0;
-    uv.x *= u_campos.x/u_campos.y;
-    
-    float angle = atan(uv.y, uv.x);
-    angle = Remap(-PI, PI, 0., 1.0, angle);
+    float tester = mod((coords.x + coords.y*1.1 + sin(btime / 8.0 + coords.x/5.0 - coords.y/100.0)*2.0) +
+      sin(btime / 20.0 + coords.y/3.0) * 1.0 +
+      sin(btime / 10.0 - coords.y/2.0) * 2.0 +
+      sin(btime / 7.0 + coords.y/1.0) * 0.5 +
+      sin(coords.x / 3.0 + coords.y / 2.0) +
+      sin(btime / 20.0 + coords.x/4.0) * 1.0, mscl);
 
-    gl_FragColor = vec4(color.rgb,angle);
+    if(tester < mth){
+        color *= 1.2;
+    }
+
+    gl_FragColor = color;
 }
