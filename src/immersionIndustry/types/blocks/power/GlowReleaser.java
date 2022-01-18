@@ -44,7 +44,7 @@ public class GlowReleaser extends PowerGenerator {
   public int explosionDamage = 1900;
   public Effect explodeEffect = Fx.impactReactorExplosion;
   
-  public Color plasma1 = IMColors.colorPrimary, plasma2 = IMColors.colorDarkPrimary;
+  public Color plasma1 = IMColors.colorPrimary, plasma2 = IMColors.colorYellow;
   
   public TextureRegion bottomRegion;
   public TextureRegion[] plasmaRegions;
@@ -114,6 +114,8 @@ public class GlowReleaser extends PowerGenerator {
           IMSounds.energyShockWave.at(this);
           consume();
         }
+        
+        IMFx.radiation.at(this,Time.time * 0.5f);
       }else{
         warmup = Mathf.lerpDelta(warmup, 0f, 0.01f);
       }
