@@ -51,8 +51,9 @@ public class IMBlocks implements ContentList {
     
     glowReleaser = new GlowReleaser("glow-releaser"){{
       requirements(Category.power, ItemStack.with(Items.lead, 500, Items.silicon, 300, Items.graphite, 400, Items.thorium, 100, Items.surgeAlloy, 250, Items.metaglass, 250));
-      size = 4;
+      size = 6;
       health = 900;
+      plasmas = 5;
       powerProduction = 130f;
       itemDuration = 140f;
       ambientSound = Sounds.pulse;
