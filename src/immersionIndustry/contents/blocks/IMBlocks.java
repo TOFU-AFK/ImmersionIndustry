@@ -54,13 +54,11 @@ public class IMBlocks implements ContentList {
       size = 6;
       health = 900;
       plasmas = 5;
-      powerProduction = 130f;
+      powerProduction = 360f;
       itemDuration = 140f;
       ambientSound = Sounds.pulse;
       ambientSoundVolume = 0.07f;
-      consumes.power(25f);
       consumes.item(IMItems.collapseQuantum);
-      consumes.liquid(Liquids.cryofluid, 0.25f);
     }};
     
     powerDiffuser = new Diffuser("power-diffuser"){{
