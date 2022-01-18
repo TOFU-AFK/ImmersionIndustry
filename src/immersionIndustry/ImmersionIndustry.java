@@ -40,7 +40,7 @@ public class ImmersionIndustry extends Mod{
       new IMBullets().load();
       new IMItems().load();
       new IMBlocks().load();
-      new IMFloor().load();
+      new IMFloors().load();
       new IMTechTree().load();
     }
 	
