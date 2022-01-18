@@ -164,7 +164,7 @@ public class GlowReleaser extends PowerGenerator {
           }
         }else if(pollutant < maxPollutant){
           for(int i=0;i<4;i++) {
-            if(entity.nearby(i).tile.floor().name.equals(IMFloors.glow.name) && canReplace(entity)) {
+            if(entity.nearby(i).tile != null && entity.nearby(i).tile.floor().name.equals(IMFloors.glow.name) && canReplace(entity)) {
               replace(entity);
             }
           }
