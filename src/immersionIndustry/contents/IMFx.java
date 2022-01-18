@@ -77,11 +77,11 @@ public class IMFx implements ContentList {
     
     radiation = new Effect(20,e -> {
       color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
-      Tmp.v1.set(e.x + 12,e.y).rotate(e.rotation);
-      Fill.circle(Tmp.v1.x, Tmp.v1.y, 4);
+      Tmp.v1.set(e.x,e.y).trns(e.rotation,12);
+      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 4);
       color();
-      Fill.circle(Tmp.v1.x, Tmp.v1.y, 2);
-      sphere.at(e.x,e.y);
+      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 2);
+      //sphere.at(e.x,e.y);
     });
     
     absorb = new Effect(30,e -> {
