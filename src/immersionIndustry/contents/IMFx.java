@@ -60,16 +60,9 @@ public class IMFx implements ContentList {
   public void load() {
     
     sphere = new Effect(60,e -> {
+      color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
       randLenVectors(e.id, e.fin(Interp.pow10Out), 22, 22, (x, y, in, out) -> {
-        Tmp.v2.set(e.x,e.y).lerp(x,y, Interp.sineIn.apply(e.fin()));
-        
         float rad = e.fout(Interp.pow5Out) * Mathf.rand.random(0.5f, 1f) * 2f;
-        
-        Lines.stroke(rad / 2);
-        Lines.line(e.x,e.y,x,y);
-        
-        
-        color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
         Fill.circle(Tmp.v2.x, Tmp.v2.y, rad);
         Drawf.light(Tmp.v2.x, Tmp.v2.y, rad * 2.5f, IMColors.colorYellow, 0.5f);
       });
@@ -77,11 +70,13 @@ public class IMFx implements ContentList {
     
     radiation = new Effect(20,e -> {
       color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
-      Tmp.v1.set(e.x,e.y).trns(e.rotation,12);
-      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 4);
-      color();
+      Tmp.v1.set(e.x,e.y).trns(e.rotation,16);
       Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 2);
-      //sphere.at(e.x,e.y);
+      color();
+      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 1);
+      if(e.fin() > 0.8f) {
+        sphere.at(e.x,e.y);
+      }
     });
     
     absorb = new Effect(30,e -> {
