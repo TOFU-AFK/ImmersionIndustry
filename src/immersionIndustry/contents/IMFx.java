@@ -61,23 +61,24 @@ public class IMFx implements ContentList {
     
     sphere = new Effect(60,e -> {
       color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
+      Tmp.v1.set(e.x,e.y).trns(e.rotation,16);
       randLenVectors(e.id, e.fin(Interp.pow10Out), 22, 22, (x, y, in, out) -> {
         float rad = e.fout(Interp.pow5Out) * Mathf.rand.random(0.5f, 1f) * 2f;
-        Fill.circle(x, y, rad);
-        Drawf.light(x, y, rad * 2.5f, IMColors.colorYellow, 0.5f);
+        Fill.circle(e.x + Tmp.v1.x + x, e.x + Tmp.v1.y + y, rad);
+        Drawf.light(e.x + Tmp.v1.x + x, e.y + Tmp.v1.y + u, rad * 2.5f, IMColors.colorYellow, 0.5f);
       });
+      Lines.stroke(3f * e.fin());
+      Lines.circle(e.x + Tmp.v1.x, e.x + Tmp.v1.y,12f * e.fin());
     });
     
-    radiation = new Effect(40,e -> {
+    radiation = new Effect(45,e -> {
       color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
       Tmp.v1.set(e.x,e.y).trns(e.rotation,16);
-      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 1);
-      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 1);
+      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 2);
+      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 2);
       color();
-      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 0.5f);
-      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 0.5f);
-      sphere.at(e.x - Tmp.v1.x, e.y - Tmp.v1.y);
-      sphere.at(e.x + Tmp.v1.x, e.y + Tmp.v1.y);
+      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 1f);
+      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 1f);
     });
     
     absorb = new Effect(30,e -> {
