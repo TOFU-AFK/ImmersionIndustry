@@ -112,10 +112,11 @@ public class GlowReleaser extends PowerGenerator {
 
         if(timer(timerUse, itemDuration / timeScale)){
           IMSounds.energyShockWave.at(this);
+          IMFx.sphere.at(this,Time.time);
           consume();
         }
         
-        IMFx.radiation.at(this,Time.time * 0.5f);
+        IMFx.radiation.at(this,Time.time);
       }else{
         warmup = Mathf.lerpDelta(warmup, 0f, 0.01f);
       }
