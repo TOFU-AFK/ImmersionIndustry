@@ -157,7 +157,7 @@ public class GlowReleaser extends PowerGenerator {
     //d 是否为爆炸引起的污染
     protected void pollute(boolean d) {
       if(pollutant >= maxPollutant && !d) return;
-      indexer.eachBlock(null,range,entity -> entity.tile != null,entity -> {
+      indexer.eachBlock(null,x,y,range,entity -> entity.tile != null,entity -> {
         if(pollutant < 1) {
           if(canReplace(entity)) {
             replace(entity);
