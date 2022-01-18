@@ -63,8 +63,8 @@ public class IMFx implements ContentList {
       color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
       randLenVectors(e.id, e.fin(Interp.pow10Out), 11, 22, (x, y, in, out) -> {
         float rad = e.fout(Interp.pow5Out) * Mathf.rand.random(0.5f, 1f) * 2f;
-        Fill.circle(e.x +  x, e.x + y, rad);
-        Drawf.light(e.x  + x, e.y + y, rad * 2.5f, IMColors.colorYellow, 0.5f);
+        Fill.circle(e.x +  x, e.y + y, rad);
+        Drawf.light(e.x + x, e.y + y, rad * 2.5f, IMColors.colorYellow, 0.5f);
       });
       Lines.stroke(2f * e.fin());
       Lines.circle(e.x, e.y,12f * e.fout());
