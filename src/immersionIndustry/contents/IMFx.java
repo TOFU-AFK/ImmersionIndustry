@@ -76,7 +76,7 @@ public class IMFx implements ContentList {
       color();
       Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 0.5f);
       Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 0.5f);
-      sphere.at(e.x - Tmp.v1.x, e.y - Tmp.v1.y)
+      sphere.at(e.x - Tmp.v1.x, e.y - Tmp.v1.y);
       sphere.at(e.x + Tmp.v1.x, e.y + Tmp.v1.y);
     });
     
