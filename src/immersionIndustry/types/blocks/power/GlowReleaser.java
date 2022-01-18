@@ -33,6 +33,7 @@ import static arc.math.Angles.*;
 import immersionIndustry.IMSounds;
 import immersionIndustry.IMColors;
 import immersionIndustry.contents.IMFx;
+import immersionIndustry.contents.blocks.*;
 
 public class GlowReleaser extends PowerGenerator {
   
@@ -49,6 +50,11 @@ public class GlowReleaser extends PowerGenerator {
   public TextureRegion bottomRegion;
   public TextureRegion[] plasmaRegions;
   public int plasmas = 4;
+  
+  //污染范围，爆炸时*3
+  public float range = 120;
+  //污染物上限
+  public int maxPollutant = 150;
   
   public GlowReleaser(String name) {
     super(name);
@@ -99,6 +105,7 @@ public class GlowReleaser extends PowerGenerator {
   public class ReleaserBuild extends GeneratorBuild {
     
     public float warmup;
+    public int pollutant = 0;
     
     @Override
     public void updateTile(){
@@ -114,6 +121,7 @@ public class GlowReleaser extends PowerGenerator {
           IMSounds.energyShockWave.at(this);
           IMFx.sphere.at(x + Mathf.range(size * 4f), y + Mathf.range(size * 4));
           consume();
+          pollute(false);
         }
         
         IMFx.radiation.at(this,Time.time * 1.5f);
@@ -144,6 +152,36 @@ public class GlowReleaser extends PowerGenerator {
 
       Draw.color();
     }
+    
+    //污染周围环境
+    //d 是否为爆炸引起的污染
+    protected void pollute(boolean d) {
+      if(pollutant >= maxPollutant && !d) return;
+      indexer.eachBlock(null,range,entity -> entity.tile != null,entity -> {
+        if(pollutant < 1) {
+          if(canReplace(entity)) {
+            replace(entity);
+          }
+        }else if(pollutant < maxPollutant){
+          for(int i=0;i<4;i++) {
+            if(entity.nearby(i).tile.floor().name.equals(IMFloors.glow.name) && canReplace(entity)) {
+              replace(entity);
+            }
+          }
+        }
+      });
+    }
+    
+    protected void replace(Building build) {
+      build.tile.setFloor(IMFloors.glow);
+      build.killed();
+      pollutant++;
+    }
+    
+    protected boolean canReplace(Building build) {
+      if(build.block.name.equals(block.name) && build.tile.floor().name.equals(IMFloors.glow.name)) return false;
+      return true;
+    }
 
     @Override
     public float ambientVolume(){
@@ -173,6 +211,7 @@ public class GlowReleaser extends PowerGenerator {
 
       Effect.shake(6f, 16f, x, y);
       explodeEffect.at(x, y);
+      pollute(true);
     }
 
     @Override
