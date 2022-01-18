@@ -73,11 +73,11 @@ public class IMFx implements ContentList {
     radiation = new Effect(45,e -> {
       color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
       Tmp.v1.set(e.x,e.y).trns(e.rotation,16);
-      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 2);
-      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 2);
+      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 2 * e.fout());
+      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 2 * e.fout());
       color();
-      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 1f);
-      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 1f);
+      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 1f * e.fout());
+      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 1f * e.fout());
     });
     
     absorb = new Effect(30,e -> {
