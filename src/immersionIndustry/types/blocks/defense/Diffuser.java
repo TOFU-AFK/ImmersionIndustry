@@ -62,7 +62,6 @@ public class Diffuser extends ReloadTurret {
     hasLiquids = true;
     hasItems = true;
     ambientSoundVolume = 0.08f;
-    baseRegion = Core.atlas.find("block-" + size);
     knockback = 12f;
   }
 
@@ -70,6 +69,12 @@ public class Diffuser extends ReloadTurret {
   public void init() {
     consumes.powerCond(powerUse, DiffuserBuild::isActive);
     super.init();
+  }
+  
+  @Override
+  public void load() {
+    super.load();
+    baseRegion = Core.atlas.find("block-" + size);
   }
   
   public class DiffuserBuild extends ReloadTurretBuild {
