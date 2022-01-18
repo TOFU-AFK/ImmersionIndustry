@@ -60,15 +60,14 @@ public class IMFx implements ContentList {
   public void load() {
     
     sphere = new Effect(60,e -> {
-      color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
-      Tmp.v1.set(e.x,e.y).trns(e.rotation,16);
+      color(IMColors.colorPrimary,IMColors.colorYellow,e.fin())
       randLenVectors(e.id, e.fin(Interp.pow10Out), 22, 22, (x, y, in, out) -> {
         float rad = e.fout(Interp.pow5Out) * Mathf.rand.random(0.5f, 1f) * 2f;
-        Fill.circle(e.x + Tmp.v1.x + x, e.x + Tmp.v1.y + y, rad);
-        Drawf.light(e.x + Tmp.v1.x + x, e.y + Tmp.v1.y + y, rad * 2.5f, IMColors.colorYellow, 0.5f);
+        Fill.circle(e.x +  x, e.x + y, rad);
+        Drawf.light(e.x  + x, e.y + y, rad * 2.5f, IMColors.colorYellow, 0.5f);
       });
-      Lines.stroke(3f * e.fin());
-      Lines.circle(e.x + Tmp.v1.x, e.x + Tmp.v1.y,12f * e.fin());
+      Lines.stroke(2f * e.fin());
+      Lines.circle(e.x, e.y,12f * e.fout());
     });
     
     radiation = new Effect(45,e -> {
