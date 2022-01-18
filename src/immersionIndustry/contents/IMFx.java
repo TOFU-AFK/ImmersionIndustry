@@ -43,7 +43,7 @@ import immersionIndustry.IMColors;
 import immersionIndustry.types.blocks.defense.Diffuser;
 
 public class IMFx implements ContentList {
-  public static Effect dispersion,shockWave,absorbedEnergy,crystallizationEnergy,absorptionHeat,lossHeat,spread,absorb;
+  public static Effect dispersion,shockWave,absorbedEnergy,crystallizationEnergy,absorptionHeat,lossHeat,spread,absorb,radiation,sphere;
   
   public static void takeItemEffect(float x,float y,float x2,float y2,Color color,float lifeTime) {
     new Effect(lifeTime, e -> {
@@ -58,6 +58,31 @@ public class IMFx implements ContentList {
   
   @Override
   public void load() {
+    
+    sphere = new Effect(60,e -> {
+      randLenVectors(e.id, e.fin(Interp.pow10Out), 12, 22, (x, y, in, out) -> {
+        Tmp.v2.set(e.x,e.y).lerp(x,y, Interp.sineIn.apply(e.fin()));
+        
+        float rad = e.fout(Interp.pow5Out) * Mathf.rand.random(0.5f, 1f) * 2f;
+        
+        Lines.stroke(rad / 2);
+        Lines.line(e.x,e.y,x,y);
+        
+        
+        color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
+        Fill.circle(Tmp.v2.x, Tmp.v2.y, rad);
+        Drawf.light(Tmp.v2.x, Tmp.v2.y, rad * 2.5f, IMColors.colorYellow, 0.5f);
+      });
+    });
+    
+    radiation = new Effect(20,e -> {
+      color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
+      Tmp.v1.set(e.x,e.y).trns(e.rotation,12);
+      Fill.circle(Tmp.v1.x, Tmp.v1.y, 4);
+      color();
+      Fill.circle(Tmp.v1.x, Tmp.v1.y, 2);
+      sphere.at(e.x,e.y);
+    });
     
     absorb = new Effect(30,e -> {
       color(IMColors.colorPrimary,IMColors.colorDarkPrimary,e.fin());
