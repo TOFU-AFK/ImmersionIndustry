@@ -125,6 +125,7 @@ public class LaserTransmitter extends Block {
         target = itemTo();
       }
       //传输时间
+      if(target == null) return;
       float time = Mathf.dstm(x,y,target.worldx(),target.worldy()) / tilesize * speed / efficiency() * 0.1f;
       if(target != null && efficiency() > 0 && timer(timerDump,interval + time)) {
         Item item = items.first();
