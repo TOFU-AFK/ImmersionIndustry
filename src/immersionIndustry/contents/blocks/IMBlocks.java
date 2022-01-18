@@ -58,6 +58,7 @@ public class IMBlocks implements ContentList {
       itemDuration = 140f;
       ambientSound = Sounds.pulse;
       ambientSoundVolume = 0.07f;
+      consumes.power(12);
       consumes.item(IMItems.collapseQuantum);
     }};
     
