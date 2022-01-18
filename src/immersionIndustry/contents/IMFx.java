@@ -63,20 +63,21 @@ public class IMFx implements ContentList {
       color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
       randLenVectors(e.id, e.fin(Interp.pow10Out), 22, 22, (x, y, in, out) -> {
         float rad = e.fout(Interp.pow5Out) * Mathf.rand.random(0.5f, 1f) * 2f;
-        Fill.circle(Tmp.v2.x, Tmp.v2.y, rad);
-        Drawf.light(Tmp.v2.x, Tmp.v2.y, rad * 2.5f, IMColors.colorYellow, 0.5f);
+        Fill.circle(x, y, rad);
+        Drawf.light(x, y, rad * 2.5f, IMColors.colorYellow, 0.5f);
       });
     });
     
-    radiation = new Effect(20,e -> {
+    radiation = new Effect(40,e -> {
       color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
       Tmp.v1.set(e.x,e.y).trns(e.rotation,16);
-      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 2);
-      color();
       Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 1);
-      if(e.fin() > 0.8f) {
-        sphere.at(e.x,e.y);
-      }
+      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 1);
+      color();
+      Fill.circle(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 0.5f);
+      Fill.circle(e.x - Tmp.v1.x, e.y - Tmp.v1.y, 0.5f);
+      sphere.at(e.x - Tmp.v1.x, e.y - Tmp.v1.y)
+      sphere.at(e.x + Tmp.v1.x, e.y + Tmp.v1.y);
     });
     
     absorb = new Effect(30,e -> {
