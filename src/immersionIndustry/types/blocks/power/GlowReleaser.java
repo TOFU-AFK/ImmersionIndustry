@@ -157,14 +157,14 @@ public class GlowReleaser extends PowerGenerator {
     //d 是否为爆炸引起的污染
     protected void pollute(boolean d) {
       if(pollutant >= maxPollutant && !d) return;
-      indexer.eachBlock(null,x,y,range,entity -> entity.tile != null,entity -> {
+      indexer.eachBlock(null,x,y,range,entity -> entity != null,entity -> {
         if(pollutant < 1) {
           if(canReplace(entity)) {
             replace(entity);
           }
         }else if(pollutant < maxPollutant){
           for(int i=0;i<4;i++) {
-            if(entity.nearby(i) !=null && entity.nearby(i).tile.floor().name.equals(IMFloors.glow.name) && canReplace(entity)) {
+            if(entity.nearby(i) !=null && !entity.nearby(i).tile.floor().name.equals(IMFloors.glow.name) && canReplace(entity)) {
               replace(entity);
             }
           }
@@ -179,7 +179,7 @@ public class GlowReleaser extends PowerGenerator {
     }
     
     protected boolean canReplace(Building build) {
-      if(build.block.name.equals(block.name) && build.tile.floor().name.equals(IMFloors.glow.name)) return false;
+      if(build.block.name.equals(name) || build.tile.floor().name.equals(IMFloors.glow.name)) return false;
       return true;
     }
 
