@@ -169,7 +169,7 @@ public class GlowReleaser extends PowerGenerator {
           for(int i = 0;i<4;i++) {
             Building other = entity.nearBy(i);
             if(other != null && other.tile.floor().name.equals(IMFloors.glow.name)) {
-              return true
+              return true;
             }
           }
         }
