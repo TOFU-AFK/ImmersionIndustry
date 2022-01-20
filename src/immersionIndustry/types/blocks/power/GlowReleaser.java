@@ -156,7 +156,6 @@ public class GlowReleaser extends PowerGenerator {
     //污染周围环境
     //d 是否为爆炸引起的污染
     protected void pollute(boolean d) {
-      if(pollutant >= maxPollutant && !d) return;
       indexer.eachBlock(null,x,y,range,entity -> {
         if(d) {
           if(pollutant < maxPollutant) return true;
@@ -175,6 +174,7 @@ public class GlowReleaser extends PowerGenerator {
         }
         return false;
       },entity -> {
+        Log.info("替换: @",entity.tile.floor().name);
         replace(entity);
       });
     }
