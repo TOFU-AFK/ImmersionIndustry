@@ -239,7 +239,9 @@ public class IntelligentMiningMachine extends Block {
       resRange = baseMineRange + mineRange * tilesize;
       //获取inputX,Y位置上的矿物
       world.tiles.eachTile(tile -> {
-        float dx = x - tile.worldx() ;
+        //判断是否在圈内
+        //使用arc中的Mathf.within可以达到相同的效果
+        float dx = x - tile.worldx();
         float dy = y - tile.worldy();
         if(dx * dx + dy * dy <= resRange * resRange) {
           if(tile.drop() != null) {
@@ -252,7 +254,11 @@ public class IntelligentMiningMachine extends Block {
     public void update(IntelligentMiningMachineBuild entity) {
       curStroke = Mathf.lerpDelta(curStroke,entity.efficiency(), 0.09f);
       generate.each(tile -> {
-      Item item = tile.drop();
+        Item item = tile.drop();
+        if(item == null) {
+          generate.remove(tile);
+          return;
+        }
         if(entity.items.get(item) < itemCapacity) {
           mineEffect.at(tile.drawx(),tile.drawy(),entity.rotation,new ResData(x,y,item));
           entity.offload(item);
