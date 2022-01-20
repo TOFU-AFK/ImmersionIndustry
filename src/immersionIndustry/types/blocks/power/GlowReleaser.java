@@ -157,15 +157,17 @@ public class GlowReleaser extends PowerGenerator {
     //d 是否为爆炸引起的污染
     protected void pollute(boolean d) {
       float r = d ? range*3 : range;
+      boolean was = false;
       world.tiles.eachTile(tile -> {
         if(tile.within(x,y,r)) {
-          if(tile == null || tile.floor().name.equals(IMFloors.glow.name) || tile.block().name.equals(name)) return;
+          if(tile == null || tile.floor().name.equals(IMFloors.glow.name) || tile.block().name.equals(name) || was) return;
           if(d) {
             if(pollutant < maxPollutant) replace(tile);
             return;
           }
-          if(pollutant < 1 || Mathf.random(0,range) > tile.dst(x,y)) {
+          if(Mathf.random(0,range) > tile.dst(x,y)) {
             replace(tile);
+            was = true;
             return;
           }else if(pollutant < maxPollutant){
             for(int i = 0;i<4;i++) {
