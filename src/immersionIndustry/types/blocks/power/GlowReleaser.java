@@ -106,6 +106,7 @@ public class GlowReleaser extends PowerGenerator {
     
     public float warmup;
     public int pollutant = 0;
+    boolean was = false;
     
     @Override
     public void updateTile(){
@@ -157,7 +158,6 @@ public class GlowReleaser extends PowerGenerator {
     //d 是否为爆炸引起的污染
     protected void pollute(boolean d) {
       float r = d ? range*3 : range;
-      boolean was = false;
       world.tiles.eachTile(tile -> {
         if(tile.within(x,y,r)) {
           if(tile == null || tile.floor().name.equals(IMFloors.glow.name) || tile.block().name.equals(name) || was) return;
@@ -182,6 +182,7 @@ public class GlowReleaser extends PowerGenerator {
           }
         }
       });
+      was = false;
     }
     
     protected void replace(Tile tile) {
