@@ -171,7 +171,7 @@ public class GlowReleaser extends PowerGenerator {
             for(int i = 0;i<4;i++) {
               Tile other = tile.nearby(i);
               if(other != null && other.floor().name.equals(IMFloors.glow.name)) {
-                if(Mathf.random(0,range) > tile.dst(x,y))) {
+                if(Mathf.random(0,range) > tile.dst(x,y)) {
                   replace(tile);
                 }
                 return;
