@@ -60,7 +60,7 @@ public class GlowReleaser extends PowerGenerator {
     super(name);
     hasPower = true;
     hasLiquids = true;
-    liquidCapacity = 30f;
+    liquidCapacity = 120f;
     hasItems = true;
     outputsPower = consumesPower = true;
     flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator);
@@ -174,7 +174,6 @@ public class GlowReleaser extends PowerGenerator {
         }
         return false;
       },entity -> {
-        Log.info("替换: @",entity.tile.floor().name);
         replace(entity);
       });
     }
