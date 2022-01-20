@@ -156,31 +156,32 @@ public class GlowReleaser extends PowerGenerator {
     //污染周围环境
     //d 是否为爆炸引起的污染
     protected void pollute(boolean d) {
-      indexer.eachBlock(null,x,y,range,entity -> {
-        if(d) {
-          if(pollutant < maxPollutant) return true;
-          return false;
-        }
-        if(entity == null || entity.tile.floor().name.equals(IMFloors.glow.name) || entity.block.name.equals(name)) return false;
-        if(pollutant < 1) {
-          return true;
-        }else if(pollutant < maxPollutant) {
-          for(int i = 0;i<4;i++) {
-            Building other = entity.nearby(i);
-            if(other != null && other.tile.floor().name.equals(IMFloors.glow.name)) {
-              return true;
+      float r = d ? range*3 : range;
+      world.tiles.eachTile(tile -> {
+        if(tile.within(x,y,r)) {
+          if(d) {
+            if(pollutant < maxPollutant) replace(tile);
+            return;
+          }
+          if(tile == null || tile.floor().name.equals(IMFloors.glow.name) || tile.block().name.equals(name)) return;
+          if(pollutant < 1) {
+            replace(tile);
+            return;
+          }else if(pollutant < maxPollutant){
+            for(int i = 0;i<4;i++) {
+              Tile other = tile.nearby(i);
+              if(other != null && other.floor().name.equals(IMFloors.glow.name)) {
+                replace(tile);
+              }
             }
           }
         }
-        return false;
-      },entity -> {
-        replace(entity);
       });
     }
     
-    protected void replace(Building build) {
-      build.tile.setFloor(IMFloors.glow);
-      build.killed();
+    protected void replace(Tile tile) {
+      tile.setFloor(IMFloors.glow);
+      tile.tileDestroyed();
       pollutant++;
     }
 
