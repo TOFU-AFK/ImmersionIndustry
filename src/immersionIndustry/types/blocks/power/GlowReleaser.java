@@ -181,7 +181,7 @@ public class GlowReleaser extends PowerGenerator {
     
     protected void replace(Tile tile) {
       tile.setFloor(IMFloors.glow);
-      tile.tileDestroyed();
+      if(tile.build != null) tile.build.killed();
       pollutant++;
     }
 
