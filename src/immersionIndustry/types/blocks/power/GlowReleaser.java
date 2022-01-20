@@ -164,14 +164,16 @@ public class GlowReleaser extends PowerGenerator {
             if(pollutant < maxPollutant) replace(tile);
             return;
           }
-          if(pollutant < 1) {
+          if(pollutant < 1 || Mathf.random(0,range) > tile.dst(x,y)) {
             replace(tile);
             return;
           }else if(pollutant < maxPollutant){
             for(int i = 0;i<4;i++) {
               Tile other = tile.nearby(i);
               if(other != null && other.floor().name.equals(IMFloors.glow.name)) {
-                replace(tile);
+                if(Mathf.random(0,range) > tile.dst(x,y))) {
+                  replace(tile);
+                }
                 return;
               }
             }
@@ -181,8 +183,6 @@ public class GlowReleaser extends PowerGenerator {
     }
     
     protected void replace(Tile tile) {
-      //概率
-      if(Mathf.range(3) < 2) return;
       tile.setFloor(IMFloors.glow);
       if(tile.build != null) tile.build.killed();
       pollutant++;
