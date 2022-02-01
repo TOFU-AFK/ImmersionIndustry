@@ -1,6 +1,7 @@
 package immersionIndustry.types.blocks.power;
 
 import arc.*;
+import arc.func.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
@@ -55,6 +56,11 @@ public class GlowReleaser extends PowerGenerator {
   public float range = 120;
   //污染物上限
   public int maxPollutant = 150;
+  public Func<Tile,Tile> getTile = tile -> {
+    Tile t = tile.nearBy(Mathf.random(0,3));
+    if(t == null || t.block() instanceof GlowReleaser || t.floor() == IMFloors.glow) return getTile.get(t);
+    return t;
+  };
   
   public GlowReleaser(String name) {
     super(name);
@@ -106,7 +112,6 @@ public class GlowReleaser extends PowerGenerator {
     
     public float warmup;
     public int pollutant = 0;
-    boolean was = false;
     
     @Override
     public void updateTile(){
@@ -122,7 +127,7 @@ public class GlowReleaser extends PowerGenerator {
           IMSounds.energyShockWave.at(this);
           IMFx.sphere.at(x + Mathf.range(size * 4f), y + Mathf.range(size * 4));
           consume();
-          pollute(false);
+          pollute();
         }
         
         IMFx.radiation.at(this,Time.time * 1.5f);
@@ -155,34 +160,13 @@ public class GlowReleaser extends PowerGenerator {
     }
     
     //污染周围环境
-    //d 是否为爆炸引起的污染
-    protected void pollute(boolean d) {
-      float r = d ? range*3 : range;
-      world.tiles.eachTile(tile -> {
-        if(tile.within(x,y,r)) {
-          if(tile == null || tile.floor().name.equals(IMFloors.glow.name) || tile.block().name.equals(name) || was) return;
-          if(d) {
-            if(pollutant < maxPollutant) replace(tile);
-            return;
-          }
-          if(Mathf.random(0,range) > tile.dst(x,y)) {
-            replace(tile);
-            was = true;
-            return;
-          }else if(pollutant < maxPollutant){
-            for(int i = 0;i<4;i++) {
-              Tile other = tile.nearby(i);
-              if(other != null && other.floor().name.equals(IMFloors.glow.name)) {
-                if(Mathf.random(0,range) > tile.dst(x,y)) {
-                  replace(tile);
-                }
-                return;
-              }
-            }
-          }
+    protected void pollute() {
+      if(pollutant < maxPollutant) {
+        Tile t = getTile.get(tile);
+        if(t != null) {
+          replace(t);
         }
-      });
-      was = false;
+      }
     }
     
     protected void replace(Tile tile) {
@@ -219,7 +203,6 @@ public class GlowReleaser extends PowerGenerator {
 
       Effect.shake(6f, 16f, x, y);
       explodeEffect.at(x, y);
-      pollute(true);
     }
 
     @Override
