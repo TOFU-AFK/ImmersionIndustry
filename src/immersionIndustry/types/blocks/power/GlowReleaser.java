@@ -56,11 +56,6 @@ public class GlowReleaser extends PowerGenerator {
   public float range = 120;
   //污染物上限
   public int maxPollutant = 150;
-  public Func<Tile,Tile> getTile = tile -> {
-    Tile t = tile.nearBy(Mathf.random(0,3));
-    if(t == null || t.block() instanceof GlowReleaser || t.floor() == IMFloors.glow) return getTile.get(t);
-    return t;
-  };
   
   public GlowReleaser(String name) {
     super(name);
@@ -162,11 +157,17 @@ public class GlowReleaser extends PowerGenerator {
     //污染周围环境
     protected void pollute() {
       if(pollutant < maxPollutant) {
-        Tile t = getTile.get(tile);
+        Tile t = getTile(tile);
         if(t != null) {
           replace(t);
         }
       }
+    }
+    
+    protected Tile getTile(Tile tile) {
+      Tile t = tile.nearby(Mathf.random(0,3));
+      if(t == null || t.block() instanceof GlowReleaser || t.floor() == IMFloors.glow) return getTile(t);
+      return t;
     }
     
     protected void replace(Tile tile) {
