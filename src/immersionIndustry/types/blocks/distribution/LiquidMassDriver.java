@@ -41,6 +41,7 @@ public class LiquidMassDriver extends Block {
   public float knockback = 4f;
   public float rotateSpeed = 5f;
   public float shootCone = 8f;
+  public float translation = 7f;
   public BulletType type = IMBullets.glowLaser;
   protected Vec2 tr = new Vec2();
   protected final int timerCharge = timers++;
@@ -113,7 +114,10 @@ public class LiquidMassDriver extends Block {
       }
       
       if(Angles.angleDist(rotation, angleTo(link)) < shootCone && canShoot) {
-        bullet = type.create(this, team, x + tr.x, y + tr.y, rotation);
+        float angle = angleTo(link);
+        bullet = type.create(this, team,
+                x + Angles.trnsx(angle, translation), y + Angles.trnsy(angle, translation),
+                angle, -1f, 0, 1, data);
         fire();
       }
     }
