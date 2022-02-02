@@ -11,6 +11,7 @@ import arc.util.io.*;
 import arc.scene.ui.layout.Table;
 import mindustry.content.*;
 import mindustry.entities.*;
+import mindustry.entities.bullet.*;
 import mindustry.entities.units.*;
 import mindustry.game.*;
 import mindustry.gen.*;
@@ -35,10 +36,12 @@ public class LiquidMassDriver extends Block {
   
   public TextureRegion baseRegion;
   public float reloadTime = 100f;
+  public float range = 420f;
   public float knockback = 4f;
   public float rotateSpeed = 5f;
   public float shootCone = 8f;
   public BulletType type;
+  protected Vec2 tr = new Vec2();
   protected final int timerCharge = timers++;
   
   public LiquidMassDriver(String name) {
@@ -102,7 +105,7 @@ public class LiquidMassDriver extends Block {
       if(reload <= 0.0001f){
         float targetRotation = angleTo(link);
         rotation = Angles.moveToward(rotation, targetRotation, rotateSpeed * efficiency());
-        if(liquids.total() - liquids.get(liquid.current()) <= 0.0001f) {
+        if(liquids.total() - liquids.get(liquids.current()) <= 0.0001f) {
           canShoot = true;
         }
       }
@@ -115,7 +118,6 @@ public class LiquidMassDriver extends Block {
     
     public void fire() {
       if(bullet != null) {
-        Vec2 tr = new Vec2();
         tr.trns(rotation, dst(world.build(link)) , 0f);
         bullet.rotation(rotation);
         bullet.set(x + tr.x, y + tr.y);
@@ -152,14 +154,14 @@ public class LiquidMassDriver extends Block {
     }
     
     public void drawCharge() {
-      float p = liquids.get(liquid.current()) / liquids.total();
-      Draw.color(IMColors.colorPrimary,iMColors.colorDarkPrimary,p);
+      float p = liquids.get(liquids.current()) / liquids.total();
+      Draw.color(IMColors.colorPrimary,IMColors.colorDarkPrimary,p);
       Fill.circle(x, y, 2 * p);
       Fill.circle(x, y, 1 * p);
     }
     
     protected boolean charge() {
-      return !canShoot && cons.valid() && liquids.get(liquid.current()) >= 0.0001f;
+      return !canShoot && cons.valid() && liquids.get(liquids.current()) >= 0.0001f;
     }
     
     protected boolean linkValid(){
