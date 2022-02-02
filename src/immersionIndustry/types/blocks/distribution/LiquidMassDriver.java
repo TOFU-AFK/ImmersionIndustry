@@ -115,6 +115,10 @@ public class LiquidMassDriver extends Block {
       
       if(Angles.angleDist(rotation, angleTo(link)) < shootCone && canShoot) {
         float angle = angleTo(link);
+        DriverBuildData data = new DriverBuildData();
+        data.from = this;
+        data.to = this;
+        data.liquid = liquids.current();
         bullet = type.create(this, team,
                 x + Angles.trnsx(angle, translation), y + Angles.trnsy(angle, translation),
                 angle, -1f, 0, 1, data);
