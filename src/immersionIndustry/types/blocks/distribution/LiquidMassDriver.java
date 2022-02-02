@@ -31,6 +31,7 @@ import static arc.math.Angles.*;
 
 import immersionIndustry.IMColors;
 import immersionIndustry.contents.IMFx;
+import immersionIndustry.contents.IMBullets;
 
 public class LiquidMassDriver extends Block {
   
@@ -40,7 +41,7 @@ public class LiquidMassDriver extends Block {
   public float knockback = 4f;
   public float rotateSpeed = 5f;
   public float shootCone = 8f;
-  public BulletType type;
+  public BulletType type = IMBullets.glowLaser;
   protected Vec2 tr = new Vec2();
   protected final int timerCharge = timers++;
   
