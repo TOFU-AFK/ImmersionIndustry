@@ -29,7 +29,7 @@ import immersionIndustry.types.blocks.distribution.LiquidMassDriver.*;
 
 public class IMBullets implements ContentList {
   
-  public static glowLaser;
+  public static BulletType glowLaser;
   
 	@Override
 	public void load() {
