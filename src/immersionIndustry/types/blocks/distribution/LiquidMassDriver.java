@@ -59,6 +59,7 @@ public class LiquidMassDriver extends Block {
   
   @Override
   public void load() {
+    super.load();
     baseRegion = Core.atlas.find(name + "-base");
   }
   
