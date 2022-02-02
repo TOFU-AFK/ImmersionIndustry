@@ -58,9 +58,9 @@ public class IMBullets implements ContentList {
         }
         
         Draw.color(data.liquid.color);
-        Angles.randLenVectors(b.id, 10, 440 * b.fin() / 2 + 460 / 2,b.rotation(), 0,new Floatc2(x,y -> {
+        Angles.randLenVectors(b.id, 10, 440 * b.fin() / 2 + 460 / 2,b.rotation(), 0,(x,y) -> {
           Lines.lineAngle(b.x + x, b.y + y, Mathf.angle(x, y),b.fslope() * 17 + 2);
-        }));
+        });
 
         Tmp.v1.trns(b.rotation(), baseLen * 1.1f);
 
