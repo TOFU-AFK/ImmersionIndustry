@@ -1,6 +1,7 @@
 package immersionIndustry.contents;
  
 import arc.audio.*;
+import arc.func.*;
 import arc.math.geom.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
@@ -42,7 +43,7 @@ public class IMBullets implements ContentList {
 	    @Override
 	    public void draw(Bullet b) {
 	      if(b.data instanceof DriverBuildData data) {
-	        float realLength = Mathf.dst(data.from,data.to);
+	        float realLength = data.from.dst(data.to);
 	        float fout = Mathf.clamp(b.time > b.lifetime - fadeTime ? 1f - (b.time - (lifetime - fadeTime)) / fadeTime : 1f);
         float baseLen = realLength * fout;
 
@@ -57,7 +58,7 @@ public class IMBullets implements ContentList {
         }
         
         Draw.color(data.liquid.color);
-        Angles.randLenVectors(b.id, 10, 440 * b.fin() / 2 + 460 / 2,b.rotation, 0,new Floatc2(x,y -> {
+        Angles.randLenVectors(b.id, 10, 440 * b.fin() / 2 + 460 / 2,b.rotation(), 0,new Floatc2(x,y -> {
           Lines.lineAngle(b.x + x, b.y + y, Mathf.angle(x, y),b.fslope() * 17 + 2);
         }));
 
