@@ -42,6 +42,7 @@ public class LiquidMassDriver extends Block {
   public float rotateSpeed = 5f;
   public float shootCone = 8f;
   public float translation = 7f;
+  public float shootLength;
   public BulletType type = IMBullets.glowLaser;
   protected Vec2 tr = new Vec2();
   protected final int timerCharge = timers++;
@@ -57,6 +58,7 @@ public class LiquidMassDriver extends Block {
     outlineIcon = true;
     sync = true;
     liquidCapacity = 100;
+    shootLength = size * tilesize / 2f;
   }
   
   @Override
@@ -128,7 +130,7 @@ public class LiquidMassDriver extends Block {
     
     public void fire() {
       if(bullet != null) {
-        tr.trns(rotation, dst(world.build(link)) , 0f);
+        tr.trns(rotation, shootLength , 0f);
         bullet.rotation(rotation);
         bullet.set(x + tr.x, y + tr.y);
         bullet.time(0f);
