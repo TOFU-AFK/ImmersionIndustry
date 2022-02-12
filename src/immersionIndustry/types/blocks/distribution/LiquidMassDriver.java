@@ -1,6 +1,7 @@
 package immersionIndustry.types.blocks.distribution;
 
 import arc.*;
+import arc.struct.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
@@ -47,14 +48,37 @@ public class LiquidMassDriver extends PowerTurret {
   
   public class DriverBuildData {
     
+    public Building from,to;
+    public Liquid liquid;
+    public float amount;
+    Seq<Building> seq;
+    
     public DriverBuildData(Building from,Building to,Liquid liquid) {
       this.from = from;
       this.to = to;
       this.liquid = liquid;
+      this.amount = from.liquids.get(liquid);
+      from.remove(liquid,amount);
+      seq = new Seq<>;
+      //这样seq会存储两个to，让to获得的液体最多
+      seq.add(to);
     }
     
-    public Building from,to;
-    public Liquid liquid;
+    public void add(Building entity) {
+      seq.add(entity);
+    }
+    
+    public void transmit() {
+      float a = amount / seq.size;
+      Seq<Vec2> lines = new Seq<>();
+      seq.each(entity -> {
+        if(entity.acceptLiquid(from,liquid)) {
+          entity.handleLiquid(from,liquid,a);
+          lines.add(new Vec2(entity.x + Mathf.range(3f), entity.y + Mathf.range(3f)))
+        }
+      });
+      Fx.lightning.at(to.x, to.y, from.rotation, liquid.color, lines);
+    }
   }
   
   public class DriverBuild extends PowerTurretBuild {
