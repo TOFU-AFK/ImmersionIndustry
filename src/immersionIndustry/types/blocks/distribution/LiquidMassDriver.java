@@ -20,6 +20,8 @@ import mindustry.logic.*;
 import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.*;
+import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.blocks.defense.turrets.LaserTurret.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
 
@@ -33,118 +35,23 @@ import immersionIndustry.IMColors;
 import immersionIndustry.contents.IMFx;
 import immersionIndustry.contents.IMBullets;
 
-public class LiquidMassDriver extends Block {
-  
-  public TextureRegion baseRegion;
-  public float reloadTime = 100f;
-  public float range = 420f;
-  public float knockback = 4f;
-  public float rotateSpeed = 5f;
-  public float shootCone = 8f;
-  public float translation = 7f;
-  public float shootLength;
-  public BulletType type = IMBullets.glowLaser;
-  protected Vec2 tr = new Vec2();
-  protected final int timerCharge = timers++;
+public class LiquidMassDriver extends LaserTurret {
   
   public LiquidMassDriver(String name) {
     super(name);
-    update = true;
-    solid = true;
     configurable = true;
     hasItems = false;
     hasLiquids = true;
-    hasPower = true;
-    outlineIcon = true;
-    sync = true;
-    liquidCapacity = 100;
-    shootLength = size * tilesize / 2f;
+    range = 420f;
   }
   
-  @Override
-  public void load() {
-    super.load();
-    baseRegion = Core.atlas.find(name + "-base");
-  }
-  
-  @Override
-  public TextureRegion[] icons(){
-    return new TextureRegion[]{baseRegion, region};
-  }
-  
-  @Override
-  public void drawPlace(int x, int y, int rotation, boolean valid) {
-    super.drawPlace(x, y, rotation, valid);
-    Drawf.dashCircle(x * tilesize, y * tilesize, range, Pal.accent);
-  }
-  
-  public class DriverBuildData {
-    
-    public Building from,to;
-    public Liquid liquid;
-    
-  }
-  
-  public class DriverBuild extends Building {
+  public class DriverBuild extends LaserTurretBuild {
     
     public int link = -1;
-    public float rotation = 90;
-    public float reload = 0f;
-    public boolean canShoot;
-    public Bullet bullet;
     
     @Override
     public void updateTile() {
-      if(!linkValid() || !cons.valid()) return;
-      
-      if(charge() && timer(timerCharge,6)) {
-        Fx.lancerLaserCharge.at(this);
-      } 
-      
-      Building link = world.build(this.link);
-      
-      if(reload > 0f){
-        reload = Mathf.clamp(reload - edelta() / reloadTime);
-      }
-      
-      if(reload <= 0.0001f){
-        float targetRotation = angleTo(link);
-        rotation = Angles.moveToward(rotation, targetRotation, rotateSpeed * efficiency());
-        if(liquids.total() - liquids.get(liquids.current()) <= 0.0001f) {
-          canShoot = true;
-        }
-      }
-      
-      if(Angles.angleDist(rotation, angleTo(link)) < shootCone && canShoot) {
-        float angle = angleTo(link);
-        DriverBuildData data = new DriverBuildData();
-        data.from = this;
-        data.to = this;
-        data.liquid = liquids.current();
-        bullet = type.create(this, team,
-                x + Angles.trnsx(angle, translation), y + Angles.trnsy(angle, translation),
-                angle, -1f, 0, 1, data);
-        fire();
-      }
-    }
-    
-    public void fire() {
-      if(bullet != null) {
-        tr.trns(rotation, shootLength , 0f);
-        bullet.rotation(rotation);
-        bullet.set(x + tr.x, y + tr.y);
-        bullet.time(0f);
-      }
-    }
-    
-    @Override
-    public void draw() {
-      Draw.rect(baseRegion, x, y);
-
-      Draw.z(Layer.turret);
-
-      Drawf.shadow(region,x + Angles.trnsx(rotation + 180f, reload * knockback) - (size / 2),y + Angles.trnsy(rotation + 180f, reload * knockback) - (size / 2), rotation - 90);
-      Draw.rect(region,x + Angles.trnsx(rotation + 180f, reload * knockback),y + Angles.trnsy(rotation + 180f, reload * knockback), rotation - 90);
+      super.updateTile();
     }
     
     @Override
@@ -161,19 +68,11 @@ public class LiquidMassDriver extends Block {
       }
 
       Drawf.dashCircle(x, y, range, Pal.accent);
-      
-      if(charge()) drawCharge();
     }
     
-    public void drawCharge() {
-      float p = liquids.get(liquids.current()) / liquids.total();
-      Draw.color(IMColors.colorPrimary,IMColors.colorDarkPrimary,p);
-      Fill.circle(x, y, 2 * p);
-      Fill.circle(x, y, 1 * p);
-    }
-    
-    protected boolean charge() {
-      return !canShoot && cons.valid() && liquids.get(liquids.current()) >= 0.0001f;
+    @Override
+    protected void findTarget() {
+      target = world.build(link);
     }
     
     protected boolean linkValid(){
@@ -198,6 +97,10 @@ public class LiquidMassDriver extends Block {
         return false;
       }
       return true;
+    }
+
+    public boolean acceptLiquid(Building source, Liquid liquid){
+      return liquids.get(liquid) < liquidCapacity;
     }
     
   }
