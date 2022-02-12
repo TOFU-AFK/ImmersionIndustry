@@ -39,7 +39,7 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 import static mindustry.Vars.*;
 import immersionIndustry.IMColors;
-import import immersionIndustry.types.blocks.distribution.LiquidMassDriver.*;
+import immersionIndustry.types.blocks.distribution.LiquidMassDriver.*;
 
 import immersionIndustry.types.blocks.defense.Diffuser;
 
