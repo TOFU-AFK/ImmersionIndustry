@@ -54,18 +54,30 @@ public class IMBlocks implements ContentList {
       alternate = true;
       requirements(Category.distribution, ItemStack.with(Items.silicon, 35,Items.copper, 75,Items.lead,60,IMItems.t1BasicChip,6,IMItems.cuTiAlloy,6));
       powerUse = 18;
-      shootEffect = Fx.shootBigSmoke2;
-      shootCone = 40f;
-      recoilAmount = 4f;
+      chargeTime = 40f;
+      chargeMaxDelay = 30f;
+      chargeEffects = 7;
+      recoilAmount = 2f;
+      reloadTime = 80f;
+      cooldown = 0.03f;
       shootShake = 2f;
-      reloadTime = 90f;
-      firingMoveFract = 0.5f;
-      shootDuration = 230f;
-      shootSound = Sounds.laserbig;
-      loopSound = Sounds.beam;
-      loopSoundVolume = 2f;
-      
-      shootType = IMBullets.glowLaser;
+      shootEffect = Fx.lancerLaserShoot;
+      smokeEffect = Fx.none;
+      chargeEffect = Fx.lancerLaserCharge;
+      chargeBeginEffect = Fx.lancerLaserChargeBegin;
+      heatColor = Color.red;
+      shootSound = Sounds.laser;
+
+      shootType = new LaserBulletType(140){{
+        colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
+        hitEffect = Fx.hitLancer;
+        hitSize = 4;
+        lifetime = 16f;
+        drawSize = 400f;
+        collidesAir = false;
+        length = 173f;
+        ammoMultiplier = 1f;
+      }};
     }};
     
     glowReleaser = new GlowReleaser("glow-releaser"){{
