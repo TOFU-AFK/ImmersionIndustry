@@ -36,13 +36,11 @@ public class IMBullets implements ContentList {
 	public void load() {
 	  glowLaser = new LaserBulletType(10){
 	    
-	    {
-	      colors = new Color[]{IMColors.colorPrimary,IMColors.colorDarkPrimary,Color.white};
-	    }
-	    
 	    @Override
 	    public void draw(Bullet b) {
 	      DriverBuildData data =  (DriverBuildData) b.data;
+	      if(!data.check()) return;
+	      colors = new Color[]{data.liquid.color,data.liquid.color.cpy().mul(0.8f, 0.8f, 0.8f, 1f),Color.white};
 	      float realLength = b.fdata;
 
         float f = Mathf.curve(b.fin(), 0f, 0.2f);
