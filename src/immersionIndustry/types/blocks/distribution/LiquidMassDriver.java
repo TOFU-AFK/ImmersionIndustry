@@ -79,6 +79,11 @@ public class LiquidMassDriver extends LaserTurret {
     }
     
     @Override
+    protected boolean validateTarget(){
+      return world.build(link).block.hasLiquids;
+    }
+    
+    @Override
     protected void findTarget() {
       target = world.build(link);
     }
