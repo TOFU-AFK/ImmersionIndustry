@@ -45,6 +45,14 @@ public class LiquidMassDriver extends LaserTurret {
     range = 420f;
   }
   
+  public class DriverBuildData {
+    
+    public DriverBuildData(Building from,building to,Liquid liquid)
+    
+    public Building from,to;
+    public Liquid liquid;
+  }
+  
   public class DriverBuild extends LaserTurretBuild {
     
     public int link = -1;
@@ -73,6 +81,12 @@ public class LiquidMassDriver extends LaserTurret {
     @Override
     protected void findTarget() {
       target = world.build(link);
+    }
+    
+    @Override
+    protected void bullet(BulletType type, float angle){
+      bullet = type.create(this, team, x + tr.x, y + tr.y, angle,-1f,1f,1f,new DriverBuildData(this,world.build(link),liquids.current()));
+      bulletLife = shootDuration;
     }
     
     protected boolean linkValid(){
