@@ -38,6 +38,8 @@ import immersionIndustry.contents.IMBullets;
 
 public class LiquidMassDriver extends PowerTurret {
   
+  public float sputteringRange = 110f;
+  
   public LiquidMassDriver(String name) {
     super(name);
     configurable = true;
@@ -52,6 +54,7 @@ public class LiquidMassDriver extends PowerTurret {
     public Liquid liquid;
     public float amount;
     Seq<Building> seq;
+    public float range = sputteringRange;
     
     public DriverBuildData(Building from,Building to,Liquid liquid) {
       this.from = from;
@@ -101,6 +104,7 @@ public class LiquidMassDriver extends PowerTurret {
         Building target = world.build(link);
         Drawf.circles(target.x, target.y, (target.block().size / 2f + 1) * tilesize + sin - 2f, Pal.place);
         Drawf.arrow(x, y, target.x, target.y, size * tilesize + sin, 4f + sin);
+        Drawf.dashCircle(target.x, target.y, sputteringRange, Pal.accent);
       }
 
       Drawf.dashCircle(x, y, range, Pal.accent);
