@@ -21,7 +21,7 @@ import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.blocks.defense.turrets.*;
-import mindustry.world.blocks.defense.turrets.LaserTurret.*;
+import mindustry.world.blocks.defense.turrets.PowerTurret.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
 
@@ -35,7 +35,7 @@ import immersionIndustry.IMColors;
 import immersionIndustry.contents.IMFx;
 import immersionIndustry.contents.IMBullets;
 
-public class LiquidMassDriver extends LaserTurret {
+public class LiquidMassDriver extends PowerTurret {
   
   public LiquidMassDriver(String name) {
     super(name);
@@ -57,7 +57,7 @@ public class LiquidMassDriver extends LaserTurret {
     public Liquid liquid;
   }
   
-  public class DriverBuild extends LaserTurretBuild {
+  public class DriverBuild extends PowerTurretBuild {
     
     public int link = -1;
     
@@ -94,8 +94,8 @@ public class LiquidMassDriver extends LaserTurret {
     
     @Override
     protected void bullet(BulletType type, float angle){
-      bullet = type.create(this, team, x + tr.x, y + tr.y, angle,-1f,1f,1f,new DriverBuildData(this,world.build(link),liquids.current()));
-      bulletLife = shootDuration;
+      float lifeScl = type.scaleVelocity ? Mathf.clamp(Mathf.dst(x + tr.x, y + tr.y, targetPos.x, targetPos.y) / type.range(), minRange / type.range(), range / type.range()) : 1f;
+      bullet = type.create(this, team, x + tr.x, y + tr.y, angle,-1f,1f + Mathf.range(velocityInaccuracy), lifeScl,new DriverBuildData(this,world.build(link),liquids.current()));
     }
     
     protected boolean linkValid(){
