@@ -51,9 +51,34 @@ public class IMBlocks implements ContentList {
     
     laserLiquidGuide = new LiquidMassDriver("laser-liquid-guide") {{
       health = 200*size*size;
-      size = 1;
+      size = 5;
+      alternate = true;
       requirements(Category.distribution, ItemStack.with(Items.silicon, 35,Items.copper, 75,Items.lead,60,IMItems.t1BasicChip,6,IMItems.cuTiAlloy,6));
-      consumes.power(2);
+      powerUse = 18;
+      shootEffect = Fx.shootBigSmoke2;
+      shootCone = 40f;
+      recoilAmount = 4f;
+      shootShake = 2f;
+      reloadTime = 90f;
+      firingMoveFract = 0.5f;
+      shootDuration = 230f;
+      shootSound = Sounds.laserbig;
+      loopSound = Sounds.beam;
+      loopSoundVolume = 2f;
+      
+      shootType = new ContinuousLaserBulletType(78){{
+        length = 200f;
+        hitEffect = Fx.hitMeltdown;
+        hitColor = Pal.meltdownHit;
+        status = StatusEffects.melting;
+        drawSize = 420f;
+      
+        incendChance = 0.4f;
+        incendSpread = 5f;
+        incendAmount = 1;
+        ammoMultiplier = 1f;
+      }};
+      consumes.add(new ConsumeCoolant(0.5f)).update(false);
     }};
     
     glowReleaser = new GlowReleaser("glow-releaser"){{
