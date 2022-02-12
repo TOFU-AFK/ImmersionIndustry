@@ -34,7 +34,7 @@ public class IMBullets implements ContentList {
   
 	@Override
 	public void load() {
-	  glowLaser = new ContinuousLaserBulletType(10){
+	  glowLaser = new LaserBulletType(10){
 	    
 	    {
 	      colors = new Color[]{IMColors.colorPrimary,IMColors.colorDarkPrimary,Color.white};
@@ -43,29 +43,51 @@ public class IMBullets implements ContentList {
 	    @Override
 	    public void draw(Bullet b) {
 	      DriverBuildData data =  (DriverBuildData) b.data;
-	      float realLength = data.from.dst(data.to);
-	      float fout = Mathf.clamp(b.time > b.lifetime - fadeTime ? 1f - (b.time - (lifetime - fadeTime)) / fadeTime : 1f);
-        float baseLen = realLength * fout;
+	      float realLength = data.;
 
-        Lines.lineAngle(b.x, b.y, b.rotation(), baseLen);
-        for(int s = 0; s < colors.length; s++){
-          Draw.color(Tmp.c1.set(colors[s]).mul(1f + Mathf.absin(Time.time, 1f, 0.1f)));
-          for(int i = 0; i < tscales.length; i++){
-            Tmp.v1.trns(b.rotation() + 180f, (lenscales[i] - 1f) * spaceMag);
-            Lines.stroke((width + Mathf.absin(Time.time, oscScl, oscMag)) * fout * strokes[s] * tscales[i]);
-            Lines.lineAngle(b.x + Tmp.v1.x, b.y + Tmp.v1.y, b.rotation(), baseLen * lenscales[i], false);
-          }
+        float f = Mathf.curve(b.fin(), 0f, 0.2f);
+        float baseLen = realLength * f;
+        float cwidth = width;
+        float compound = 1f;
+
+        Lines.line(b.x, b.y, data.to.x,data.to.y);
+        for(Color color : colors){
+            Draw.color(color);
+            Lines.stroke((cwidth *= lengthFalloff) * b.fout());
+            Lines.line(b.x, b.y, data.to.x,data.to.y);
+            Tmp.v1.trns(b.rotation(), baseLen);
+            Drawf.tri(b.x + Tmp.v1.x, b.y + Tmp.v1.y, Lines.getStroke() * 1.22f, cwidth * 2f + width / 2f, b.rotation());
+
+            Fill.circle(b.x, b.y, 1f * cwidth * b.fout());
+            for(int i : Mathf.signs){
+                Drawf.tri(b.x, b.y, sideWidth * b.fout() * cwidth, sideLength * compound, b.rotation() + sideAngle * i);
+            }
+
+            compound *= lengthFalloff;
         }
-        
-        Draw.color(data.liquid.color);
-        Angles.randLenVectors(b.id, 10, 440 * b.fin() / 2 + 460 / 2,b.rotation(), 0,(x,y) -> {
-          Lines.lineAngle(b.x + x, b.y + y, Mathf.angle(x, y),b.fslope() * 17 + 2);
-        });
+        Draw.reset();
 
         Tmp.v1.trns(b.rotation(), baseLen * 1.1f);
-
-        Drawf.light(b.team, b.x, b.y, b.x + Tmp.v1.x, b.y + Tmp.v1.y, lightStroke, lightColor, 0.7f);
-        Draw.reset();
+        Drawf.light(b.team, b.x, b.y, b.x + Tmp.v1.x, b.y + Tmp.v1.y, width * 1.4f * b.fout(), colors[0], 0.6f);
+	    }
+	    
+	    @Override
+	    public void despawned(Bullet b) {
+	      super.despawned(b);
+	      DriverBuildData data =  (DriverBuildData) b.data;
+	      data.transmit();
+	    }
+	    
+	    @Override
+	    public void hit(Bullet b, float x, float y) {
+	      super.hit(b,x,y);
+	      DriverBuildData data =  (DriverBuildData) b.data;
+	      float range = 120;
+	      indexer.eachBlock(this, realRange, other -> {
+	        return other.block.hasLiquids;
+	      } , other -> {
+            data.add(other);
+        });
 	    }
 	    
 	  };
