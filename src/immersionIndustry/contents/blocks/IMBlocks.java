@@ -33,6 +33,7 @@ import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 import immersionIndustry.contents.*;
+import immersionIndustry.contents.drawer.*;
 import immersionIndustry.types.blocks.production.*;
 import immersionIndustry.types.blocks.distribution.*;
 import immersionIndustry.types.blocks.defense.*;
