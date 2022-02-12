@@ -67,7 +67,7 @@ public class LiquidMassDriver extends PowerTurret {
       seq.add(to);
     }
     
-    public void boolean check() {
+    public boolean check() {
       if(from == null || to == null || liquid == null) {
         return false;
       }
