@@ -80,7 +80,7 @@ public class LiquidMassDriver extends LaserTurret {
     
     @Override
     protected boolean validateTarget(){
-      return world.build(link).block.hasLiquids;
+      return linkValid();
     }
     
     @Override
