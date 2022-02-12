@@ -73,6 +73,7 @@ public class IMBullets implements ContentList {
 	    public void despawned(Bullet b) {
 	      super.despawned(b);
 	      DriverBuildData data =  (DriverBuildData) b.data;
+	      if(!data.check()) return;
 	      float range = data.range;
 	      indexer.eachBlock(data.to, range, other -> {
 	        return other.block.hasLiquids;
