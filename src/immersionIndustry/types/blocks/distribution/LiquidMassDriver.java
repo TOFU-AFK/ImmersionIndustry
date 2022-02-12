@@ -59,7 +59,7 @@ public class LiquidMassDriver extends PowerTurret {
       this.liquid = liquid;
       this.amount = from.liquids.get(liquid);
       from.remove(liquid,amount);
-      seq = new Seq<>;
+      seq = new Seq<>();
       //这样seq会存储两个to，让to获得的液体最多
       seq.add(to);
     }
@@ -74,7 +74,7 @@ public class LiquidMassDriver extends PowerTurret {
       seq.each(entity -> {
         if(entity.acceptLiquid(from,liquid)) {
           entity.handleLiquid(from,liquid,a);
-          lines.add(new Vec2(entity.x + Mathf.range(3f), entity.y + Mathf.range(3f)))
+          lines.add(new Vec2(entity.x + Mathf.range(3f), entity.y + Mathf.range(3f)));
         }
       });
       Fx.lightning.at(to.x, to.y, from.rotation, liquid.color, lines);
