@@ -42,7 +42,6 @@ public class IMBullets implements ContentList {
 	    
 	    @Override
 	    public void draw(Bullet b) {
-	      if(b.data instanceof DriverBuildData data) {
 	        float realLength = data.from.dst(data.to);
 	        float fout = Mathf.clamp(b.time > b.lifetime - fadeTime ? 1f - (b.time - (lifetime - fadeTime)) / fadeTime : 1f);
         float baseLen = realLength * fout;
@@ -66,7 +65,6 @@ public class IMBullets implements ContentList {
 
         Drawf.light(b.team, b.x, b.y, b.x + Tmp.v1.x, b.y + Tmp.v1.y, lightStroke, lightColor, 0.7f);
         Draw.reset();
-	      }
 	    }
 	    
 	  };
