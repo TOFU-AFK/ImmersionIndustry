@@ -58,7 +58,7 @@ public class IMBlocks implements ContentList {
       powerUse = 18;
       chargeTime = 40f;
       chargeMaxDelay = 30f;
-      chargeEffects = 7;
+      chargeEffects = 1;
       recoilAmount = 2f;
       reloadTime = 80f;
       cooldown = 0.03f;
