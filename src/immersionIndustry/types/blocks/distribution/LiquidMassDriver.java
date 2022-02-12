@@ -95,7 +95,7 @@ public class LiquidMassDriver extends PowerTurret {
     @Override
     protected void bullet(BulletType type, float angle){
       float lifeScl = type.scaleVelocity ? Mathf.clamp(Mathf.dst(x + tr.x, y + tr.y, targetPos.x, targetPos.y) / type.range(), minRange / type.range(), range / type.range()) : 1f;
-      bullet = type.create(this, team, x + tr.x, y + tr.y, angle,-1f,1f + Mathf.range(velocityInaccuracy), lifeScl,new DriverBuildData(this,world.build(link),liquids.current()));
+      type.create(this, team, x + tr.x, y + tr.y, angle,-1f,1f + Mathf.range(velocityInaccuracy), lifeScl,new DriverBuildData(this,world.build(link),liquids.current()));
     }
     
     protected boolean linkValid(){
