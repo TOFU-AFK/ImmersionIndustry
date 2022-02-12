@@ -67,6 +67,13 @@ public class LiquidMassDriver extends PowerTurret {
       seq.add(to);
     }
     
+    public void boolean check() {
+      if(from == null || to == null || liquid == null) {
+        return false;
+      }
+      return true;
+    }
+    
     public void add(Building entity) {
       seq.add(entity);
     }
@@ -150,8 +157,21 @@ public class LiquidMassDriver extends PowerTurret {
       return true;
     }
 
+    @Override
     public boolean acceptLiquid(Building source, Liquid liquid){
       return liquids.get(liquid) < liquidCapacity;
+    }
+    
+    @Override
+    public void write(Writes write){
+      super.write(write);
+      write.i(link);
+    }
+
+    @Override
+    public void read(Reads read, byte revision){
+      super.read(read, revision);
+      link = read.i();
     }
     
   }
