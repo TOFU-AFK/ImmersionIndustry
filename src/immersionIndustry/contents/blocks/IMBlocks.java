@@ -64,7 +64,7 @@ public class IMBlocks implements ContentList {
       cooldown = 0.03f;
       shootShake = 2f;
       smokeEffect = Fx.none;
-      chargeEffect = IMFx.energize
+      chargeEffect = IMFx.energize;
       heatColor = Color.red;
       shootSound = Sounds.laser;
 
