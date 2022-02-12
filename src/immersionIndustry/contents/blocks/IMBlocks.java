@@ -32,9 +32,7 @@ import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
-import immersionIndustry.contents.IMItems;
-import immersionIndustry.contents.IMFx;
-import immersionIndustry.contents.drawer.*;
+import immersionIndustry.contents.*;
 import immersionIndustry.types.blocks.production.*;
 import immersionIndustry.types.blocks.distribution.*;
 import immersionIndustry.types.blocks.defense.*;
@@ -66,19 +64,7 @@ public class IMBlocks implements ContentList {
       loopSound = Sounds.beam;
       loopSoundVolume = 2f;
       
-      shootType = new ContinuousLaserBulletType(78){{
-        length = 200f;
-        hitEffect = Fx.hitMeltdown;
-        hitColor = Pal.meltdownHit;
-        status = StatusEffects.melting;
-        drawSize = 420f;
-      
-        incendChance = 0.4f;
-        incendSpread = 5f;
-        incendAmount = 1;
-        ammoMultiplier = 1f;
-      }};
-      consumes.add(new ConsumeCoolant(0.5f)).update(false);
+      shootType = IMBullets.glowLaser;
     }};
     
     glowReleaser = new GlowReleaser("glow-releaser"){{
