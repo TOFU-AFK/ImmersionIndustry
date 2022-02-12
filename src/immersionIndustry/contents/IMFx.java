@@ -39,11 +39,12 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 import static mindustry.Vars.*;
 import immersionIndustry.IMColors;
+import import immersionIndustry.types.blocks.distribution.LiquidMassDriver.*;
 
 import immersionIndustry.types.blocks.defense.Diffuser;
 
 public class IMFx implements ContentList {
-  public static Effect dispersion,shockWave,absorbedEnergy,crystallizationEnergy,absorptionHeat,lossHeat,spread,absorb,radiation,sphere;
+  public static Effect dispersion,shockWave,absorbedEnergy,crystallizationEnergy,absorptionHeat,lossHeat,spread,absorb,radiation,sphere,energize;
   
   public static void takeItemEffect(float x,float y,float x2,float y2,Color color,float lifeTime) {
     new Effect(lifeTime, e -> {
@@ -58,6 +59,26 @@ public class IMFx implements ContentList {
   
   @Override
   public void load() {
+    
+    energize = new Effect(40f,e -> {
+      DriverBuildData data = (DriverBuildData) e.data;
+      if(!data.check()) return;
+      Color light = data.liquid.color,dark = data.liquid.color.cpy().mul(0.8f, 0.8f, 0.8f, 1f);
+      color(light,dark,e.fin());
+      
+      Building link = data.to;
+      
+      float len = 20.825f, w = 15f * e.fout();
+      Vec2 right = Tmp.v1.trns(e.rotation, len, w);
+      Vec2 left = Tmp.v2.trns(e.rotation, len, -w);
+      Lines.stroke(e.fin() * 1.2f);
+      Lines.line(x + left.x, y + left.y, link.x - right.x, link.y - right.y);
+      Lines.line(x + right.x, y + right.y, link.x - left.x, link.y - left.y);
+      Tmp.v3.set(x, y).lerp(link.x, link.y,e.fin());
+      Draw.scl(e.fin() * 1.1f);
+      Drawf.arrow(e.x,e.y, Tmp.v3.x, Tmp.v3.y,15f,e.rotation);
+      Draw.scl();
+    });
     
     sphere = new Effect(60,e -> {
       color(IMColors.colorPrimary,IMColors.colorYellow,e.fin());
