@@ -58,7 +58,7 @@ public class LiquidMassDriver extends PowerTurret {
       this.to = to;
       this.liquid = liquid;
       this.amount = from.liquids.get(liquid);
-      from.remove(liquid,amount);
+      from.liquids.remove(liquid,amount);
       seq = new Seq<>();
       //这样seq会存储两个to，让to获得的液体最多
       seq.add(to);
