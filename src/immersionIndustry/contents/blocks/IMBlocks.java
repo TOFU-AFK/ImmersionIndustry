@@ -53,6 +53,8 @@ public class IMBlocks implements ContentList {
       size = 5;
       alternate = true;
       requirements(Category.distribution, ItemStack.with(Items.silicon, 35,Items.copper, 75,Items.lead,60,IMItems.t1BasicChip,6,IMItems.cuTiAlloy,6));
+      liquidCapacity = 2021;
+      shootCone = 35f;
       powerUse = 18;
       chargeTime = 40f;
       chargeMaxDelay = 30f;
