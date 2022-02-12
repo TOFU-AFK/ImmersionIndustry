@@ -83,7 +83,7 @@ public class IMBullets implements ContentList {
 	      super.hit(b,x,y);
 	      DriverBuildData data =  (DriverBuildData) b.data;
 	      float range = 120;
-	      indexer.eachBlock(this, realRange, other -> {
+	      indexer.eachBlock(this, range, other -> {
 	        return other.block.hasLiquids;
 	      } , other -> {
             data.add(other);
