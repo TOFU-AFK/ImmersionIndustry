@@ -72,9 +72,9 @@ public class IMFx implements ContentList {
       Vec2 right = Tmp.v1.trns(e.rotation, len, w);
       Vec2 left = Tmp.v2.trns(e.rotation, len, -w);
       Lines.stroke(e.fin() * 1.2f);
-      Lines.line(x + left.x, y + left.y, link.x - right.x, link.y - right.y);
-      Lines.line(x + right.x, y + right.y, link.x - left.x, link.y - left.y);
-      Tmp.v3.set(x, y).lerp(link.x, link.y,e.fin());
+      Lines.line(e.x + left.x, e.y + left.y, link.x - right.x, link.y - right.y);
+      Lines.line(e.x + right.x, e.y + right.y, link.x - left.x, link.y - left.y);
+      Tmp.v3.set(e.x, e.y).lerp(link.x, link.y,e.fin());
       Draw.scl(e.fin() * 1.1f);
       Drawf.arrow(e.x,e.y, Tmp.v3.x, Tmp.v3.y,15f,e.rotation);
       Draw.scl();
