@@ -47,7 +47,11 @@ public class LiquidMassDriver extends LaserTurret {
   
   public class DriverBuildData {
     
-    public DriverBuildData(Building from,Building to,Liquid liquid) {}
+    public DriverBuildData(Building from,Building to,Liquid liquid) {
+      this.from = from;
+      this.to = to;
+      this.liquid = liquid;
+    }
     
     public Building from,to;
     public Liquid liquid;
