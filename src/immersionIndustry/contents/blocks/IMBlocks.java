@@ -68,16 +68,7 @@ public class IMBlocks implements ContentList {
       heatColor = Color.red;
       shootSound = Sounds.laser;
 
-      shootType = new LaserBulletType(140){{
-        colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
-        hitEffect = Fx.hitLancer;
-        hitSize = 4;
-        lifetime = 16f;
-        drawSize = 400f;
-        collidesAir = false;
-        length = 173f;
-        ammoMultiplier = 1f;
-      }};
+      shootType = IMBullets.glowLaser;
     }};
     
     glowReleaser = new GlowReleaser("glow-releaser"){{
