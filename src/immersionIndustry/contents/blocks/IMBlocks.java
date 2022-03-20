@@ -42,34 +42,11 @@ import immersionIndustry.types.blocks.power.*;
 //实现ContentList
 public class IMBlocks implements ContentList {
   
-  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide,powerDiffuser,glowReleaser,laserLiquidGuide;
+  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide,powerDiffuser,glowReleaser;
   
   //在这里创建变量
   @Override
   public void load() {
-    
-    laserLiquidGuide = new LiquidMassDriver("laser-liquid-guide") {{
-      health = 200*size*size;
-      size = 5;
-      alternate = true;
-      requirements(Category.distribution, ItemStack.with(Items.silicon, 35,Items.copper, 75,Items.lead,60,IMItems.t1BasicChip,6,IMItems.cuTiAlloy,6));
-      liquidCapacity = 2021;
-      shootCone = 35f;
-      powerUse = 18;
-      chargeTime = 40f;
-      chargeMaxDelay = 30f;
-      chargeEffects = 1;
-      recoilAmount = 2f;
-      reloadTime = 80f;
-      cooldown = 0.03f;
-      shootShake = 2f;
-      smokeEffect = Fx.none;
-      chargeEffect = IMFx.energize;
-      heatColor = Color.red;
-      shootSound = Sounds.laser;
-
-      shootType = IMBullets.glowLaser;
-    }};
     
     glowReleaser = new GlowReleaser("glow-releaser"){{
       requirements(Category.power, ItemStack.with(Items.lead, 500, Items.silicon, 300, Items.graphite, 400, Items.thorium, 100, Items.surgeAlloy, 250, Items.metaglass, 250));
