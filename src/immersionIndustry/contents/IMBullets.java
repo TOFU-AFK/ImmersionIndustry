@@ -26,7 +26,6 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 
 import immersionIndustry.IMColors;
-import immersionIndustry.types.blocks.distribution.LiquidMassDriver.*;
 
 public class IMBullets implements ContentList {
   
@@ -34,55 +33,6 @@ public class IMBullets implements ContentList {
   
 	@Override
 	public void load() {
-	  glowLaser = new LaserBulletType(10){
-	    
-	    @Override
-	    public void draw(Bullet b) {
-	      DriverBuildData data =  (DriverBuildData) b.data;
-	      if(!data.check()) return;
-	      colors = new Color[]{data.liquid.color,data.liquid.color.cpy().mul(0.8f, 0.8f, 0.8f, 1f),Color.white};
-	      float realLength = b.fdata;
-
-        float f = Mathf.curve(b.fin(), 0f, 0.2f);
-        float baseLen = realLength * f;
-        float cwidth = width;
-        float compound = 1f;
-
-        Lines.line(b.x, b.y, data.to.x,data.to.y);
-        for(Color color : colors){
-            Draw.color(color);
-            Lines.stroke((cwidth *= lengthFalloff) * b.fout());
-            Lines.line(b.x, b.y, data.to.x,data.to.y);
-            Tmp.v1.trns(b.rotation(), baseLen);
-            Drawf.tri(b.x + Tmp.v1.x, b.y + Tmp.v1.y, Lines.getStroke() * 1.22f, cwidth * 2f + width / 2f, b.rotation());
-
-            Fill.circle(b.x, b.y, 1f * cwidth * b.fout());
-            for(int i : Mathf.signs){
-                Drawf.tri(b.x, b.y, sideWidth * b.fout() * cwidth, sideLength * compound, b.rotation() + sideAngle * i);
-            }
-
-            compound *= lengthFalloff;
-        }
-        Draw.reset();
-
-        Tmp.v1.trns(b.rotation(), baseLen * 1.1f);
-        Drawf.light(b.team, b.x, b.y, b.x + Tmp.v1.x, b.y + Tmp.v1.y, width * 1.4f * b.fout(), colors[0], 0.6f);
-	    }
-	    
-	    @Override
-	    public void despawned(Bullet b) {
-	      super.despawned(b);
-	      DriverBuildData data =  (DriverBuildData) b.data;
-	      if(!data.check()) return;
-	      float range = data.range;
-	      indexer.eachBlock(data.to, range, other -> {
-	        return other.block.hasLiquids;
-	      } , other -> {
-            data.add(other);
-        });
-	      data.transmit();
-	    }
-	    
-	  };
+	  
 	}
 }
