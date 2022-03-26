@@ -1,7 +1,7 @@
-name: "ImmersionIndustry"
+name: "MagicGuide"
 displayName: "沉浸工业"
 author: "画盒豆腐,尹决义,萌萌ꉂ(ˊᗜˋ*)"
-main: "immersionIndustry.ImmersionIndustry"
+main: "magicguide.MagicGuide"
 description: "此模组包含了我制作或参与制作的模组的贴图代码等"
 version: "0.02"
 minGameVersion: 134.1
