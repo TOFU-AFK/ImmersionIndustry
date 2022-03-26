@@ -1,4 +1,4 @@
-package immersionIndustry;
+package magicguide;
 
 //导入原版包
 import arc.*;
