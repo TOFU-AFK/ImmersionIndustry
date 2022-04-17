@@ -57,8 +57,6 @@ public class GlowReleaser extends PowerGenerator {
   //污染物上限
   public int maxPollutant = 150;
   
-  instanceof
-  
   public GlowReleaser(String name) {
     super(name);
     hasPower = true;
