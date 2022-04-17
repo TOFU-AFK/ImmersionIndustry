@@ -153,7 +153,7 @@ public class GlowReleaser extends PowerGenerator {
       
       Draw.color(plasma1,plasma2,warmup);
       
-      Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.3f)) * warmup);
+      //Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.3f)) * warmup);
       
       Lines.square(x,y,12,Time.time * 1.5f);
       
