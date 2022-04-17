@@ -61,14 +61,23 @@ public class Repairer extends Block {
     @Override
     public void draw() {
       super.draw();
+      float range = block.size * tilesize / 2f + 1f;
       Draw.color(baseColor,healColor,phaseHeat);
+      Lines.stroke((0.7f + Mathf.absin(20, 0.7f))
       Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.3f)) * phaseHeat);
       Draw.blend(Blending.additive);
-      Lines.square(x,y,block.size * tilesize / 2f + 1f,Time.time * 1.5f);
+      Lines.square(x,y,range,Time.time * 1.5f);
       
-      Lines.square(x,y,block.size * tilesize / 2f + 1f,45 + Time.time * 1.5f);
+      Lines.square(x,y,range,45 + Time.time * 1.5f);
       
-      Lines.circle(x,y,block.size * tilesize / 2f + 1f);
+      Lines.circle(x,y,range);
+      
+      for(int i = 0; i < 5; i++){
+        float rot = rotation + i * 360f/5 - Time.time * 0.5f;
+        Lines.swirl(x, y, range + tilesize / 2, 0.14f, rot);
+      }
+      Drawf.light(x, y, range * 1.5f,healColor, phaseHeat);
+      
       Draw.blend();
       Draw.color();
     }
