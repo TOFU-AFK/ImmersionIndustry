@@ -42,11 +42,18 @@ import immersionIndustry.types.blocks.power.*;
 //实现ContentList
 public class IMBlocks implements ContentList {
   
-  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide,powerDiffuser,glowReleaser;
+  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide,powerDiffuser,glowReleaser,repairer;
   
   //在这里创建变量
   @Override
   public void load() {
+    
+    repairer = new Repairer("repairer"){{
+      health = 200*size*size;
+      size = 5;
+      requirements(Category.effect, ItemStack.with(Items.silicon, 35,Items.copper, 75,Items.lead,60,IMItems.t1BasicChip,6,IMItems.cuTiAlloy,6));
+      consumes.power(6);
+    }}
     
     glowReleaser = new GlowReleaser("glow-releaser"){{
       requirements(Category.power, ItemStack.with(Items.lead, 500, Items.silicon, 300, Items.graphite, 400, Items.thorium, 100, Items.surgeAlloy, 250, Items.metaglass, 250));
