@@ -57,6 +57,8 @@ public class GlowReleaser extends PowerGenerator {
   //污染物上限
   public int maxPollutant = 150;
   
+  instanceof
+  
   public GlowReleaser(String name) {
     super(name);
     hasPower = true;
@@ -150,6 +152,16 @@ public class GlowReleaser extends PowerGenerator {
       Draw.color();
 
       Draw.rect(region, x, y);
+      
+      Draw.color(plasma1,plasma2,warmup);
+      
+      Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.3f)) * warmup);
+      
+      Lines.square(x,y,12,Time.time * 1.5f);
+      
+      Lines.square(x,y,12,45 + Time.time * 1.5f);
+      
+      Lines.circle(x,y,12);
 
       Draw.color();
     }
