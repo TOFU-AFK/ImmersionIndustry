@@ -63,7 +63,7 @@ public class Repairer extends Block {
       super.draw();
       float range = block.size * tilesize / 2f + 1f;
       Draw.color(baseColor,healColor,phaseHeat);
-      Lines.stroke((0.7f + Mathf.absin(20, 0.7f))
+      Lines.stroke((0.7f + Mathf.absin(20, 0.7f)));
       Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.3f)) * phaseHeat);
       Draw.blend(Blending.additive);
       Lines.square(x,y,range,Time.time * 1.5f);
