@@ -83,12 +83,7 @@ public class Transporter extends PayloadBlock {
           payloads.each(pay -> {
             Tmp.v3.set(x, y).lerp(link.x, link.y, speed);
             pay.update(false);
-            pay.set(pay.x() + Tmp.v3.x , pay.y() - Tmp.v3.y, pay.rotation());
-            if(pay.dump()){
-              payloads.remove(pay);
-            }else{
-              pay.set(pay.x() - Tmp.v3.x, pay.y() - Tmp.v3.y, pay.rotation());
-            }
+            pay.set(pay.x() + Tmp.v3.x , pay.y() + Tmp.v3.y, pay.rotation());
           });
         }
       }
