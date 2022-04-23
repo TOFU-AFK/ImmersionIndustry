@@ -95,7 +95,7 @@ public class Transporter extends PayloadBlock {
     }
     
     public boolean canMoveOut() {
-      return dst(payloads.get(payloads.size-1) > 32);
+      return dst(payloads.get(payloads.size-1)) > 32;
     }
     
     @Override
