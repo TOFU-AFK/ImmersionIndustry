@@ -168,7 +168,7 @@ public class Transporter extends Block {
         Lines.line(x + right.x, y + right.y, link.x - left.x, link.y - left.y);
         int ic = (int) dst(link) / (block.size*tilesize);
         for(int i = 0; i < ic; i++){
-          Tmp.v3.set(x, y).lerp(link.x, link.y, 1 / i);
+          Tmp.v3.set(x, y).lerp(link.x, link.y,i / ic);
           Drawf.square(Tmp.v3.x, Tmp.v3.y,tilesize*block.size/4,Angles.angle(x, y, link.x, link.y),baseColor);
         }
 
