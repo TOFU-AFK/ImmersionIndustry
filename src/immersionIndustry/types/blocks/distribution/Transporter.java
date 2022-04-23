@@ -136,7 +136,7 @@ public class Transporter extends Block {
     
     protected boolean linkValid(){
       if(link == -1) return false;
-      return world.build(this.link) instanceof TransporterBuild other && other.block == block && other.team == team && within(other, range);
+      return world.build(this.link) instanceof TransporterBuild other && other.block == block && other.team == team;
     }
     
   }
