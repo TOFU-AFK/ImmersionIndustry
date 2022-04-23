@@ -43,7 +43,7 @@ public class Transporter extends Block {
   
   public Color baseColor = IMColors.colorPrimary,healColor = IMColors.colorDarkPrimary;
   
-  public Repairer(String name) {
+  public Transporter(String name) {
     super(name);
     update = true;
     sync = true;
@@ -125,11 +125,9 @@ public class Transporter extends Block {
         Lines.line(x + left.x, y + left.y, link.x - right.x, link.y - right.y);
         Lines.line(x + right.x, y + right.y, link.x - left.x, link.y - left.y);
         int ic = (int) dst(link) / (block.size*tilesize);
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < ic; i++){
           Tmp.v3.set(x, y).lerp(link.x, link.y, 0.5f + (i - 2) * 0.1f);
-          Draw.scl(fin * 1.1f);
           Drawf.square(Tmp.v3.x, Tmp.v3.y,tilesize*block.size/4 Angles.angle(x, y, x2, y2));
-          Draw.scl();
         }
 
         Draw.reset();
