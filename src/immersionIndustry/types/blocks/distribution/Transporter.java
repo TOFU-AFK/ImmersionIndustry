@@ -49,6 +49,7 @@ public class Transporter extends Block {
     sync = true;
     solid = true;
     group = BlockGroup.payloads;
+    configurable = true;
   }
   
   public class TransporterBuild extends Building {
