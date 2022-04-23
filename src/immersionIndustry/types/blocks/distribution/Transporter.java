@@ -122,12 +122,13 @@ public class Transporter extends Block {
         Vec2 right = Tmp.v1.trns(Angles.angle(x, y, link.x, link.y), 20, block.size * tilesize / 2f);
         Vec2 left = Tmp.v2.trns(Angles.angle(x, y, link.x, link.y), 20, -block.size * tilesize / 2f);
         Draw.z(Layer.effect);
-        Lines.stroke(phaseHeat * 1.2f, Pal.accent);
+        Lines.stroke(2);
+        Draw.color(baseColor,healColor,phaseHeat);
         Lines.line(x + left.x, y + left.y, link.x - right.x, link.y - right.y);
         Lines.line(x + right.x, y + right.y, link.x - left.x, link.y - left.y);
         int ic = (int) dst(link) / (block.size*tilesize);
         for(int i = 0; i < ic; i++){
-          Tmp.v3.set(x, y).lerp(link.x, link.y, 0.5f + (i - 2) * 0.1f);
+          Tmp.v3.set(x, y).lerp(link.x, link.y, 0.5f + i * 0.1f);
           Drawf.square(Tmp.v3.x, Tmp.v3.y,tilesize*block.size/4,Angles.angle(x, y, link.x, link.y));
         }
 
