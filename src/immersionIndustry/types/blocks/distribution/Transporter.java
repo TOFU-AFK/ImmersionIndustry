@@ -27,6 +27,7 @@ import mindustry.world.meta.*;
 import mindustry.world.consumers.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.blocks.payloads.*;
 import mindustry.world.blocks.defense.turrets.ReloadTurret.*;
 
 import static mindustry.Vars.*;
