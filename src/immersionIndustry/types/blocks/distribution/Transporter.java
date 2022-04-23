@@ -42,6 +42,8 @@ import immersionIndustry.contents.IMFx;
 public class Transporter extends Block {
   
   public Color baseColor = IMColors.colorPrimary,healColor = IMColors.colorDarkPrimary;
+  public float speed = 0f;
+  public float displayedSpeed = 0f;
   
   public Transporter(String name) {
     super(name);
@@ -52,14 +54,56 @@ public class Transporter extends Block {
     configurable = true;
   }
   
-  public class TransporterBuild extends Building {
+  @Override
+  public void setStats(){
+    super.setStats();
+    stats.add(Stat.itemsMoved, displayedSpeed, StatUnit.itemsSecond);
+  }
+  
+  public class TransporterBuild<T extends Payload> extends Building {
     
+    public @Nullable T payload;
+    public Seq<T> payloads = new Seq<>();
     float phaseHeat;
     int link = -1;
     
     @Override
     public void updateTile() {
       phaseHeat = Mathf.lerpDelta(phaseHeat, Mathf.num(cons.optionalValid()), 0.1f);
+      if(payload != null){
+        payload.update(false);
+      }
+      if(linkValid()) {
+        Building link = world.build(this.link);
+        
+        if(payload != null && canMoveOut()) {
+          payloads.add(payload);
+          payload = null;
+        }
+      
+        if(payloads.size > 0) {
+          float moved = speed * edelta();
+          payloads.each(pay -> {
+            Tmp.v3.set(x, y).lerp(link.x, link.y, speed);
+            pay.update(false);
+            pay.set(pay.x() + Tmp.v3.x , pay.y() - Tmp.v3.y, pay.rotation());
+            if(pay.dump()){
+              payloads.remove(pay);
+            }else{
+              pay.set(pay.x() - Tmp.v3.x, pay.y() - Tmp.v3.y, pay.rotation());
+            }
+          });
+        }
+      }
+    }
+    
+    public boolean canMoveOut() {
+      return true;
+    }
+    
+    @Override
+    public boolean acceptPayload(Building source, Payload payload){
+      return this.payload == null;
     }
     
     @Override
@@ -95,30 +139,25 @@ public class Transporter extends Block {
       }
     }
     
+    public void drawPayload(){
+      if(payload != null){
+        Draw.z(Layer.blockOver);
+        payload.draw();
+       }
+    }
+    
     @Override
     public void draw() {
       super.draw();
-      /*float range = block.size * tilesize / 2f + 1f;
-      Draw.color(baseColor,healColor,phaseHeat);
-      Lines.stroke((0.7f + Mathf.absin(20, 0.7f)));
-      Draw.alpha((0.3f + Mathf.absin(Time.time, 2f, 0.3f)) * phaseHeat);
-      Draw.blend(Blending.additive);
-      Lines.square(x,y,range,Time.time * 1.5f);
-      
-      Lines.square(x,y,range,45 + Time.time * 1.5f);
-      
-      Lines.circle(x,y,range);
-      
-      for(int i = 0; i < 5; i++){
-        float rot = rotation + i * 360f/5 - Time.time * 0.5f;
-        Lines.swirl(x, y, range + tilesize / 2, 0.14f, rot);
-      }
-      Drawf.light(x, y, range * 1.5f,healColor, phaseHeat);
-      
-      Draw.blend();
-      Draw.color();*/
+      drawPayload();
       if(linkValid()) {
         Building link = world.build(this.link);
+        if(payloads.size > 0) {
+          Draw.z(Layer.blockOver);
+          payloads.each(pay -> {
+            pay.draw();
+          });
+        }
         Vec2 right = Tmp.v1.trns(Angles.angle(x, y, link.x, link.y), 20, block.size * tilesize / 2f);
         Vec2 left = Tmp.v2.trns(Angles.angle(x, y, link.x, link.y), 20, -block.size * tilesize / 2f);
         Draw.z(Layer.effect);
@@ -128,8 +167,8 @@ public class Transporter extends Block {
         Lines.line(x + right.x, y + right.y, link.x - left.x, link.y - left.y);
         int ic = (int) dst(link) / (block.size*tilesize);
         for(int i = 0; i < ic; i++){
-          Tmp.v3.set(x, y).lerp(link.x, link.y, 0.5f + i * 0.1f);
-          Drawf.square(Tmp.v3.x, Tmp.v3.y,tilesize*block.size/4,Angles.angle(x, y, link.x, link.y));
+          Tmp.v3.set(x, y).lerp(link.x, link.y, 1 / i);
+          Drawf.square(Tmp.v3.x, Tmp.v3.y,tilesize*block.size/4,Angles.angle(x, y, link.x, link.y),baseColor);
         }
 
         Draw.reset();
