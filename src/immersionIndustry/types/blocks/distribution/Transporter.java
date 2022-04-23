@@ -40,7 +40,7 @@ import immersionIndustry.IMColors;
 import immersionIndustry.contents.IMFx;
 
 //运输载荷
-public class Transporter extends Block {
+public class Transporter extends PayloadBlock {
   
   public Color baseColor = IMColors.colorPrimary,healColor = IMColors.colorDarkPrimary;
   public float speed = 0f;
@@ -51,7 +51,6 @@ public class Transporter extends Block {
     update = true;
     sync = true;
     solid = true;
-    group = BlockGroup.payloads;
     configurable = true;
   }
   
@@ -61,19 +60,16 @@ public class Transporter extends Block {
     stats.add(Stat.itemsMoved, displayedSpeed, StatUnit.itemsSecond);
   }
   
-  public class TransporterBuild<T extends Payload> extends Building {
+  public class TransporterBuild extends PayloadBlockBuild<Payload> {
     
-    public @Nullable T payload;
-    public Seq<T> payloads = new Seq<>();
+    public Seq<Payload> payloads = new Seq<>();
     float phaseHeat;
     int link = -1;
     
     @Override
     public void updateTile() {
+      super.updateTile();
       phaseHeat = Mathf.lerpDelta(phaseHeat, Mathf.num(cons.optionalValid()), 0.1f);
-      if(payload != null){
-        payload.update(false);
-      }
       if(linkValid()) {
         Building link = world.build(this.link);
         
@@ -99,12 +95,7 @@ public class Transporter extends Block {
     }
     
     public boolean canMoveOut() {
-      return true;
-    }
-    
-    @Override
-    public boolean acceptPayload(Building source, Payload payload){
-      return this.payload == null;
+      return dst(payloads.get(payloads.size-1) > 32);
     }
     
     @Override
@@ -140,17 +131,9 @@ public class Transporter extends Block {
       }
     }
     
-    public void drawPayload(){
-      if(payload != null){
-        Draw.z(Layer.blockOver);
-        payload.draw();
-       }
-    }
-    
     @Override
     public void draw() {
-      super.draw();
-      drawPayload();
+      Draw.rect(block.region, x, y, block.rotate ? rotdeg() : 0);
       if(linkValid()) {
         Building link = world.build(this.link);
         if(payloads.size > 0) {
