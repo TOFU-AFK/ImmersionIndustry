@@ -35,7 +35,7 @@ public class IMShaders {
     }
 
     public String textureName(){
-      return "space";
+      return "clouds";
     }
 
     public void loadNoise(){
