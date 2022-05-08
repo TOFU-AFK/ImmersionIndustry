@@ -4,8 +4,16 @@ import arc.*;
 import arc.struct.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
+import arc.graphics.gl.*;
+import arc.math.*;
+import arc.math.geom.*;
 import arc.util.*;
-import betamindy.graphics.*;
+import mindustry.*;
+import mindustry.game.*;
+import mindustry.gen.*;
+import mindustry.graphics.*;
+import mindustry.graphics.MultiPacker.*;
+import mindustry.world.*;
 import mindustry.type.*;
 import mindustry.ui.*;
 
@@ -62,4 +70,21 @@ public class AnimatedItem extends Item {
         }
     }
 
-}
+    public static TextureRegion blendSprites(TextureRegion a, TextureRegion b, float f, String name){
+        PixmapRegion r1 = Core.atlas.getPixmap(a);
+        PixmapRegion r2 = Core.atlas.getPixmap(b);
+
+        Pixmap out = new Pixmap(r1.width, r1.height);
+        Color color1 = new Color();
+        Color color2 = new Color();
+
+        for(int x = 0; x < r1.width; x++){
+            for(int y = 0; y < r1.height; y++){
+                out.setRaw(x, y, color1.set(r1.getRaw(x, y)).lerp(color2.set(r2.getRaw(x, y)), f).rgba());
+            }
+        }
+
+        Texture texture  = new Texture(out);
+        return Core.atlas.addRegion(name + "-blended-" + (int)(f * 100), new TextureRegion(texture));
+    }
+} 
