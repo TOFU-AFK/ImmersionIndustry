@@ -1,7 +1,8 @@
 package immersionIndustry.contents;
 import arc.*;
-import mindustry.content.*;
 import arc.graphics.*;
+import mindustry.game.*;
+import mindustry.content.*;
 import mindustry.ctype.*;
 import mindustry.type.*;
 import mindustry.graphics.Pal;
@@ -32,6 +33,7 @@ public class IMItems implements ContentList {
     
     collapseQuantum = new AnimatedItem("collapse-quantum",Pal.lancerLaser){{
       transition = 5;
+      sprites = 9;
       animDelay = 4f;
     }};
     
