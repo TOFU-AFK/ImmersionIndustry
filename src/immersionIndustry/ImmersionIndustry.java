@@ -26,8 +26,6 @@ import immersionIndustry.contents.IMItems;
 import immersionIndustry.contents.IMFx;
 import immersionIndustry.contents.IMBullets;
 
-import immersionIndustry.types.items.*;
-
 //继承Mod类
 public class ImmersionIndustry extends Mod{
     
@@ -36,14 +34,6 @@ public class ImmersionIndustry extends Mod{
     
     @Override
     public void init() {
-      Events.run(Trigger.update, () -> {
-        if(state.isPlaying()) {
-          //更新物品贴图
-          AnimatedItem.animitems.each(item -> {
-            item.update();
-          });
-        }
-      });
     }
     
     //当加载模组内容时被调用
