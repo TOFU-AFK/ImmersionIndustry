@@ -35,7 +35,7 @@ public class IMShaders {
     }
 
     public String textureName(){
-      return "noiseAlpha";
+      return "space";
     }
 
     public void loadNoise(){
