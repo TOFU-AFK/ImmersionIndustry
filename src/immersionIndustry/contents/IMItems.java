@@ -6,6 +6,7 @@ import mindustry.type.*;
 import mindustry.graphics.Pal;
 
 import immersionIndustry.IMColors;
+import immersionIndustry.types.items.*;
 
 public class IMItems implements ContentList {
   
@@ -26,7 +27,10 @@ public class IMItems implements ContentList {
       cost = 2;
     }};
     
-    collapseQuantum = new Item("collapse-quantum",Pal.lancerLaser);
+    collapseQuantum = new AnimatedItem("collapse-quantum",Pal.lancerLaser){{
+      transition = 5;
+      animDelay = 4f;
+    }};
   }
   
 }
