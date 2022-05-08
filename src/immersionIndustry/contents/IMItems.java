@@ -8,6 +8,8 @@ import mindustry.graphics.Pal;
 import immersionIndustry.IMColors;
 import immersionIndustry.types.items.*;
 
+import static mindustry.Vars.*;
+
 public class IMItems implements ContentList {
   
   public static Item t1BasicChip,collapseQuantum,cuTiAlloy,thTiAlloy;
@@ -31,6 +33,13 @@ public class IMItems implements ContentList {
       transition = 5;
       animDelay = 4f;
     }};
+    
+    Events.run(Trigger.update, () -> {
+      //更新物品贴图
+      AnimatedItem.animitems.each(item -> {
+        item.update();
+      });
+    });
   }
   
 }
