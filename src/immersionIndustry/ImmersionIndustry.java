@@ -2,6 +2,7 @@ package immersionIndustry;
 
 //导入原版包
 import arc.*;
+import mindustry.core.*;
 import mindustry.graphics.*;
 import arc.graphics.g2d.*;
 import arc.scene.ui.*;
@@ -23,11 +24,25 @@ import immersionIndustry.contents.IMItems;
 import immersionIndustry.contents.IMFx;
 import immersionIndustry.contents.IMBullets;
 
+import immersionIndustry.types.items.*;
+
 //继承Mod类
 public class ImmersionIndustry extends Mod{
     
     public static final String NAME = "immersionindustry";
     public static LoadedMod MOD;
+    
+    @Override
+    public void init() {
+      Events.run(Trigger.update, () -> {
+        if(state.isPlaying()) {
+          //更新物品贴图
+          AnimatedItem.animitems.each(item -> {
+            item.update();
+          });
+        }
+      });
+    }
     
     //当加载模组内容时被调用
     @Override
