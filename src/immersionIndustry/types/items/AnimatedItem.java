@@ -54,7 +54,7 @@ public class AnimatedItem extends Item {
                 animRegions[i * (transition + 1)] = spriteArr[i];
                 for(int j = 1; j <= transition; j++){
                     float f = (float)j / (transition + 1);
-                    animRegions[i * (transition + 1) + j] = Drawm.blendSprites(spriteArr[i], spriteArr[(i >= sprites - 1) ? 0 : i + 1], f, name + i);
+                    animRegions[i * (transition + 1) + j] = blendSprites(spriteArr[i], spriteArr[(i >= sprites - 1) ? 0 : i + 1], f, name + i);
                 }
             }
         }
