@@ -1,7 +1,7 @@
 package immersionIndustry.contents;
 import arc.*;
 import arc.graphics.*;
-import mindustry.game.*;
+import mindustry.game.EventType.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
 import mindustry.type.*;
