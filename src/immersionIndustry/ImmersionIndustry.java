@@ -17,7 +17,7 @@ import mindustry.ui.Styles;
 import mindustry.ui.dialogs.*;
 import mindustry.mod.Mods.*;
 
-import static mindustry.Vars;
+import static mindustry.Vars.*;
 
 //导入模组类
 import immersionIndustry.contents.blocks.*;
