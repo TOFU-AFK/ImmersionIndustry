@@ -39,7 +39,7 @@ public class IMShaders {
     }
 
     public void loadNoise(){
-      TextureRegion t = Core.atlas.find(textureName());
+      Texture t = Core.atlas.find(textureName()).texture;
       t.setFilter(TextureFilter.linear);
       t.setWrap(TextureWrap.repeat);
       /*Core.assets.load("sprites/" + textureName() + ".png", Texture.class).loaded = t -> {
@@ -56,7 +56,7 @@ public class IMShaders {
 
       if(hasUniform("u_noise")){
         if(noiseTex == null){
-          noiseTex = Core.atlas.find(textureName());
+          noiseTex = Core.atlas.find(textureName()).texture;
         }
 
         noiseTex.bind(1);
