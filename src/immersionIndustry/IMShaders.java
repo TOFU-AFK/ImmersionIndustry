@@ -2,6 +2,7 @@ package immersionIndustry;
 
 import arc.Core;
 import arc.files.Fi;
+import arc.graphics.g2d.*;
 import arc.graphics.Texture;
 import arc.graphics.Texture.*;
 import arc.graphics.gl.Shader;
@@ -34,11 +35,11 @@ public class IMShaders {
     }
 
     public String textureName(){
-      return ImmersionIndustry.name+"-glow";
+      return ImmersionIndustry.NAME+"-glow";
     }
 
     public void loadNoise(){
-      TextureRegion t = Core.atlas.find(ImmersionIndustry.name+"-glow");
+      TextureRegion t = Core.atlas.find(textureName());
       t.setFilter(TextureFilter.linear);
       t.setWrap(TextureWrap.repeat);
       /*Core.assets.load("sprites/" + textureName() + ".png", Texture.class).loaded = t -> {
@@ -55,7 +56,7 @@ public class IMShaders {
 
       if(hasUniform("u_noise")){
         if(noiseTex == null){
-          noiseTex = Core.atlas.find(ImmersionIndustry.name+"-glow");
+          noiseTex = Core.atlas.find(textureName());
         }
 
         noiseTex.bind(1);
