@@ -1,4 +1,5 @@
 package immersionIndustry.contents;
+import arc.*;
 import mindustry.content.*;
 import arc.graphics.*;
 import mindustry.ctype.*;
