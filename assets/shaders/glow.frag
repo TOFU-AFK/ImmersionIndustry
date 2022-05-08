@@ -19,7 +19,7 @@ const float mth = 7.0;
 void main(){
     vec2 c = v_texCoords.xy;
     vec2 v = vec2(1.0/u_resolution.x, 1.0/u_resolution.y);
-	  vec2 coords = vec2(c.x / v.x + u_campos.x, c.y / v.y + u_campos.y);
+	vec2 coords = vec2(c.x / v.x, c.y / v.y);
 
     float btime = u_time / 5000.0;
     float wave = abs(sin(coords.x * 1.1 + coords.y) + 0.1 * sin(2.5 * coords.x) + 0.15 * sin(3.0 * coords.y)) / 30.0;
