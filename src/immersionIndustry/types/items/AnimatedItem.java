@@ -80,7 +80,7 @@ public class AnimatedItem extends Item {
 
         for(int x = 0; x < r1.width; x++){
             for(int y = 0; y < r1.height; y++){
-                out.setRaw(x, y, color1.set(r1.getRaw(x, y)).lerp(color2.set(r2.getRaw(x, y)), f).rgba());
+                out.setRaw(x, y, color1.set(r1.get(x, y)).lerp(color2.set(r2.get(x, y)), f).rgba());
             }
         }
 
