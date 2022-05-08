@@ -34,14 +34,17 @@ public class IMShaders {
     }
 
     public String textureName(){
-      return "clouds";
+      return ImmersionIndustry.name+"-glow";
     }
 
     public void loadNoise(){
-      Core.assets.load("sprites/" + textureName() + ".png", Texture.class).loaded = t -> {
+      TextureRegion t = Core.atlas.find(ImmersionIndustry.name+"-glow");
+      t.setFilter(TextureFilter.linear);
+      t.setWrap(TextureWrap.repeat);
+      /*Core.assets.load("sprites/" + textureName() + ".png", Texture.class).loaded = t -> {
         t.setFilter(TextureFilter.linear);
         t.setWrap(TextureWrap.repeat);
-      };
+      };*/
     }
 
     @Override
@@ -52,7 +55,7 @@ public class IMShaders {
 
       if(hasUniform("u_noise")){
         if(noiseTex == null){
-          noiseTex = Core.assets.get("sprites/" + textureName() + ".png", Texture.class);
+          noiseTex = Core.atlas.find(ImmersionIndustry.name+"-glow");
         }
 
         noiseTex.bind(1);
