@@ -11,6 +11,7 @@ import arc.util.io.*;
 import arc.scene.ui.layout.Table;
 import mindustry.content.*;
 import mindustry.entities.*;
+import mindustry.entities.Units.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.units.*;
 import mindustry.game.*;
@@ -52,21 +53,21 @@ public class Catcher extends ReloadTurret {
       @Override
       public void draw(Bullet b) {
         Draw.z(Layer.bullet);
-        Draw.rect(turret,b.x,b.y,b.rotation-90);
-        Drawf.laser(b.team(), Core.atlas.find("minelaser"), Core.atlas.find("minelaser-end"), b.x, b.y, owner.x, owner.y, 1f);
+        Draw.rect(turret,b.x,b.y,b.rotation()-90);
+        Drawf.laser(b.team(), Core.atlas.find("minelaser"), Core.atlas.find("minelaser-end"), b.x, b.y, b.owner.x, b.owner.y, 1f);
         
       }
       
       @Override
       public void hitEntity(Bullet b, Hitboxc entity, float health) {
         if(entity instanceof Unit unit){
-          b.vel.setAngle(b.angleTo(target));
+          b.vel.setAngle(b.angleTo(b.owner));
           unit.disarmed = true;
           unit.x = b.x;
           unit.y = b.y;
-        }else if(entity instanceof owner) {
-          b.x = owner.x;
-          b.y = owner.y;
+        }else if(entity instanceof b.owner) {
+          b.x = b.owner.x;
+          b.y = b.owner.y;
         }
       }
       
@@ -91,7 +92,7 @@ public class Catcher extends ReloadTurret {
       if(!catching) {
         findTarget();
         if(target != null) {
-          float targetRot = angleTo(targetPos);
+          float targetRot = angleTo(target);
           turnToTarget(targetRot);
           if(Angles.angleDist(rotation, targetRot) < shootCone){
             updateShooting();
@@ -124,7 +125,7 @@ public class Catcher extends ReloadTurret {
     }
     
     protected void findTarget(){
-      target = Units.bestTarget(team, x, y, range, e -> !e.dead(), b -> targetGround, unitSort);
+      target = Units.bestTarget(team, x, y, range, e -> !e.dead(), b -> true, unitSort);
     }
     
     protected void turnToTarget(float targetRot){
