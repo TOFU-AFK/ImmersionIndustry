@@ -52,22 +52,24 @@ public class Catcher extends ReloadTurret {
       
       @Override
       public void draw(Bullet b) {
+        Building owner = (Building)b.data();
         Draw.z(Layer.bullet);
         Draw.rect(turret,b.x,b.y,b.rotation()-90);
-        Drawf.laser(b.team(), Core.atlas.find("minelaser"), Core.atlas.find("minelaser-end"), b.x, b.y, b.owner.x, b.owner.y, 1f);
+        Drawf.laser(b.team(), Core.atlas.find("minelaser"), Core.atlas.find("minelaser-end"), b.x, b.y, owner.x, owner.y, 1f);
         
       }
       
       @Override
       public void hitEntity(Bullet b, Hitboxc entity, float health) {
+        Building owner = (CatcherBuild)b.data();
         if(entity instanceof Unit unit){
-          b.vel.setAngle(b.angleTo(b.owner));
+          b.vel.setAngle(b.angleTo(owner));
           unit.disarmed = true;
           unit.x = b.x;
           unit.y = b.y;
-        }else if(entity instanceof b.owner) {
-          b.x = b.owner.x;
-          b.y = b.owner.y;
+        }else if(entity instanceof owner) {
+          b.x = owner.x;
+          b.y = owner.y;
         }
       }
       
@@ -108,7 +110,7 @@ public class Catcher extends ReloadTurret {
     public void updateShooting() {
       reload += delta() * baseReloadSpeed();
       if(reload >= reloadTime && !catching) {
-        bullet.create(this,x,y,rotation);
+        bullet.create(this,team(),x,y,rotation,0,1f,1f,this);
       }
     }
     
