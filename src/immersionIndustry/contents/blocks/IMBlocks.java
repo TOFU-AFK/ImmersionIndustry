@@ -38,15 +38,23 @@ import immersionIndustry.types.blocks.production.*;
 import immersionIndustry.types.blocks.distribution.*;
 import immersionIndustry.types.blocks.defense.*;
 import immersionIndustry.types.blocks.power.*;
+import immersionIndustry.types.blocks.turret.*;
 
 //实现ContentList
 public class IMBlocks implements ContentList {
   
-  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide,powerDiffuser,glowReleaser;
+  public static Block t1ChipFactory,collapseExtractor,collapseQuantumCultivation,auroraGuide,powerDiffuser,glowReleaser,catcher;
   
   //在这里创建变量
   @Override
   public void load() {
+    
+    catcher = new Catcher("catcher"){{
+      requirements(Category.turret, ItemStack.with(Items.lead, 500, Items.silicon, 300, Items.graphite, 400, Items.thorium, 100, Items.surgeAlloy, 250, Items.metaglass, 250));
+      size = 3;
+      health = 200*size*size;
+      consumes.power(3);
+    }};
     
     glowReleaser = new GlowReleaser("glow-releaser"){{
       requirements(Category.power, ItemStack.with(Items.lead, 500, Items.silicon, 300, Items.graphite, 400, Items.thorium, 100, Items.surgeAlloy, 250, Items.metaglass, 250));
