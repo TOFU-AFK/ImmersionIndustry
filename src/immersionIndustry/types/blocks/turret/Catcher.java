@@ -61,13 +61,13 @@ public class Catcher extends ReloadTurret {
       
       @Override
       public void hitEntity(Bullet b, Hitboxc entity, float health) {
-        Building owner = (CatcherBuild)b.data();
+        CatcherBuild owner = (CatcherBuild)b.data();
         if(entity instanceof Unit unit){
           b.vel.setAngle(b.angleTo(owner));
           unit.disarmed = true;
           unit.x = b.x;
           unit.y = b.y;
-        }else if(entity instanceof owner) {
+        }else if(entity == owner) {
           b.x = owner.x;
           b.y = owner.y;
         }
