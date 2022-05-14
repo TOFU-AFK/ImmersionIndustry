@@ -39,7 +39,7 @@ public class Catcher extends ReloadTurret {
   public float shootCone = 6f;
   public BulletType bullet;
   
-  public ReloadTurret(String name){
+  public Catcher(String name){
     super(name);
     bullet = new BulletType(22f,0){
       {
@@ -70,7 +70,7 @@ public class Catcher extends ReloadTurret {
         }
       }
       
-    }
+    };
   }
   
   @Override
