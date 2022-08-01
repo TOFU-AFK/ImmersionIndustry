@@ -1,2 +1,3 @@
-# immersionIndustry沉浸工业
-一个像素工厂的jar模组，
+# immersionIndustry
+ A Java Mindsutry Mod
+ generated from [Anuken/MindustrddyJavaModTemplate](https://github.com/Anuken/MindustryJavaModTemplate)
